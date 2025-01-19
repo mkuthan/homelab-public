@@ -1,0 +1,13 @@
+- name: Add Hyperion apt key
+  ansible.builtin.apt_key:
+    url: https://apt.hyperion-project.org/hyperion.pub.key
+    keyring: /etc/apt/trusted.gpg.d/hyperion.gpg
+
+- name: Add Hyperion apt repository
+  ansible.builtin.apt_repository:
+    repo: "deb https://apt.hyperion-project.org/ {{ ansible_distribution_release }} main"
+    filename: "hyperion"
+
+- name: Install Hyperion
+  ansible.builtin.apt:
+    name: hyperion

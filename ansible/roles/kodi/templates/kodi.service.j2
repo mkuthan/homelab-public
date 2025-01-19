@@ -1,0 +1,13 @@
+[Unit]
+Description=Kodi
+After=remote-fs.target network-online.target
+Wants=network-online.target
+
+[Service]
+User={{ kodi_user }}
+Group={{ kodi_group }}
+ExecStart={{ kodi_bin }}-standalone
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

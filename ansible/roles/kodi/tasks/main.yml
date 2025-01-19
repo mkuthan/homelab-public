@@ -1,0 +1,104 @@
+- name: Check for Kodi binary
+  ansible.builtin.stat:
+    path: "{{ kodi_bin }}"
+  register: kodi_bin_file
+
+- name: Fail if Kodi is not installed
+  ansible.builtin.fail:
+    msg: Missing Kodi binary {{ kodi_bin }}
+  when: not kodi_bin_file.stat.exists
+
+- name: Create Kodi group
+  ansible.builtin.group:
+    name: "{{ kodi_group }}"
+    system: true
+
+- name: Create Kodi user
+  ansible.builtin.user:
+    name: "{{ kodi_user }}"
+    group: "{{ kodi_group }}"
+    groups: ["audio", "input", "video", "render"]
+    system: true
+  register: user
+
+- name: Install Kodi service
+  ansible.builtin.template:
+    src: kodi.service.j2
+    dest: /etc/systemd/system/kodi.service
+    mode: "0644"
+  notify:
+    - Restart Kodi
+
+- name: Check for initial Kodi configuration
+  ansible.builtin.stat:
+    path: "{{ user.home }}/.kodi"
+  register: kodi_configuration_directory
+
+- name: Create Kodi initial configuration
+  ansible.builtin.systemd:
+    name: kodi
+    state: started
+  when: not kodi_configuration_directory.stat.exists
+
+- name: Create Kodi directories
+  ansible.builtin.file:
+    path: "{{ user.home }}/.kodi/{{ item }}"
+    owner: "{{ kodi_user }}"
+    group: "{{ kodi_group }}"
+    mode: "0755"
+    state: directory
+  loop:
+    - "{{ kodi_userdata_dir }}"
+    - "{{ kodi_subtitles_dir }}"
+
+# Kodi override configuration on stop
+- name: Stop Kodi service
+  ansible.builtin.systemd:
+    name: kodi
+    state: stopped
+
+- name: Configure Kodi sources
+  ansible.builtin.template:
+    src: sources.xml.j2
+    dest: "{{ user.home }}/.kodi/{{ kodi_userdata_dir }}/sources.xml"
+    mode: "0644"
+
+- name: Configure Kodi advanced settings
+  ansible.builtin.template:
+    src: advancedsettings.xml.j2
+    dest: "{{ user.home }}/.kodi/{{ kodi_userdata_dir }}/advancedsettings.xml"
+    mode: "0644"
+
+- name: Configure Kodi guisettings.xml
+  community.general.xml:
+    file: "{{ user.home }}/.kodi/{{ kodi_userdata_dir }}/guisettings.xml"
+    xpath: "/settings/setting[@id='{{ item.id }}']"
+    value: "{{ item.value }}"
+  with_items: "{{ kodi_gui_settings }}"
+
+- name: Configure Kodi guisettings.xml (drop default attributes)
+  community.general.xml:
+    path: "/home/kodi/.kodi/{{ kodi_userdata_dir }}/guisettings.xml"
+    xpath: "/settings/setting[@id='{{ item.id }}']/@default"
+    state: absent
+  with_items: "{{ kodi_gui_settings }}"
+
+- name: Configure Kodi subtitles guisettings.xml
+  community.general.xml:
+    file: "{{ user.home }}/.kodi/{{ kodi_userdata_dir }}/guisettings.xml"
+    xpath: "/settings/setting[@id='{{ item.id }}']"
+    value: "{{ item.value }}"
+  with_items: "{{ kodi_subtitles_gui_settings }}"
+
+- name: Configure Kodi subtitles guisettings.xml (drop default attributes)
+  community.general.xml:
+    path: "/home/kodi/.kodi/{{ kodi_userdata_dir }}/guisettings.xml"
+    xpath: "/settings/setting[@id='{{ item.id }}']/@default"
+    state: absent
+  with_items: "{{ kodi_subtitles_gui_settings }}"
+
+- name: Start Kodi service after
+  ansible.builtin.systemd:
+    name: kodi
+    state: started
+    enabled: true

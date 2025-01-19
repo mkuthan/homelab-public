@@ -1,0 +1,22 @@
+- name: Install gpg
+  ansible.builtin.apt:
+    name: gpg
+
+- name: Add Docker repository key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
+    keyring: /etc/apt/trusted.gpg.d/docker.gpg
+
+- name: Add Docker repository
+  ansible.builtin.apt_repository:
+    # Use HTTP to enable apt-cacher
+    repo: deb http://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
+    filename: docker
+
+- name: Install Docker
+  ansible.builtin.apt:
+    name: "{{ item }}"
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io

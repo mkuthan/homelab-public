@@ -1,0 +1,32 @@
+MONITOR {{ nut_ups_name }}@{{ nut_hostname }} 1 {{ nut_user }} {{ nut_password }} {{ nut_monitor_type }}
+
+# Give the number of power supplies that must be receiving power to keep
+# this system running.  Most systems have one power supply, so you would
+# put "1" in this field.
+MINSUPPLIES 1
+
+SHUTDOWNCMD "/sbin/shutdown -h +0"
+
+# Polling frequency for normal activities, measured in seconds.
+POLLFREQ 5
+
+# Polling frequency in seconds while UPS on battery.
+POLLFREQALERT 5
+
+# How long upsmon will wait before giving up on another upsmon
+HOSTSYNC 15
+
+# Interval to wait before declaring a stale ups "dead"
+DEADTIME 15
+
+# Flag file for forcing UPS shutdown on the primary system
+POWERDOWNFLAG /etc/killpower
+
+# Replace battery warning time in seconds (12 hours)
+RBWARNTIME 43200
+
+# No communications warning time in seconds
+NOCOMMWARNTIME 300
+
+# Last sleep interval before shutting down the system
+FINALDELAY 5

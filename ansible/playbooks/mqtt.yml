@@ -1,0 +1,10 @@
+- hosts: mqtt
+  roles:
+    - apt_proxy
+
+    - security
+
+    - docker
+    - mosquitto
+
+    - promtail

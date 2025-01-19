@@ -1,0 +1,6 @@
+- name: Configure hifiberry
+  ansible.builtin.template:
+    src: asound.conf.j2
+    dest: "{{ pi_asound_config_file }}"
+    mode: "0644"
+  when: hifiberry is defined

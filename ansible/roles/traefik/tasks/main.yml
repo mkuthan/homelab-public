@@ -1,0 +1,63 @@
+- name: Create /etc/traefik
+  ansible.builtin.file:
+    path: /etc/traefik
+    state: directory
+    mode: "0755"
+
+- name: Configure Traefik
+  ansible.builtin.template:
+    src: "traefik.yml.j2"
+    dest: /etc/traefik/traefik.yml
+    mode: "0644"
+
+- name: Create /etc/traefik/dynamic
+  ansible.builtin.file:
+    path: /etc/traefik/dynamic
+    state: directory
+    mode: "0755"
+
+- name: Configure Traefik dynamic HTTP configuration
+  ansible.builtin.template:
+    src: http.yml.j2
+    dest: /etc/traefik/dynamic/http.yml
+    mode: "0644"
+
+- name: Create Traefik volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - traefik-letsencrypt
+
+- name: Create Traefik container
+  community.docker.docker_container:
+    name: traefik
+    image: traefik:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    ports:
+      - "80:80"
+      - "443:443"
+      - "{{ traefik_admin_port }}:{{ traefik_admin_port }}"
+
+    env:
+      CF_DNS_API_TOKEN: '{{ traefik_cf_api_token | default("") }}'
+      DUCKDNS_TOKEN: '{{ traefik_duckdns_token | default("") }}'
+
+    volumes:
+      - /etc/traefik/:/etc/traefik/:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - traefik-letsencrypt:/letsencrypt:rw
+
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.traefik.rule: Host(`traefik.{{ ansible_domain }}`)
+      traefik.http.routers.traefik.service: "api@internal"
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

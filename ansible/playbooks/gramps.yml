@@ -1,0 +1,10 @@
+- hosts: gramps
+  roles:
+    - apt_proxy
+
+    - security
+
+    - docker
+    - gramps
+
+    - promtail

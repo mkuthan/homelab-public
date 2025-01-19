@@ -1,0 +1,17 @@
+{% if traefik_http_sites is defined %}
+http:
+  routers:
+{% for site in traefik_http_sites %}
+    {{ site.name }}:
+      rule: "Host(`{{ site.name }}.{{ ansible_domain }}`)"
+      service: {{ site.name }}
+{% endfor %}
+
+  services:
+{% for site in traefik_http_sites %}
+    {{ site.name }}:
+      loadBalancer:
+        servers:
+          - url: "{{ site.backend }}"
+{% endfor %}
+{% endif %}

@@ -1,0 +1,26 @@
+- hosts: pi
+  remote_user: pi
+  roles:
+    - pi
+
+    - aria2
+    - backup_ninja
+    - hd_idle
+    - hosts
+    - hyperion
+    - grafana_agent
+    - kodi
+    - postfix
+    - raspotify
+    - samba
+    - security
+    - shairport
+    - smartmontools
+    - tailscale
+    - timezone
+    - td_agent_bit
+    - transmission
+
+    - docker
+    - adguard
+    - traefik

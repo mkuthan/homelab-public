@@ -1,0 +1,32 @@
+- name: Disable rsyslog
+  ansible.builtin.systemd:
+    name: rsyslog
+    state: stopped
+    enabled: false
+
+- name: Disable forwarding to syslog
+  ansible.builtin.lineinfile:
+    dest: "{{ pi_journald_config_file }}"
+    regexp: "^#?ForwardToSyslog="
+    line: "ForwardToSyslog=no"
+  when: journald is defined
+  notify:
+    - Restart journald
+
+- name: Limit journald size to '{{ pi_journald_system_max_use }}'
+  ansible.builtin.lineinfile:
+    dest: "{{ pi_journald_config_file }}"
+    regexp: "^#?SystemMaxUse="
+    line: "SystemMaxUse={{ pi_journald_system_max_use }}"
+  when: pi_journald_system_max_use is defined
+  notify:
+    - Restart journald
+
+- name: Limit journald retention to '{{ pi_journald_max_file_sec }}'
+  ansible.builtin.lineinfile:
+    dest: "{{ pi_journald_config_file }}"
+    regexp: "^#?MaxFileSec="
+    line: "MaxFileSec={{ pi_journald_max_file_sec }}"
+  when: pi_journald_max_file_sec is defined
+  notify:
+    - Restart journald

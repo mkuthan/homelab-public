@@ -1,0 +1,100 @@
+- name: Create /etc/prometheus
+  ansible.builtin.file:
+    path: /etc/prometheus
+    state: directory
+    mode: "0755"
+
+- name: Configure Prometheus
+  ansible.builtin.template:
+    src: prometheus.yml.j2
+    dest: /etc/prometheus/prometheus.yml
+    mode: "0644"
+  notify:
+    - Restart prometheus
+
+- name: Configure Prometheus web
+  ansible.builtin.template:
+    src: web.yml.j2
+    dest: /etc/prometheus/web.yml
+    mode: "0644"
+  notify:
+    - Restart prometheus
+
+- name: Create Prometheus volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - prometheus-data
+
+- name: Create Prometheus container
+  community.docker.docker_container:
+    name: prometheus
+    image: prom/prometheus:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    network_mode: host
+
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time={{ prometheus_storage_retention }}"
+      - "--web.config.file=/etc/prometheus/web.yml"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+
+    volumes:
+      - /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - /etc/prometheus/web.yml:/etc/prometheus/web.yml:ro
+      - prometheus-data:/prometheus:rw
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+- name: Create PVE exporter container
+  community.docker.docker_container:
+    name: prometheus-pve-exporter
+    image: prompve/prometheus-pve-exporter:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    network_mode: host
+
+    env:
+      PVE_USER: "{{ prometheus_pve_exporter_user }}"
+      PVE_PASSWORD: "{{ prometheus_pve_exporter_password }}"
+      PVE_VERIFY_SSL: "false"
+      PYTHONWARNINGS: "ignore:Unverified HTTPS request"
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+- name: Create NUT exporter container
+  community.docker.docker_container:
+    name: prometheus-nut-exporter
+    image: druggeri/nut_exporter:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    network_mode: host
+
+    env:
+      NUT_EXPORTER_VARIABLES: "{{ prometheus_nut_exporter_vars | join(',') }}"
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

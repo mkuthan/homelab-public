@@ -1,0 +1,59 @@
+- name: Create Omada volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - omada-data
+    - omada-work
+    - omada-logs
+
+- name: Create Omada container
+  community.docker.docker_container:
+    name: omada-controller
+    image: mbentley/omada-controller:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    network_mode: host
+
+    volumes:
+      - omada-data:/opt/tplink/EAPController/data:rw
+      - omada-work:/opt/tplink/EAPController/work:rw
+      - omada-logs:/opt/tplink/EAPController/logs:rw
+
+    env:
+      TZ: "{{ timezone | default('UTC') }}"
+
+    ulimits:
+      - "nofile:4096:8192"
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+- name: Create Omada exporter container
+  community.docker.docker_container:
+    name: omada-prometheus-exporter
+    image: chhaley/omada_exporter:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    network_mode: host
+
+    env:
+      OMADA_HOST: "https://localhost:8043"
+      OMADA_USER: "{{ omada_prometheus_exporter_user }}"
+      OMADA_PASS: "{{ omada_prometheus_exporter_password }}"
+      OMADA_SITE: "{{ omada_prometheus_exporter_site }}"
+      OMADA_INSECURE: "true"
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

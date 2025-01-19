@@ -1,0 +1,80 @@
+{
+    "tagOwners": {
+        "tag:proxy": [
+            "autogroup:member"
+        ]
+    },
+    "acls": [
+        // all can access their own devices
+        {
+            "action": "accept",
+            "src": [
+                "autogroup:member"
+            ],
+            "dst": [
+                "autogroup:self:*"
+            ],
+        },
+        // members can access reverse proxies
+        {
+            "action": "accept",
+            "src": [
+                "autogroup:member"
+            ],
+            "dst": [
+                "tag:proxy:443"
+            ],
+        },
+        // admins can access all devices
+        {
+            "action": "accept",
+            "src": [
+                "autogroup:admin"
+            ],
+            "dst": [
+                "*:*"
+            ],
+        },
+        // proxy can access other proxies
+		{
+			"action": "accept",
+			"src": [
+				"tag:proxy",
+			],
+			"dst": [
+				"tag:proxy:443",
+			],
+		},
+    ],
+    "tests": [
+        %{ for owner in owners ~}
+        {
+            "src": "${owner}",
+            "accept": [
+                "tag:proxy:22",
+                "tag:proxy:443",
+            ],
+        },
+        %{ endfor ~}
+        %{ for member in members ~}
+        {
+            "src": "${member}",
+            "accept": [
+                "tag:proxy:443",
+            ],
+            "deny": [
+                "tag:proxy:22",
+            ],
+        },
+        %{ endfor ~}
+        {
+			"src": "tag:proxy",
+			"accept": [
+				"tag:proxy:443",
+			],
+			"deny": [
+				"tag:proxy:22",
+			],
+		},
+    ],
+}

@@ -1,0 +1,8 @@
+pi_boot_config_file: /boot/config.txt
+
+pi_asound_config_file: /etc/asound.conf
+pi_dhcpcd_config_file: /etc/dhcpcd.conf
+
+pi_journald_config_file: /etc/systemd/journald.conf
+
+pi_sshd_config_file: /etc/ssh/sshd_config

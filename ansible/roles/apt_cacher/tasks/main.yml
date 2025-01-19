@@ -1,0 +1,17 @@
+- name: Install apt-cacher-ng
+  ansible.builtin.apt:
+    name: apt-cacher-ng
+
+- name: Configure apt-cacher-ng
+  ansible.builtin.template:
+    src: acng.conf.j2
+    dest: /etc/apt-cacher-ng/acng.conf
+    mode: "0644"
+  notify:
+    - Restart apt-cacher-ng
+
+- name: Restart apt-cacher-ng daily
+  ansible.builtin.cron:
+    name: "Restart apt-cacher-ng"
+    special_time: daily
+    job: "systemctl restart apt-cacher-ng"

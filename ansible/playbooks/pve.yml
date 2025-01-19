@@ -1,0 +1,18 @@
+- hosts: pve
+  serial: 1
+  roles:
+    - pve
+
+    - dell_optiplex
+    - hd_idle
+    - hosts
+    - journald
+    - locale
+    - nut
+    - prometheus_node_exporter
+    - promtail
+    - scaling_governor
+    - security
+    - smartmontools
+    - tailscale
+    - timezone

@@ -1,0 +1,10 @@
+- name: Install prometheus-node-exporter
+  ansible.builtin.apt:
+    name: prometheus-node-exporter
+
+- name: Configure prometheus-node-exporter
+  ansible.builtin.template:
+    src: prometheus-node-exporter.j2
+    dest: /etc/default/prometheus-node-exporter
+    mode: "0644"
+  notify: Restart prometheus-node-exporter

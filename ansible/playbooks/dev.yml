@@ -1,0 +1,11 @@
+- hosts: dev
+  roles:
+    - apt_proxy
+
+    - docker
+    - security
+    - tailscale
+
+    - dev
+
+    - promtail

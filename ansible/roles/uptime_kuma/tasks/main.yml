@@ -1,0 +1,32 @@
+- name: Create Uptime Kuma volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - uptime_kuma-data
+
+- name: Create Uptime Kuma container
+  community.docker.docker_container:
+    name: uptime-kuma
+    image: louislam/uptime-kuma:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    ports:
+      - "{{ uptime_admin_port }}:3001"
+
+    volumes:
+      - uptime_kuma-data:/app/data:rw
+
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.uptime.rule: "Host(`uptime.{{ ansible_domain }}`)"
+      traefik.http.routers.uptime.service: "uptime"
+      traefik.http.services.uptime.loadbalancer.server.port: "{{ uptime_admin_port }}"
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

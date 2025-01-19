@@ -1,0 +1,15 @@
+- name: Install aria2
+  ansible.builtin.apt:
+    name: aria2
+
+- name: Create aria2 configuration directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.PWD }}/.aria2"
+    mode: "0755"
+    state: directory
+
+- name: Configure aria2
+  ansible.builtin.copy:
+    src: aria2.conf
+    dest: "{{ ansible_env.PWD }}/.aria2/aria2.conf"
+    mode: "0644"

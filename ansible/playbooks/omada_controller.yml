@@ -1,0 +1,11 @@
+- hosts: omada-controller
+  roles:
+    - apt_proxy
+
+    - security
+
+    - docker
+    - omada_controller
+
+    - promtail
+    - rclone

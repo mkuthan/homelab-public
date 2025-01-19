@@ -1,0 +1,10 @@
+general = {
+    name = "{{ shairport_device_name }}";
+    volume_range_db = "{{ shairport_volume_range_db }}";
+    output_backend: "alsa";
+}
+
+alsa = {
+    output_device = "{{ shairport_alsa_output_device }}";
+    mixer_control_name = "{{ shairport_alsa_mixer_control_name }}";
+}

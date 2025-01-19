@@ -1,0 +1,76 @@
+# lxc.mount.entry: /dev/dri dev/dri none bind,optional,create=dir
+# lxc.cgroup2.devices.allow: c 226:0 rwm
+# lxc.cgroup2.devices.allow: c 226:128 rwm
+
+- name: Stat /dev/dri
+  ansible.builtin.stat:
+    path: /dev/dri
+  register: dev_dri
+
+- name: Assert if /dev/dri exists
+  ansible.builtin.assert:
+    that: dev_dri.stat.exists
+
+- name: Create /etc/frigate
+  ansible.builtin.file:
+    path: /etc/frigate
+    state: directory
+    mode: "0755"
+
+- name: Configure Frigate
+  ansible.builtin.template:
+    src: frigate.yml.j2
+    dest: /etc/frigate/config.yml
+    mode: "0644"
+  notify:
+    - Restart frigate
+
+- name: Copy YOLO-NAS model
+  ansible.builtin.copy:
+    src: yolo_nas_s.onnx
+    dest: /etc/frigate/yolo_nas_s.onnx
+    mode: "0644"
+
+- name: Create Frigate volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - frigate-database
+
+- name: Create Frigate container
+  community.docker.docker_container:
+    name: frigate
+    image: ghcr.io/blakeblackshear/frigate:stable
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    network_mode: host
+
+    env:
+      FRIGATE_RTSP_PASSWORD: "{{ frigate_rtsp_password }}"
+      FRIGATE_MQTT_PASSWORD: "{{ frigate_mqtt_password }}"
+
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/frigate/:/config
+      - frigate-database:/database
+      - /media/frigate:/media/frigate
+
+    mounts:
+      - type: tmpfs
+        target: /tmp/cache
+        tmpfs_size: 1000000000
+
+    devices:
+      - /dev/dri/renderD128
+
+    shm_size: 256MB
+    privileged: true
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

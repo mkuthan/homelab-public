@@ -1,0 +1,40 @@
+# Device name.
+LIBRESPOT_NAME="{{ raspotify_device_name }}"
+
+# Displayed device type.
+LIBRESPOT_DEVICE_TYPE="{{ raspotify_device_type }}"
+
+# Bitrate (kbps) {96|160|320}.
+LIBRESPOT_BITRATE="{{ raspotify_bit_rate }}"
+
+# Audio backend to use.
+LIBRESPOT_BACKEND="alsa"
+
+# Mixer to use.
+LIBRESPOT_MIXER="alsa"
+
+# Audio device to use.
+LIBRESPOT_DEVICE="{{ raspotify_alsa_device }}"
+
+# Alsa mixer device.
+LIBRESPOT_ALSA_MIXER_DEVICE="{{ raspotify_alsa_device }}"
+
+# Alsa mixer control.
+LIBRESPOT_ALSA_MIXER_CONTROL="{{ raspotify_alsa_mixer_control }}"
+
+# Only log warning and error messages.
+LIBRESPOT_QUIET=
+
+# Automatically play similar songs when your music ends.
+# Disabled due to: ERROR librespot_connect::spirc] AutoplayError: MercuryError
+# LIBRESPOT_AUTOPLAY=
+
+# Disable caching to avoid SD card damages.
+LIBRESPOT_DISABLE_AUDIO_CACHE=
+LIBRESPOT_DISABLE_CREDENTIAL_CACHE=
+
+# Play all tracks at approximately the same apparent volume.
+LIBRESPOT_ENABLE_VOLUME_NORMALISATION=
+
+# Volume control type cubic, fixed, linear, log.
+LIBRESPOT_VOLUME_CTRL="linear"

@@ -1,0 +1,4 @@
+- name: Restart Shairport
+  ansible.builtin.service:
+    name: shairport-sync
+    state: restarted

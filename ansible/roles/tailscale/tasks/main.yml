@@ -1,0 +1,29 @@
+# lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
+# lxc.cgroup2.devices.allow: c 10:200 rwm
+
+- name: Stat /dev/net/tun
+  ansible.builtin.stat:
+    path: /dev/net/tun
+  register: dev_net_tun
+
+- name: Assert if /dev/net/tun exists
+  ansible.builtin.assert:
+    that: dev_net_tun.stat.exists
+
+- name: Install gpg
+  ansible.builtin.apt:
+    name: gpg
+
+- name: Add Tailscale repository key
+  ansible.builtin.apt_key:
+    url: https://pkgs.tailscale.com/stable/{{ ansible_distribution | lower }}/{{ ansible_distribution_release }}.noarmor.gpg
+    keyring: /etc/apt/trusted.gpg.d/tailscale.gpg
+
+- name: Add Tailscale repository
+  ansible.builtin.apt_repository:
+    repo: deb https://pkgs.tailscale.com/stable/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main
+    filename: tailscale
+
+- name: Install Tailscale
+  ansible.builtin.apt:
+    name: tailscale

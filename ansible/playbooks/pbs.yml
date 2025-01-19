@@ -1,0 +1,9 @@
+- hosts: pbs
+  roles:
+    - apt_proxy
+
+    - security
+
+    - pbs
+
+    - promtail

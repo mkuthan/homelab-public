@@ -1,0 +1,8 @@
+- ansible.builtin.import_tasks: boot.yml
+- ansible.builtin.import_tasks: swap.yml
+- ansible.builtin.import_tasks: security.yml
+- ansible.builtin.import_tasks: packages.yml
+- ansible.builtin.import_tasks: mounts.yml
+- ansible.builtin.import_tasks: journald.yml
+- ansible.builtin.import_tasks: hifiberry.yml
+- ansible.builtin.import_tasks: motd.yml

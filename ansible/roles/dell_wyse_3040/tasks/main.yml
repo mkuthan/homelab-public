@@ -1,0 +1,12 @@
+- name: Install firmware-intel-sound
+  ansible.builtin.apt:
+    name: firmware-intel-sound
+
+- name: Disable HSUART DMA support
+  ansible.builtin.copy:
+    src: dell-wyse-3040-blacklist.conf
+    dest: /etc/modprobe.d/dell-wyse-3040-blacklist.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Update initramfs

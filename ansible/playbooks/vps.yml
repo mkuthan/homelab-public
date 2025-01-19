@@ -1,0 +1,10 @@
+- hosts: vps
+  roles:
+    - hosts
+    - locale
+    - security
+    - timezone
+
+    - docker
+    - traefik
+    - uptime_kuma

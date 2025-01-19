@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#
+# Useful options:
+# --dry-run
+# --interactive
+# --progress
+#
+
+rclone --bwlimit {{ rclone_bwlimit | default('1M') }} \
+    sync --fast-list --checksum \
+    $@

@@ -1,0 +1,5 @@
+export TF_VAR_proxmox_url=
+export TF_VAR_proxmox_user=
+export TF_VAR_proxmox_password=
+
+export TF_VAR_default_password=

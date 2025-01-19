@@ -1,0 +1,11 @@
+- name: Install detect-http-proxy
+  ansible.builtin.template:
+    src: detect-http-proxy.j2
+    dest: /etc/apt/detect-http-proxy
+    mode: "0755"
+
+- name: Configure apt proxy
+  ansible.builtin.template:
+    src: 90proxy.j2
+    dest: /etc/apt/apt.conf.d/90proxy
+    mode: "0644"

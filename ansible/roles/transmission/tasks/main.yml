@@ -1,0 +1,35 @@
+- name: Install transmission
+  ansible.builtin.apt:
+    name: transmission-daemon
+
+- name: Create directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    owner: debian-transmission
+    group: debian-transmission
+    mode: "0755"
+    state: directory
+  with_items:
+    - "{{ transmission_download_dir }}"
+    - "{{ transmission_incomplete_dir }}"
+
+# Transmission override configuration on stop
+- name: Stop transmission
+  ansible.builtin.service:
+    name: transmission-daemon
+    state: stopped
+
+- name: Configure
+  ansible.builtin.template:
+    src: settings.json.j2
+    dest: /etc/transmission-daemon/settings.json
+    mode: "0600"
+    owner: debian-transmission
+    group: debian-transmission
+  notify:
+    - Restart transmission
+
+- name: Start transmission
+  ansible.builtin.service:
+    name: transmission-daemon
+    state: started

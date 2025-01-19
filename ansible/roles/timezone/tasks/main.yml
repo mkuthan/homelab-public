@@ -1,0 +1,3 @@
+- name: Configure timezone
+  community.general.timezone:
+    name: "{{ timezone | default('UTC') }}"

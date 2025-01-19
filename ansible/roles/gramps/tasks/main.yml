@@ -1,0 +1,83 @@
+- name: Create Gramps volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - gramps-users
+    - gramps-index
+    - gramps-thumb-cache
+    - gramps-cache
+    - gramps-secret
+    - gramps-db
+    - gramps-media
+    - gramps-tmp
+
+- name: Create Gramps network
+  community.docker.docker_network:
+    name: "gramps-network"
+
+- name: Create Gramps Redis container
+  community.docker.docker_container:
+    name: gramps-redis
+    image: docker.io/library/redis:7
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    networks:
+      - name: gramps-network
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+- name: Create Gramps container
+  community.docker.docker_container: &gramps_container
+    name: gramps
+    image: ghcr.io/gramps-project/grampsweb:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    ports:
+      - "5000:5000"
+
+    env:
+      GRAMPSWEB_TREE: "Gramps"
+      GRAMPSWEB_CELERY_CONFIG__broker_url: "redis://gramps-redis:6379/0"
+      GRAMPSWEB_CELERY_CONFIG__result_backend: "redis://gramps-redis:6379/0"
+      GRAMPSWEB_RATELIMIT_STORAGE_URI: redis://gramps-redis:6379/1
+      GRAMPSWEB_BASE_URL: "https://gramps.{{ ansible_domain }}"
+      GRAMPSWEB_EMAIL_HOST: "192.168.10.12"
+      GRAMPSWEB_EMAIL_PORT: "8025"
+      GRAMPSWEB_EMAIL_USE_TLS: "False"
+      GRAMPSWEB_REGISTRATION_DISABLED: "True"
+
+    networks:
+      - name: gramps-network
+
+    volumes:
+      - gramps-users:/app/users
+      - gramps-index:/app/indexdir
+      - gramps-thumb-cache:/app/thumbnail_cache
+      - gramps-cache:/app/cache
+      - gramps-secret:/app/secret
+      - gramps-db:/root/.gramps/grampsdb
+      - gramps-media:/app/media
+      - gramps-tmp:/tmp
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+- name: Create Gramps Celery container
+  community.docker.docker_container:
+    <<: *gramps_container
+    name: gramps-celery
+    ports: []
+    command: celery -A gramps_webapi.celery worker --loglevel=INFO --concurrency=1

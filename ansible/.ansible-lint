@@ -1,0 +1,3 @@
+skip_list:
+  - name[missing]
+  - name[play]

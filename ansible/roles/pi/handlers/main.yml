@@ -1,0 +1,14 @@
+- name: Reboot
+  ansible.builtin.reboot:
+    post_reboot_delay: 10
+    reboot_timeout: 60
+
+- name: Restart journald
+  ansible.builtin.service:
+    name: systemd-journald
+    state: restarted
+
+- name: Restart log2ram
+  ansible.builtin.service:
+    name: log2ram
+    state: restarted

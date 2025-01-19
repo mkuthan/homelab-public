@@ -1,0 +1,11 @@
+- hosts: paperless-ngx
+  roles:
+    - apt_proxy
+
+    - security
+
+    - docker
+    - paperless_ngx
+
+    - promtail
+    - rclone

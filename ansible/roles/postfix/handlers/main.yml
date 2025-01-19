@@ -1,0 +1,12 @@
+- name: Restart postfix
+  ansible.builtin.systemd:
+    name: postfix
+    state: restarted
+
+- name: Run postmap
+  ansible.builtin.command: postmap /etc/postfix/sasl_passwd
+  changed_when: false
+
+- name: Run newaliases
+  ansible.builtin.command: newaliases
+  changed_when: false

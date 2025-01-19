@@ -1,0 +1,145 @@
+version: 0.14
+
+database:
+  path: /database/frigate.db
+
+logger:
+  default: info
+
+mqtt:
+  enabled: true
+  host: {{ frigate_mqtt_host }}
+  user: {{ frigate_mqtt_user }}
+  password: "{FRIGATE_MQTT_PASSWORD}"
+
+ffmpeg:
+  hwaccel_args: preset-vaapi
+  # Time in seconds to wait before ffmpeg retries connecting to the camera
+  retry_interval: 60
+  # Enable audio in recordings
+  output_args:
+    record: preset-record-generic-audio-aac
+
+detectors:
+  ov:
+    type: openvino
+    device: GPU
+
+#model:
+#  width: 300
+#  height: 300
+#  input_tensor: nhwc
+#  input_pixel_format: bgr
+#  path: /openvino-model/ssdlite_mobilenet_v2.xml
+#  labelmap_path: /openvino-model/coco_91cl_bkgr.txt
+
+model:
+  model_type: yolonas
+  width: 320
+  height: 320
+  input_tensor: nchw
+  input_pixel_format: bgr
+  path: /config/yolo_nas_s.onnx
+  labelmap_path: /labelmap/coco-80.txt
+
+birdseye:
+  enabled: false
+
+objects:
+  track:
+    - person
+    - car
+    - bicycle
+    - motorcycle
+    - dog
+    - cat
+    - bird
+  filters:
+    person:
+      min_area: 500 # avoid small objects (birds) detection
+      max_ratio: 1.0 # ignore if object is wider than taller
+      threshold: 0.8 # increase confidence threshold, default 0.7
+
+review:
+  alerts:
+    labels:
+      - person
+      - car
+
+motion:
+  improve_contrast: true
+
+detect:
+  enabled: true
+
+# Mode for retention:
+# all - save all recording segments for events regardless of activity
+# motion - save all recordings segments for events with any detected motion
+# active_objects - save all recording segments for event with active/moving objects
+record:
+  enabled: true
+  retain:
+    days: 30
+    mode: all
+  events:
+    retain:
+      default: 60
+      mode: active_objects
+
+snapshots:
+  enabled: true
+  retain:
+    default: 30
+    objects:
+      person: 90
+      car: 90
+
+go2rtc:
+  streams:
+{% for camera in frigate_cameras %}
+    {{ camera.name }}_main:
+      - rtsp://{{ frigate_rtsp_user }}:{FRIGATE_RTSP_PASSWORD}@{{ camera.host }}:554/cam/realmonitor?channel=1&subtype=0
+{% if camera.audio_enabled is defined and camera.audio_enabled %}
+      - ffmpeg:{{ camera.name }}_main#audio=aac
+{% endif %}
+    {{ camera.name }}_sub:
+      - rtsp://{{ frigate_rtsp_user }}:{FRIGATE_RTSP_PASSWORD}@{{ camera.host }}:554/cam/realmonitor?channel=1&subtype=1
+{% if camera.audio_enabled is defined and camera.audio_enabled %}
+      - ffmpeg:{{ camera.name }}_sub#audio=aac
+{% endif %}
+{% endfor %}
+
+cameras:
+{% for camera in frigate_cameras %}
+  {{ camera.name }}:
+    enabled: {{ camera.enabled | default(True) }}
+    ffmpeg:
+      inputs:
+        - path: rtsp://127.0.0.1:8554/{{ camera.name }}_main
+          roles:
+            - record
+        - path: rtsp://127.0.0.1:8554/{{ camera.name }}_sub
+          roles:
+            - detect
+    live:
+      stream_name: {{ camera.name }}_main
+{% if camera.motion_mask is defined %}
+    motion:
+      mask: {{ camera.motion_mask | to_yaml }}
+{% endif %}
+{% if camera.zones is defined %}
+    zones: 
+{% for zone in camera.zones %}
+      {{ zone.name }}:
+        coordinates: {{ zone.coordinates }}
+{% if zone.objects is defined %}
+        objects: {{ zone.objects | to_yaml}}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if camera.alerts_zones is defined %}
+    review:
+      alerts:
+        required_zones: {{ camera.alerts_zones | to_yaml }}
+{% endif %}
+{% endfor %}

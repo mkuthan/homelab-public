@@ -1,0 +1,9 @@
+- name: Configure mount points
+  ansible.posix.mount:
+    src: "UUID={{ item.uuid }}"
+    path: "{{ item.path }}"
+    fstype: "{{ item.fstype }}"
+    opts: "{{ item.opts }}"
+    state: mounted
+  when: pi_mounts is defined
+  with_items: "{{ pi_mounts }}"

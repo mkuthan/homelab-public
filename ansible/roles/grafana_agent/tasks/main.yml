@@ -1,0 +1,24 @@
+- name: Install grafana-agent
+  ansible.builtin.apt:
+    deb: https://github.com/grafana/agent/releases/download/v{{ grafana_agent_version }}/grafana-agent-{{ grafana_agent_version }}-1.arm64.deb
+
+- name: Configure grafana-agent defaults
+  ansible.builtin.lineinfile:
+    path: /etc/default/grafana-agent
+    regexp: "^CUSTOM_ARGS="
+    line: 'CUSTOM_ARGS="{{ grafana_agent_custom_args }}"'
+  notify:
+    - Restart grafana-agent
+
+- name: Configure grafana-agent
+  ansible.builtin.template:
+    src: grafana-agent.yaml.j2
+    dest: /etc/grafana-agent.yaml
+    mode: "0640"
+  notify:
+    - Restart grafana-agent
+
+- name: Enable grafana-agent service
+  ansible.builtin.systemd:
+    name: grafana-agent
+    enabled: true

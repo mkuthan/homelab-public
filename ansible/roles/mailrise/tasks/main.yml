@@ -1,0 +1,33 @@
+- name: Create /etc/mailrise
+  ansible.builtin.file:
+    path: /etc/mailrise
+    state: directory
+    mode: "0755"
+
+- name: Configure Mailrise
+  ansible.builtin.template:
+    src: "mailrise.yml.j2"
+    dest: /etc/mailrise/mailrise.yml
+    mode: "0644"
+  notify: Restart mailrise
+
+- name: Create Mailrise container
+  community.docker.docker_container:
+    name: mailrise
+    image: yoryan/mailrise:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    ports:
+      - "8025:8025"
+
+    volumes:
+      - /etc/mailrise/mailrise.yml:/etc/mailrise.conf:ro
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

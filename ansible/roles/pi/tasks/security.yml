@@ -1,0 +1,4 @@
+- name: Disable pi login
+  ansible.builtin.user:
+    name: pi
+    password: "!"

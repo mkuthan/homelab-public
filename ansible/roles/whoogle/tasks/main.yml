@@ -1,0 +1,22 @@
+- name: Create Whoogle container
+  community.docker.docker_container:
+    name: whoogle
+    image: benbusby/whoogle-search:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    ports:
+      - "5000:5000"
+
+    env:
+      # https://github.com/benbusby/whoogle-search/wiki/User-Agents
+      WHOOGLE_USER_AGENT: "Mozilla/3.0 (compatible; MSIE 3.0; Windows NT 5.0)"
+      WHOOGLE_USER_AGENT_MOBILE: "Mozilla/3.0 (compatible; MSIE 3.0; Windows NT 5.0)"
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

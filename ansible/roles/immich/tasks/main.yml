@@ -1,0 +1,143 @@
+# lxc.mount.entry: /dev/dri dev/dri none bind,optional,create=dir
+# lxc.cgroup2.devices.allow: c 226:0 rwm
+# lxc.cgroup2.devices.allow: c 226:128 rwm
+
+- name: Stat /dev/dri
+  ansible.builtin.stat:
+    path: /dev/dri
+  register: dev_dri
+
+- name: Assert if /dev/dri exists
+  ansible.builtin.assert:
+    that: dev_dri.stat.exists
+
+- name: Create Immich volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - immich-redisdata
+    - immich-pgdata
+    - immich-model-cache
+
+- name: Create Immich network
+  community.docker.docker_network:
+    name: "immich-network"
+
+- name: Create Immich Redis container
+  community.docker.docker_container:
+    name: immich-redis
+    image: docker.io/redis:6.2-alpine
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    networks:
+      - name: immich-network
+
+    volumes:
+      - immich-redisdata:/data:rw
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+- name: Create Immich Postgres container
+  community.docker.docker_container:
+    name: immich-postgres
+    image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    env:
+      POSTGRES_DB: immich
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_INITDB_ARGS: '--data-checksums'
+
+    networks:
+      - name: immich-network
+
+    volumes:
+      - immich-pgdata:/var/lib/postgresql/data:rw
+
+    command: >-
+      postgres
+      -c shared_preload_libraries=vectors.so
+      -c 'search_path="$$user", public, vectors'
+      -c logging_collector=on
+      -c max_wal_size=2GB
+      -c shared_buffers=512MB
+      -c wal_compression=on
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+- name: Create Immich ML container
+  community.docker.docker_container:
+    name: immich-machine-learning
+    image: ghcr.io/immich-app/immich-machine-learning:release-openvino
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    networks:
+      - name: immich-network
+
+    volumes:
+      - immich-model-cache:/cache
+
+    devices:
+      - /dev/dri
+
+    privileged: true
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+- name: Create Immich Server container
+  community.docker.docker_container:
+    name: immich-server
+    image: ghcr.io/immich-app/immich-server:release
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    ports:
+      - '2283:2283'
+
+    env:
+      TZ: "{{ timezone | default('UTC') }}"
+
+      REDIS_HOSTNAME: immich-redis
+      DB_HOSTNAME: immich-postgres
+
+    networks:
+      - name: immich-network
+
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /media/immich:/usr/src/app/upload
+
+    devices:
+      - /dev/dri
+
+    privileged: true
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

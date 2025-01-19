@@ -1,0 +1,8 @@
+CacheDir: /var/cache/apt-cacher-ng
+LogDir: /var/log/apt-cacher-ng
+
+Remap-debrep: file:deb_mirrors.gz /debian ; file:backends_debian
+
+PassThroughPattern: .*
+
+ExThreshold: 4

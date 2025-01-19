@@ -1,0 +1,36 @@
+- name: Create AdGuard volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - adguard-conf
+    - adguard-work
+
+- name: Create AdGuard container
+  community.docker.docker_container:
+    name: adguard
+    image: adguard/adguardhome:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    volumes:
+      - adguard-conf:/opt/adguardhome/conf:rw
+      - adguard-work:/opt/adguardhome/work:rw
+
+    ports:
+      - 53:53/tcp # plain DNS
+      - 53:53/udp # plain DNS
+      - "{{ adguard_admin_port }}:3000"
+
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.adguard.rule: "Host(`adguard.{{ ansible_domain }}`)"
+      traefik.http.routers.adguard.service: "adguard"
+      traefik.http.services.adguard.loadbalancer.server.port: "{{ adguard_admin_port }}"
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

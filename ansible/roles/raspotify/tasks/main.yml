@@ -1,0 +1,21 @@
+- name: Add Raspotify apt key
+  ansible.builtin.apt_key:
+    url: https://dtcooper.github.io/raspotify/key.asc
+    keyring: /etc/apt/trusted.gpg.d/raspotify.gpg
+
+- name: Add Raspotify apt repository
+  ansible.builtin.apt_repository:
+    repo: deb https://dtcooper.github.io/raspotify raspotify main
+    filename: "raspotify"
+
+- name: Install Raspotify
+  ansible.builtin.apt:
+    name: raspotify
+
+- name: Configure
+  ansible.builtin.template:
+    src: raspotify.conf.j2
+    dest: /etc/raspotify/conf
+    mode: "0600"
+  notify:
+    - Restart Raspotify

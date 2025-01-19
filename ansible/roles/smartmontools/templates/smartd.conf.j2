@@ -1,0 +1,3 @@
+{% for item in smartmontools_smartd_devices %}
+{{ item.device }} -a -d {{ item.type | d('auto') }} -m root
+{% endfor %}

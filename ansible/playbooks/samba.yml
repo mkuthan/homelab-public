@@ -1,0 +1,10 @@
+- hosts: samba
+  roles:
+    - apt_proxy
+
+    - security
+
+    - samba
+
+    - promtail
+    - rclone

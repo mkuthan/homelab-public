@@ -1,0 +1,66 @@
+- name: Create Vaultwarden volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - vaultwarden-data
+
+- name: Create Vaultwarden container
+  community.docker.docker_container:
+    name: vaultwarden
+    image: vaultwarden/server:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    network_mode: host
+
+    env:
+      DOMAIN: "{{ vaultwarden_domain }}"
+      ADMIN_TOKEN: "{{ vaultwarden_admin_token }}"
+
+      SMTP_HOST: "{{ vaultwarden_smtp_host }}"
+      SMTP_FROM: "{{ vaultwarden_smtp_from }}"
+      SMTP_PORT: "{{ vaultwarden_smtp_port }}"
+      SMTP_SECURITY: "{{ vaultwarden_smtp_security }}"
+      SMTP_USERNAME: "{{ vaultwarden_smtp_mail }}"
+      SMTP_PASSWORD: "{{ vaultwarden_smtp_password }}"
+
+      WEBSOCKET_ENABLED: "true"
+      SIGNUPS_ALLOWED: "false"
+
+    volumes:
+      - vaultwarden-data:/data:rw
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+- name: Create Vaultwarden backup container
+  community.docker.docker_container:
+    name: "vaultwarden-backup"
+    image: bruceforce/vaultwarden-backup:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    network_mode: host
+
+    env:
+      BACKUP_DIR: "/data/backup"
+      CRON_TIME: "{{ vaultwarden_backup_cron }}"
+      DELETE_AFTER: "{{ vaultwarden_backup_delete_after }}"
+      TIMESTAMP: "true"
+      UID: "0"
+      GID: "0"
+
+    volumes_from: vaultwarden
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

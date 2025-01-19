@@ -1,0 +1,2 @@
+export TF_VAR_tailscale_api_key=
+export TF_VAR_tailscale_tailnet=

@@ -1,0 +1,49 @@
+- name: Install gpg
+  ansible.builtin.apt:
+    name: gpg
+
+- name: Add Grafana repository key
+  ansible.builtin.apt_key:
+    url: https://apt.grafana.com/gpg.key
+    keyring: /etc/apt/trusted.gpg.d/grafana.gpg
+
+- name: Add Grafana repository
+  ansible.builtin.apt_repository:
+    repo: deb http://apt.grafana.com stable main
+    filename: grafana
+
+- name: Install promtail
+  ansible.builtin.apt:
+    name: promtail
+
+- name: Add the promtail user to systemd-journal group
+  ansible.builtin.user:
+    name: promtail
+    groups: systemd-journal
+    append: true
+
+- name: Check if docker is running
+  ansible.builtin.stat:
+    path: /var/run/docker.sock
+  register: promtail_docker
+
+- name: Add the promtail user to docker group
+  ansible.builtin.user:
+    name: promtail
+    groups: docker
+    append: true
+  when: promtail_docker.stat.issock is defined and promtail_docker.stat.issock
+
+- name: Create promtail directory
+  ansible.builtin.file:
+    path: /var/lib/promtail
+    owner: promtail
+    mode: "0755"
+    state: directory
+
+- name: Configure promtail
+  ansible.builtin.template:
+    src: promtail.yml.j2
+    dest: /etc/promtail/config.yml
+    mode: "0644"
+  notify: Restart promtail

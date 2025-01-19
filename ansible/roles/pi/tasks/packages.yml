@@ -1,0 +1,9 @@
+- name: Enable source repositories
+  ansible.builtin.replace:
+    path: /etc/apt/sources.list
+    regexp: '^\s*#\s*(deb-src\s+.*)$'
+    replace: '\1'
+
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ pi_packages }}"

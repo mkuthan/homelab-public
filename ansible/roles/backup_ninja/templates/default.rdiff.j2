@@ -1,0 +1,17 @@
+keep = {{ backup_keep_days }}
+nicelevel = 19
+output_as_info = yes
+
+[source]
+type = local
+
+{% for backup_source_dir in backup_source_dirs %}
+include = {{ backup_source_dir }}
+{% endfor %}
+
+exclude = **/.DS_Store
+exclude = **/.Trash
+
+[dest]
+type = local
+directory = {{ backup_dest_dir }}/rdiff

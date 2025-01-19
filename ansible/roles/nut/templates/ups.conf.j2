@@ -1,0 +1,17 @@
+# This file is used by upsdrvctl to start and stop your driver(s), and
+# is also used by upsd to determine which drivers to monitor.  The
+# drivers themselves also read this file for configuration directives.
+
+# These directives are used by upsdrvctl only and should be specified outside
+# of a driver definition:
+
+maxretry = 3 # default 1
+
+# Drivers
+
+{% if nut_mode == "netserver" %}
+[{{ nut_ups_name }}]
+    driver = {{ nut_ups_driver }}
+    port   = {{ nut_ups_port }}
+    vendorid = {{ nut_ups_vendorid }}
+{% endif %}

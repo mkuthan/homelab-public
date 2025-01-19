@@ -1,0 +1,28 @@
+[global]
+  netbios name = {{ samba_netbios_name }}
+  server string = %v on (%L)
+  
+  server role = standalone server
+  map to guest = Bad User
+
+  logging = syslog
+
+  # https://wiki.samba.org/index.php/Configure_Samba_to_Work_Better_with_Mac_OS_X
+  vfs objects = fruit streams_xattr  
+  fruit:metadata = stream
+  fruit:model = MacSamba
+  fruit:posix_rename = yes 
+  fruit:veto_appledouble = no
+  fruit:nfs_aces = no
+  fruit:wipe_intentionally_left_blank_rfork = yes 
+  fruit:delete_empty_adfiles = yes 
+
+{% for item in samba_public_shares %}
+[{{ item.name }}]
+  path = {{ item.path }}
+  read only = {{ item.read_only | default('no') }}
+  browseable = {{ item.browseable | default('yes') }}
+  guest ok = yes
+  guest only = yes
+
+{% endfor %}

@@ -1,0 +1,17 @@
+listener 1883
+protocol mqtt
+
+listener 9001
+protocol websockets
+
+persistence true
+persistence_location /mosquitto/data/
+
+log_dest stdout
+log_timestamp true
+log_timestamp_format %Y-%m-%dT%H:%M:%S
+
+allow_anonymous false
+password_file /mosquitto/config/passwd
+
+use_username_as_clientid true

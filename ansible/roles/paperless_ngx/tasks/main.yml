@@ -1,0 +1,162 @@
+- name: Create Paperless volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - paperless-data
+    - paperless-media
+    - paperless-export
+    - paperless-pgdata
+    - paperless-redisdata
+
+- name: Create Paperless consume volume
+  community.docker.docker_volume:
+    volume_name: "paperless-consume"
+    driver_options:
+      type: cifs
+      device: "{{ paperless_ngx_consume_share }}"
+
+- name: Create Paperless network
+  community.docker.docker_network:
+    name: "paperless-network"
+
+- name: Create Paperless Redis container
+  community.docker.docker_container:
+    name: paperless-redis
+    image: docker.io/library/redis:7
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    networks:
+      - name: paperless-network
+
+    volumes:
+      - paperless-redisdata:/data:rw
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+- name: Create Paperless Postgres container
+  community.docker.docker_container:
+    name: paperless-postgres
+    image: docker.io/library/postgres:16
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    env:
+      POSTGRES_DB: paperless
+      POSTGRES_USER: paperless
+      POSTGRES_PASSWORD: paperless
+
+    networks:
+      - name: paperless-network
+
+    volumes:
+      - paperless-pgdata:/var/lib/postgresql/data:rw
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+- name: Create Paperless Tika container
+  community.docker.docker_container:
+    name: paperless-tika
+    image: docker.io/apache/tika:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    networks:
+      - name: paperless-network
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+- name: Create Paperless Gotenberg container
+  community.docker.docker_container:
+    name: paperless-gotenberg
+    image: docker.io/gotenberg/gotenberg:8.7
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    command:
+      - "gotenberg"
+      - "--chromium-disable-javascript=true"
+      - "--chromium-allow-list=file:///tmp/.*"
+
+    networks:
+      - name: paperless-network
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+- name: Create Paperless container
+  community.docker.docker_container:
+    name: paperless
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    ports:
+      - "8000:8000"
+
+    env:
+      USERMAP_UID: "0"
+      USERMAP_GID: "0"
+      PAPERLESS_CONSUMER_POLLING: "1"
+
+      PAPERLESS_REDIS: redis://paperless-redis:6379
+      PAPERLESS_DBHOST: paperless-postgres
+      PAPERLESS_TIKA_ENABLED: "1"
+      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg:3000
+      PAPERLESS_TIKA_ENDPOINT: http://paperless-tika:9998
+
+      PAPERLESS_TIME_ZONE: "{{ timezone | default('UTC') }}"
+      PAPERLESS_OCR_LANGUAGES: "{{ paperless_ngx_ocr_languages | default('') }}"
+      PAPERLESS_OCR_LANGUAGE: "{{ paperless_ngx_ocr_language | default('eng') }}"
+      PAPERLESS_FILENAME_FORMAT: "{created_year}/{title}"
+
+      PAPERLESS_ADMIN_USER: "{{ paperless_ngx_admin_user }}"
+      PAPERLESS_ADMIN_PASSWORD: "{{ paperless_ngx_admin_password }}"
+      PAPERLESS_URL: "{{ paperless_ngx_url }}"
+
+    networks:
+      - name: paperless-network
+
+    volumes:
+      - paperless-data:/usr/src/paperless/data:rw
+      - paperless-media:/usr/src/paperless/media:rw
+      - paperless-export:/usr/src/paperless/export:rw
+      - paperless-consume:/usr/src/paperless/consume:rw
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+- name: Schedule backup
+  ansible.builtin.cron:
+    name: "backup"
+    hour: "{{ paperless_backup_hour | default('4') }}"
+    minute: "{{ paperless_backup_minute | default('0') }}"
+    job: "docker exec paperless document_exporter --use-filename-format --delete --no-archive --no-thumbnail /usr/src/paperless/export"

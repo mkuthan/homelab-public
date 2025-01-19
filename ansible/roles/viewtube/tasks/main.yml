@@ -1,0 +1,79 @@
+- name: Create Viewtube volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - viewtube-data
+    - viewtube-mongodb
+    - viewtube-redis
+
+- name: Create Viewtube network
+  community.docker.docker_network:
+    name: "viewtube-network"
+
+- name: Create Viewtube MongoDb container
+  community.docker.docker_container:
+    name: viewtube-mongodb
+    image: mongo:7
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    networks:
+      - name: viewtube-network
+
+    volumes:
+      - viewtube-mongodb:/data/db:rw
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+- name: Create Viewtube Redis container
+  community.docker.docker_container:
+    name: viewtube-redis
+    image: redis:7
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    networks:
+      - name: viewtube-network
+
+    volumes:
+      - viewtube-redis:/data:rw
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+
+- name: Create Viewtube container
+  community.docker.docker_container:
+    name: viewtube
+    image: mauriceo/viewtube:nightly
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    ports:
+      - "8066:8066"
+
+    env:
+      VIEWTUBE_DATABASE_HOST: viewtube-mongodb
+      VIEWTUBE_REDIS_HOST: viewtube-redis
+
+    networks:
+      - name: viewtube-network
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

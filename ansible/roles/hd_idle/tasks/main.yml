@@ -1,0 +1,17 @@
+- name: Install hd-idle (amd64)
+  ansible.builtin.apt:
+    deb: https://github.com/adelolmo/hd-idle/releases/download/v{{ hd_idle_version }}/hd-idle_{{ hd_idle_version }}_amd64.deb
+  when: ansible_architecture == 'x86_64'
+
+- name: Install hd-idle (arm64)
+  ansible.builtin.apt:
+    deb: https://github.com/adelolmo/hd-idle/releases/download/v{{ hd_idle_version }}/hd-idle_{{ hd_idle_version }}_arm64.deb
+  when: ansible_architecture == 'aarch64'
+
+- name: Configure hd-idle
+  ansible.builtin.template:
+    src: hd-idle.j2
+    dest: /etc/default/hd-idle
+    mode: "0644"
+  notify:
+    - Restart hdidle

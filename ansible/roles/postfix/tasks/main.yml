@@ -1,0 +1,30 @@
+- name: Install postfix
+  ansible.builtin.apt:
+    name: "{{ item }}"
+  loop:
+    - postfix
+    - libsasl2-modules
+
+- name: Setup SASL password
+  ansible.builtin.template:
+    src: sasl_password.j2
+    dest: /etc/postfix/sasl_passwd
+    mode: "0640"
+  notify:
+    - Run postmap
+
+- name: Setup aliases
+  ansible.builtin.lineinfile:
+    dest: /etc/aliases
+    regexp: "^root:"
+    line: "root: {{ postfix_sasl_mail }}"
+  notify:
+    - Run newaliases
+
+- name: Configure postfix
+  ansible.builtin.template:
+    src: main.cf.j2
+    dest: /etc/postfix/main.cf
+    mode: "0644"
+  notify:
+    - Restart postfix

@@ -1,0 +1,17 @@
+- name: Install smartmontools
+  ansible.builtin.apt:
+    name: smartmontools
+
+- name: Configure smartmontools
+  ansible.builtin.template:
+    src: smartmontools.j2
+    dest: /etc/default/smartmontools
+    mode: "0640"
+  notify: Restart smartd
+
+- name: Configure smartd
+  ansible.builtin.template:
+    src: smartd.conf.j2
+    dest: /etc/smartd.conf
+    mode: "0640"
+  notify: Restart smartd

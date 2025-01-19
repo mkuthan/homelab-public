@@ -1,0 +1,5 @@
+- name: "Configure scaling governor"
+  ansible.builtin.cron:
+    name: scaling_governor
+    special_time: reboot
+    job: echo "{{ scaling_governor | default('powersave') }}" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor >/dev/null 2>&1

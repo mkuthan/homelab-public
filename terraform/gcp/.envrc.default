@@ -1,0 +1,3 @@
+export TF_VAR_gcp_project_id=
+export TF_VAR_backup_bucket=
+export TF_VAR_vps_hostname=

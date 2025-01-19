@@ -1,0 +1,11 @@
+- name: Remove default motd
+  ansible.builtin.file:
+    path: /etc/motd
+    state: absent
+
+# https://github.com/gagle/raspberrypi-motd
+- name: Configure custom motd
+  ansible.builtin.copy:
+    src: motd.sh
+    dest: /etc/profile.d/motd.sh
+    mode: "0644"

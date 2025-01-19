@@ -1,0 +1,10 @@
+- hosts: stirling-pdf
+  roles:
+    - apt_proxy
+
+    - security
+
+    - docker
+    - stirling_pdf
+
+    - promtail

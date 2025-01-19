@@ -1,0 +1,12 @@
+- hosts: proxmox_traefik
+  serial: 1
+  roles:
+    - apt_proxy
+
+    - security
+    - tailscale
+
+    - docker
+    - traefik
+
+    - promtail

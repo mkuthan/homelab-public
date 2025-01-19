@@ -1,0 +1,37 @@
+- name: Install backupninja
+  ansible.builtin.apt:
+    name: "{{ item }}"
+  loop:
+    - backupninja
+    - rdiff-backup
+    - hwinfo
+
+- name: Create destination directory
+  ansible.builtin.file:
+    path: "{{ backup_dest_dir }}"
+    mode: "0755"
+    state: directory
+
+- name: Create destination sub directories
+  ansible.builtin.file:
+    path: "{{ backup_dest_dir }}/{{ item }}"
+    mode: "0755"
+    state: directory
+  loop:
+    - sys
+    - rdiff
+
+- name: Disable reporting success
+  ansible.builtin.lineinfile:
+    dest: /etc/backupninja.conf
+    regexp: "^reportsuccess"
+    line: "reportsuccess = no"
+
+- name: Configure
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "/etc/backup.d/{{ item }}"
+    mode: "0640"
+  loop:
+    - default.rdiff
+    - default.sys

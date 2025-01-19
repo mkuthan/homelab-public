@@ -1,0 +1,9 @@
+- hosts: apt-cacher
+  roles:
+    - apt_proxy
+
+    - security
+
+    - apt_cacher
+
+    - promtail

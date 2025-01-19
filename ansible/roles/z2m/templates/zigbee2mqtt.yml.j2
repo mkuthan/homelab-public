@@ -1,0 +1,27 @@
+serial:
+    port: {{ z2m_adapter_port }}
+    baudrate: {{ z2m_adapter_baudrate | default('115200') }}
+    adapter: {{ z2m_adapter_type | default('zstack') }}
+
+mqtt:
+    server: {{ z2m_mqtt_server }}
+    user: {{ z2m_mqtt_user }}
+    password: {{ z2m_mqtt_password }}
+    base_topic: {{ z2m_mqtt_base_topic }}
+    version: {{ z2m_mqtt_version | default('5') }}
+
+advanced:
+    channel: {{ z2m_zigbee_channel | default('11') }}
+    network_key: {{ z2m_zigbee_network_key }}
+    transmit_power: {{ z2m_zigbee_transmit_power | default('5') }}
+
+ota:
+    disable_automatic_update_check: true
+
+availability: true
+homeassistant: true
+frontend: true
+permit_join: false
+
+devices: devices.yaml
+groups: groups.yaml

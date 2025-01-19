@@ -1,0 +1,9 @@
+- name: Restart SMB service
+  ansible.builtin.service:
+    name: smbd
+    state: restarted
+
+- name: Restart NMB service
+  ansible.builtin.service:
+    name: nmbd
+    state: restarted

@@ -1,0 +1,10 @@
+- hosts: immich
+  roles:
+    - apt_proxy
+
+    - security
+
+    - docker
+    - immich
+
+    - promtail

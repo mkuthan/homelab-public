@@ -1,0 +1,5 @@
+# check url under Grafana datasources admin panel
+grafana_agent_prometheus_url: https://prometheus-blocks-prod-us-central1.grafana.net/api/prom/push
+
+# overwrite ports to avoid conflicts with transmission daemon
+grafana_agent_custom_args: -server.http.address=127.0.0.1:19090 -server.grpc.address=127.0.0.1:19091

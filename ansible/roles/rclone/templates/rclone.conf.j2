@@ -1,0 +1,19 @@
+{% for config in rclone_gcs_configs | default ([]) %}
+[{{ config.name }}]
+type = s3
+provider = GCS
+endpoint = https://storage.googleapis.com
+{% for key, value in config.properties.items() %}
+{{ key }} = {{ value }}
+{% endfor %}
+
+{% endfor %}
+
+{% for config in rclone_drive_configs | default ([]) %}
+[{{ config.name }}]
+type = drive
+{% for key, value in config.properties.items() %}
+{{ key }} = {{ value }}
+{% endfor %}
+
+{% endfor %}

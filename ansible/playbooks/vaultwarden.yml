@@ -1,0 +1,11 @@
+- hosts: vaultwarden
+  roles:
+    - apt_proxy
+
+    - security
+
+    - docker
+    - vaultwarden
+
+    - promtail
+    - rclone

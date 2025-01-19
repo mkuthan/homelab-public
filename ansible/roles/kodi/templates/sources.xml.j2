@@ -1,0 +1,16 @@
+<sources>
+{% for kodi_source in kodi_sources %}
+    <{{ kodi_source.section }}>
+        <default pathversion="1"></default>
+{% if kodi_source.sources is defined %}
+{% for source in kodi_source.sources %}
+        <source>
+            <name>{{ source.name }}</name>
+            <path pathversion="1">{{ source.path }}</path>
+            <allowsharing>false</allowsharing>
+        </source>
+{% endfor %}
+{% endif %}
+    </{{ kodi_source.section }}>
+{% endfor %}
+</sources>

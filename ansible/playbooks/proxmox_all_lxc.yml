@@ -1,0 +1,4 @@
+- hosts: proxmox_all_lxc
+  serial: 1
+  roles:
+    - upgrade

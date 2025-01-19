@@ -1,0 +1,21 @@
+- name: Create Stirling-PDF container
+  community.docker.docker_container:
+    name: stirling-pdf
+    image: frooodle/s-pdf:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    ports:
+      - "8080:8080"
+
+    env:
+      DOCKER_ENABLE_SECURITY: "false"
+      INSTALL_BOOK_AND_ADVANCED_HTML_OPS: "false"
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

@@ -1,0 +1,7 @@
+- name: Configure journald SystemMaxUse
+  ansible.builtin.lineinfile:
+    dest: /etc/systemd/journald.conf
+    regexp: "^#?SystemMaxUse="
+    line: "SystemMaxUse={{ journald_system_max_use | default('256M') }}"
+  notify:
+    - Restart systemd-journald

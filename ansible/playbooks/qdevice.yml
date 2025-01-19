@@ -1,0 +1,14 @@
+- hosts: qdevice
+  roles:
+    - qdevice
+
+    - dell_wyse_3040
+    - hosts
+    - journald
+    - locale
+    - nut
+    - prometheus_node_exporter
+    - promtail
+    - security
+    - tailscale
+    - timezone

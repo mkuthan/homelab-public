@@ -1,0 +1,25 @@
+- name: Install Samba packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+  loop:
+    - samba
+    - smbclient
+
+- name: Create Samba public shares
+  ansible.builtin.file:
+    dest: "{{ item.path }}"
+    state: directory
+    mode: "2770"
+    owner: nobody
+    group: nogroup
+  loop: "{{ samba_public_shares }}"
+
+- name: Configure Samba
+  ansible.builtin.template:
+    dest: /etc/samba/smb.conf
+    src: smb.conf.j2
+    mode: "0644"
+    validate: "testparm -s %s"
+  notify:
+    - Restart SMB service
+    - Restart NMB service

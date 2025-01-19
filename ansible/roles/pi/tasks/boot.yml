@@ -1,0 +1,29 @@
+- name: Set boot config params
+  ansible.builtin.lineinfile:
+    regexp: "^{{ item.name }}="
+    line: "{{ item.name }}={{ item.value }}"
+    path: "{{ pi_boot_config_file }}"
+  loop: "{{ pi_boot_config_params }}"
+  when: pi_boot_config_params is defined
+  notify:
+    - Reboot
+
+- name: Enable boot config params
+  ansible.builtin.lineinfile:
+    regexp: "^#?{{ item }}"
+    line: "{{ item }}"
+    path: "{{ pi_boot_config_file }}"
+  loop: "{{ pi_boot_config_enabled }}"
+  when: pi_boot_config_enabled is defined
+  notify:
+    - Reboot
+
+- name: Disable boot config params
+  ansible.builtin.lineinfile:
+    regexp: "^#?{{ item }}"
+    line: "#{{ item }}"
+    path: "{{ pi_boot_config_file }}"
+  loop: "{{ boot_config_disabled }}"
+  when: boot_config_disabled is defined
+  notify:
+    - Reboot

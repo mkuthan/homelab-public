@@ -1,0 +1,10 @@
+- hosts: prometheus
+  roles:
+    - apt_proxy
+
+    - security
+
+    - docker
+    - prometheus
+
+    - promtail

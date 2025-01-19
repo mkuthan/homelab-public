@@ -1,0 +1,92 @@
+- name: Create /etc/mosquitto
+  ansible.builtin.file:
+    path: /etc/mosquitto
+    state: directory
+    mode: "0755"
+
+- name: Configure Mosquitto
+  ansible.builtin.template:
+    src: mosquitto.conf.j2
+    dest: /etc/mosquitto/mosquitto.conf
+    mode: "0644"
+  notify:
+    - Restart mosquitto
+
+- name: Create Mosquitto volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - mosquitto-data
+
+- name: Register Mosquitto password file status
+  ansible.builtin.stat:
+    path: "/etc/mosquitto/passwd"
+  register: mosquitto_password_file
+
+- name: Configure Mosquitto password file (once)
+  when: not mosquitto_password_file.stat.exists
+  block:
+    - name: Create Mosquitto empty password file
+      ansible.builtin.copy:
+        content: ""
+        dest: /etc/mosquitto/passwd
+        mode: "0600"
+
+    - name: Encrypt Mosquitto passwords
+      community.docker.docker_container:
+        name: mosquitto-passwd
+        image: eclipse-mosquitto:latest
+        command: "mosquitto_passwd -b /mosquitto/config/passwd {{ item.key }} {{ item.value }}"
+        volumes:
+          - "/etc/mosquitto/passwd:/mosquitto/config/passwd"
+
+      loop: "{{ mosquitto_users | dict2items }}"
+      no_log: true
+      notify:
+        - Restart mosquitto
+
+- name: Create Mosquitto container
+  community.docker.docker_container:
+    name: mosquitto
+    image: eclipse-mosquitto:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    volumes:
+      - /etc/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - /etc/mosquitto/passwd:/mosquitto/config/passwd
+      - mosquitto-data:/mosquitto/data
+
+    ports:
+      - 1883:1883
+      - 9001:9001
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
+- name: Create Mosquitto exporter container
+  community.docker.docker_container:
+    name: mosquitto-prometheus-exporter
+    image: sapcc/mosquitto-exporter:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    network_mode: host
+
+    env:
+      BROKER_ENDPOINT: "tcp://localhost:1883"
+      MQTT_USER: "prometheus"
+      MQTT_PASS: "{{ mosquitto_users['prometheus'] }}"
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

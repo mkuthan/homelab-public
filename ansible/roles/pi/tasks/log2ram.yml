@@ -1,0 +1,21 @@
+- name: Add log2ram repository key
+  ansible.builtin.apt_key:
+    url: "https://azlux.fr/repo.gpg.key"
+    keyring: /etc/apt/trusted.gpg.d/log2ram.gpg
+
+- name: Add log2ram apt repository
+  ansible.builtin.apt_repository:
+    repo: "deb http://packages.azlux.fr/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main"
+    filename: "log2ram"
+
+- name: Install log2ram
+  ansible.builtin.apt:
+    name: log2ram
+
+- name: Configure log2ram
+  ansible.builtin.template:
+    src: log2ram.conf.j2
+    dest: /etc/log2ram.conf
+    mode: "0644"
+  notify:
+    - Restart log2ram

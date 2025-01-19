@@ -1,0 +1,4 @@
+- name: Restart Raspotify
+  ansible.builtin.service:
+    name: raspotify
+    state: restarted

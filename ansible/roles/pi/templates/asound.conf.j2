@@ -1,0 +1,17 @@
+pcm.{{ pi_hifiberry_alias }} {
+  type dmix
+  ipc_key 1024
+  slave {
+    pcm {
+        type hw
+        card {{ pi_hifiberry_card }}
+    }
+    channels 2
+    rate 44100
+  }
+}
+
+ctl.{{ pi_hifiberry_alias }} {
+  type hw
+  card {{ pi_hifiberry_card }}
+}

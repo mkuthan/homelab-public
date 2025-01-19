@@ -1,0 +1,11 @@
+- name: Install Shairport
+  ansible.builtin.apt:
+    name: shairport-sync
+
+- name: Configure Shairport
+  ansible.builtin.template:
+    src: shairport-sync.conf.j2
+    dest: /etc/shairport-sync.conf
+    mode: "0644"
+  notify:
+    - Restart Shairport

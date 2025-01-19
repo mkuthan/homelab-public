@@ -1,0 +1,30 @@
+- name: Install rclone
+  ansible.builtin.apt:
+    deb: https://downloads.rclone.org/rclone-current-linux-amd64.deb
+
+- name: Create rclone configuration directory
+  ansible.builtin.file:
+    path: "/root/.config/rclone"
+    mode: "0700"
+    state: directory
+
+- name: Configure rclone
+  ansible.builtin.template:
+    src: rclone.conf.j2
+    dest: /root/.config/rclone/rclone.conf
+    mode: "0600"
+
+- name: Copy rclone sync script
+  ansible.builtin.template:
+    src: rclone-sync.sh.j2
+    dest: /root/rclone-sync.sh
+    mode: "0755"
+
+- name: Schedule backup
+  ansible.builtin.cron:
+    name: "{{ item.name }}"
+    hour: "{{ item.hour | default('2') }}"
+    minute: "{{ item.minute | default('0') }}"
+    job: "/root/rclone-sync.sh {{ item.src }} {{ item.dest }}"
+  loop: "{{ rclone_jobs }}"
+  when: rclone_jobs is defined

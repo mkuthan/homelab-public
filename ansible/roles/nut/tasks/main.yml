@@ -1,0 +1,18 @@
+- name: Install NUT
+  ansible.builtin.apt:
+    name: nut
+
+- name: Install NUT configuration files
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "/etc/nut/{{ item }}"
+    owner: root
+    group: nut
+    mode: "0640"
+  loop:
+    - nut.conf
+    - ups.conf
+    - upsd.conf
+    - upsd.users
+    - upsmon.conf
+  notify: Restart NUT

@@ -1,0 +1,10 @@
+- hosts: adguard
+  roles:
+    - apt_proxy
+
+    - security
+
+    - docker
+    - adguard
+
+    - promtail

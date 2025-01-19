@@ -1,0 +1,42 @@
+- name: Disable ceph and pve-enterprise repositories
+  ansible.builtin.replace:
+    path: "{{ item }}"
+    regexp: "^deb "
+    replace: "# deb "
+  loop:
+    - /etc/apt/sources.list.d/ceph.list
+    - /etc/apt/sources.list.d/pve-enterprise.list
+
+- name: Add pve-no-subscription repository
+  ansible.builtin.apt_repository:
+    filename: pve-no-subscription
+    repo: "deb http://download.proxmox.com/{{ ansible_distribution | lower }}/pve {{ ansible_distribution_release }} pve-no-subscription"
+    mode: "0644"
+    state: present
+
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ pve_packages | default([]) }}"
+
+- name: Limit ZFS memory usage to 8GB
+  ansible.builtin.copy:
+    src: zfs.conf
+    dest: /etc/modprobe.d/zfs.conf
+    mode: "0644"
+
+- name: Configure mount points
+  ansible.posix.mount:
+    src: "{{ item.src }}"
+    path: "{{ item.path }}"
+    fstype: "{{ item.fstype }}"
+    opts: "{{ item.opts }}"
+    state: present
+  with_items: "{{ pve_mount_points }}"
+  when: pve_mount_points is defined
+
+- name: "Configure NFS exports"
+  ansible.builtin.template:
+    src: "exports.j2"
+    dest: "/etc/exports"
+    mode: "0644"
+  when: pve_nfs_exports is defined

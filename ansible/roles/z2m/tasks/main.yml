@@ -1,0 +1,38 @@
+- name: Create /etc/zigbee2mqtt
+  ansible.builtin.file:
+    path: /etc/zigbee2mqtt
+    state: directory
+    mode: "0755"
+
+- name: Configure Zigbee2MQTT
+  ansible.builtin.template:
+    src: zigbee2mqtt.yml.j2
+    dest: /etc/zigbee2mqtt/configuration.yaml
+    mode: "0644"
+  notify:
+    - Restart zigbee2mqtt
+
+- name: Create Zigbee2MQTT container
+  community.docker.docker_container:
+    name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    volumes:
+      - /etc/zigbee2mqtt:/app/data:rw
+
+    ports:
+      - 8080:8080
+
+    env:
+      TZ: "{{ timezone | default('UTC') }}"
+      Z2M_WATCHDOG: default
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

@@ -1,0 +1,52 @@
+- name: Install gpg
+  ansible.builtin.apt:
+    name: gpg
+
+- name: Add Google repository key
+  ansible.builtin.apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+- name: Add Google Cloud SDK repository
+  ansible.builtin.apt_repository:
+    repo: deb http://packages.cloud.google.com/apt cloud-sdk main
+    filename: cloud-sdk
+
+- name: Add Hashicorp repository key
+  ansible.builtin.apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+
+- name: Add Hashicorp repository
+  ansible.builtin.apt_repository:
+    repo: deb https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
+    filename: hashicorp
+
+- name: Add Adoptium repository key
+  ansible.builtin.apt_key:
+    url: https://packages.adoptium.net/artifactory/api/gpg/key/public
+
+- name: Add Adoptium repository
+  ansible.builtin.apt_repository:
+    repo: deb https://packages.adoptium.net/artifactory/deb {{ ansible_distribution_release }} main
+    filename: adoptium
+
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ dev_packages }}"
+
+- name: Add user
+  ansible.builtin.user:
+    name: "{{ dev_user_name }}"
+    password: "*"
+    shell: /bin/bash
+    group: sudo
+
+- name: Set authorized key
+  ansible.posix.authorized_key:
+    user: "{{ dev_user_name }}"
+    key: "{{ dev_user_authorized_key }}"
+
+- name: Sudo nopasswd
+  ansible.builtin.copy:
+    dest: /etc/sudoers.d/nopasswd-{{ dev_user_name }}
+    content: "{{ dev_user_name }} ALL=(ALL) NOPASSWD:ALL"
+    mode: "0440"

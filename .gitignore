@@ -1,0 +1,9 @@
+.envrc
+.terraform
+.vault
+*.tfbackend
+*.tfplan
+.vscode
+default.tfstate
+default.tfstate.backup
+telmate.log

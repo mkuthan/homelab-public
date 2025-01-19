@@ -1,0 +1,5 @@
+- hosts: proxmox_jump_host
+  roles:
+    - apt_proxy
+
+    - security

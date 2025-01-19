@@ -1,0 +1,35 @@
+# See /usr/share/postfix/main.cf.dist for a commented, more complete version
+
+myhostname={{ ansible_fqdn }}
+
+smtpd_banner = $myhostname ESMTP
+biff = no
+
+# appending .domain is the MUA's job.
+append_dot_mydomain = no
+
+# Uncomment the next line to generate "delayed mail" warnings
+#delay_warning_time = 4h
+
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+mydestination = $myhostname, localhost.$mydomain, localhost
+relayhost = [{{ postfix_relay_host }}]:{{ postfix_relay_port }}
+mynetworks = 127.0.0.0/8
+inet_interfaces = loopback-only
+recipient_delimiter = +
+
+compatibility_level = 2
+
+# Mail forwarding 
+
+smtp_sasl_auth_enable = yes
+
+smtp_sasl_security_options = noanonymous
+smtp_sasl_tls_security_options = noanonymous
+
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+
+smtp_tls_security_level = encrypt
+
+smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt

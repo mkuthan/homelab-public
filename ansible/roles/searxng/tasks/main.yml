@@ -1,0 +1,29 @@
+- name: Create SearXNG volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - searxng-conf
+
+- name: Create SearXNG container
+  community.docker.docker_container:
+    name: searxng
+    image: searxng/searxng:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    ports:
+      - "8080:8080"
+
+    volumes:
+      - searxng-conf:/etc/searxng:rw
+
+    env:
+      BASE_URL: "https://searxng.{{ ansible_domain }}"
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

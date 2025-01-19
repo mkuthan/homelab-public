@@ -1,0 +1,7 @@
+# Fail immediately if a file could not be retrieved. Comment if you have a bad
+# Internet connection
+Acquire::Retries 0;
+
+# It should be an absolute path to the program, no arguments are allowed. stdout contains the proxy
+# server, stderr is shown (in stderr) but ignored by APT
+Acquire::http::ProxyAutoDetect "/etc/apt/detect-http-proxy";
