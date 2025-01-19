@@ -23,6 +23,7 @@ Terraform defines the following resources:
 * Linux containers (LXC) on Proxmox
 * Virtual private server in Google Cloud Platform (GCP)
 * Tailscale access control lists (ACLs)
+* See [terraform](terraform) directory for more details
 
 Ansible playbooks manage all the services and configurations, for example:
 
