@@ -17,12 +17,13 @@
 
 SLZB-06 Zigbee CC2652P (PoE, channel 15), references:
 
-* <https://www.silabs.com/developers/zigbee-emberznet?tab=documentation>
-* <https://github.com/darkxst/silabs-firmware-builder/tree/main/firmware_builds/zbdonglee>
+* <https://smlight.tech/product/slzb-06/>
 
 Sonoff ZBDogle-E, references:
 
 * <https://sonoff.tech/product/gateway-and-sensors/sonoff-zigbee-3-0-usb-dongle-plus-e/>
+* <https://www.silabs.com/developers/zigbee-emberznet?tab=documentation>
+* <https://github.com/darkxst/silabs-firmware-builder/tree/main/firmware_builds/zbdonglee>
 
 ## Zigbee Devices
 
@@ -34,6 +35,6 @@ Sonoff ZBDogle-E, references:
 * Light switch [Ikea E2001/E2002](https://www.zigbee2mqtt.io/devices/E2001_E2002.html)
 * Light bulb [Ikea LED2109G6](https://www.zigbee2mqtt.io/devices/LED2109G6.html)
 * Plug [Tyua BSD29_1](https://www.zigbee2mqtt.io/devices/BSD29_1.html)
-* Smoke detectors [ONENUO 288WZ](https://www.zigbee2mqtt.io/devices/288WZ.html)
+* Smoke detector [ONENUO 288WZ](https://www.zigbee2mqtt.io/devices/288WZ.html)
 * Temperature and humidity sensor [Sonoff SNZB-02D](https://www.zigbee2mqtt.io/devices/SNZB-02D.html)
-* Window sensors [Tuya TS0203](https://www.zigbee2mqtt.io/devices/TS0203.html)
+* Window sensor [Tuya TS0203](https://www.zigbee2mqtt.io/devices/TS0203.html)
