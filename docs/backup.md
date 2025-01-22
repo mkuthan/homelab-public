@@ -27,16 +27,7 @@ Configure notifications like in [Proxmox VE](proxmox.md).
 * Hosted on `pve0`
 * Replicated to `pve1` at `06:00` (after daily backups)
 
-```
-$ pct config 100
-hostname: pbs
-cores: 2
-memory: 4096
-swap: 512
-net0: name=eth0,bridge=vmbr0,firewall=1,gw=192.168.10.1,hwaddr=BC:24:11:C0:19:49,ip=192.168.10.2/24,type=veth
-rootfs: pool0:subvol-100-disk-0,size=8G
-mp0: backup:subvol-100-disk-0,mp=/backup,size=400G
-```
+See [Terraform definition](../terraform/wieprz/main.tf) for container specification.
 
 ### Backup jobs
 
@@ -45,4 +36,67 @@ mp0: backup:subvol-100-disk-0,mp=/backup,size=400G
 
 ## Cloud backup
 
-TODO: Document Rclone to GCS
+* Vaultwarden - GCS, already encrypted, don't encrypt again to avoid chicken-egg problem
+* Home Assistant - encrypted GCS
+* Omada Software Controller - encrypted GCS
+* Paperless NGX - encrypted GCS
+* Immich (TODO: encrypted GCS)
+* Gramps (manual on GCS: TODO: move to encrypted GCS)
+
+### RClone
+
+Rclone Ansible role configuration for backup on Google Cloud Storage (GCS) and Google Drive.
+
+GCS:
+
+```yaml
+rclone_gcs_configs:
+  - name: backup 
+    properties:
+      access_key_id: "REDACTED"
+      secret_access_key: "REDACTED"
+
+rclone_jobs:
+  - name: backup
+    src: "/path/to/source"
+    dest: "backup:BUCKET_REDACTED/destination_folder"
+```
+
+GCS encrypted:
+
+```yaml
+rclone_gcs_configs:
+  - name: gcs 
+    properties:
+      access_key_id: "REDACTED"
+      secret_access_key: "REDACTED"
+
+rclone_crypt_configs:
+  - name: backup
+    properties:
+      remote: "gcs:BUCKET_REDACTED"
+      password: "REDACTED"
+      password2: "REDACTED"
+
+rclone_jobs:
+  - name: backup
+    src: "/path/to/source"
+    dest: "backup:/destination_folder"
+```
+
+Google Drive:
+
+```yaml
+rclone_drive_configs:
+  - name: backup
+    properties:
+      root_folder_id: "REDACTED"      
+      client_id: "REDACTED"
+      client_secret: "REDACTED"
+      token: 'REDACTED'
+
+rclone_jobs:
+  - name: backup
+    src: "/path/to/source"
+    dest: "backup:"
+```

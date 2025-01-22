@@ -15,6 +15,10 @@ provider "google" {
 }
 
 locals {
+  // Cheapest EU region
+  backup_location = "europe-west1"
+
+  // GCP free tier
   vps_region       = "us-east1"
   vps_zone         = "us-east1-b"
   vps_machine_type = "e2-micro"
@@ -22,16 +26,26 @@ locals {
   default_ssh_public_keys = file("${path.module}/../ssh_public_keys")
 }
 
-# backup bucket
+# backup buckets
 
-resource "google_storage_bucket" "backup" {
-  name          = var.backup_bucket
-  location      = var.backup_region
-  storage_class = "STANDARD"
+module "backup_bucket" {
+  source = "../modules/gcs_bucket"
 
-  soft_delete_policy {
-    retention_duration_seconds = 2592000 # 30 days
-  }
+  gcs_bucket_name          = var.backup_bucket
+  gcs_bucket_location      = local.backup_location
+  gcs_bucket_object_users = [
+    var.backup_service_account
+  ]
+}
+
+module "backup_encrypted_bucket" {
+  source = "../modules/gcs_bucket"
+
+  gcs_bucket_name          = var.backup_encrypted_bucket
+  gcs_bucket_location      = local.backup_location
+  gcs_bucket_object_users = [
+    var.backup_service_account
+  ]
 }
 
 # vps

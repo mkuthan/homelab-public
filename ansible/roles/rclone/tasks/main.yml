@@ -20,11 +20,10 @@
     dest: /root/rclone-sync.sh
     mode: "0755"
 
-- name: Schedule backup
+- name: Schedule rclone sync
   ansible.builtin.cron:
     name: "{{ item.name }}"
     hour: "{{ item.hour | default('2') }}"
     minute: "{{ item.minute | default('0') }}"
     job: "/root/rclone-sync.sh {{ item.src }} {{ item.dest }}"
-  loop: "{{ rclone_jobs }}"
-  when: rclone_jobs is defined
+  loop: "{{ rclone_jobs | default([]) }}"

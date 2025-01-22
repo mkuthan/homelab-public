@@ -6,9 +6,12 @@ variable "backup_bucket" {
   type = string
 }
 
-variable "backup_region" {
+variable "backup_encrypted_bucket" {
   type = string
-  default = "europe-west1"
+}
+
+variable "backup_service_account" {
+  type = string
 }
 
 variable "vps_hostname" {

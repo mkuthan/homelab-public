@@ -26,7 +26,9 @@ flowchart TD
     Wieprz ~~~ Bekasow ~~~GCP
 ```
 
-Nodes `wieprz0`, `wieprz1`, `bekasow`, and `vps` act as proxies. All Tailnet members can connect to these nodes on port `443` for secure communication. For detailed configuration, refer to the [Terraform configuration file](../terraform/tailscale/main.tf).
+Nodes `wieprz0`, `wieprz1`, `bekasow`, and `vps` act as proxies.
+All Tailnet members can connect to these nodes on port `443` for secure communication.
+For detailed configuration, refer to the [Terraform configuration file](../terraform/tailscale/main.tf).
 
 Other nodes can be accessed only by Tailnet owners (me).
 
@@ -36,7 +38,7 @@ Other nodes can be accessed only by Tailnet owners (me).
 
 Cloudflare:
 
-* `*.wieprz.online` → `100.120.15.82`
+* `*.wieprz.online` → `100.120.15.82` (or `100.90.156.33` as backup)
 
 Adguard rewrites
 
@@ -57,7 +59,7 @@ DuckDns:
 Adguard:
 
 * `*.bekasow.duckdns.org` → `192.168.1.2`
-* `*.wieprz.online` → `100.120.15.82`
+* `*.wieprz.online` → `100.120.15.82` (or `100.90.156.33` as backup)
 
 ### VPS
 
@@ -99,3 +101,40 @@ Addressing scheme:
 * `192.168.10.98` - WiFi access Point (EAP610)
 * `192.168.10.99` - Switch (TL-SG2428P)
 * `192.168.10.100-254` - DHCP
+
+### Services LAN
+
+* `192.168.15.1` - gateway
+* `192.168.15.2` - jump host
+* `192.168.15.3-99` - virtual machines / linux containers
+* `192.168.15.100-254` - DHCP
+
+### Home/Gaming LAN
+
+* `192.168.20.1` - gateway
+* `192.168.20.2` - jump host
+* `192.168.20.3-99` - reserved
+* `192.168.20.100-254` - DHCP
+
+### Cameras LAN
+
+* `192.168.30.1` - gateway
+* `192.168.30.2` - jump host
+* `192.168.30.3-9` - reserved
+* `192.168.30.10-99` - cameras (DHCP reservations)
+* `192.168.30.100-254` - DHCP
+
+### IoT LAN
+
+* `192.168.40.1` - gateway
+* `192.168.40.2` - jump host
+* `192.168.40.3-9` - reserved
+* `192.168.40.10-99` - IoT devices (DHCP reservations)
+* `192.168.40.100-254` - DHCP
+
+### Guest LAN
+
+* `192.168.50.1` - gateway
+* `192.168.50.2` - jump host
+* `192.168.50.3-99` - reserved
+* `192.168.50.100-254` - DHCP

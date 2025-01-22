@@ -66,14 +66,14 @@ Ansible playbooks manage all the services and configurations, for example:
 If code doesn't tell the whole story, documentation does.
 Here are some notes on various topics:
 
-* [Network](docs/network.md): modems, routers, switches, access points
-* [Hardware](docs/hardware.md): servers, disks, ups
+* [Network](docs/network.md): VPN, DNS, VLAN
+* [Hardware](docs/hardware.md): network equipment, servers, disks, ups
 * [CCTV](docs/cameras.md): cameras, motion detection
 * [IoT](docs/iot.md): ZigBee coordinators, sensors, switches
-* [Media](docs/media.md): TV box, streaming, audio
-* [Proxmox](docs/proxmox.md): VMs and LXCs management
-* [SSH](docs/ssh.md): Remote access to servers
 * [Home Assistant](docs/ha.md): Automations, dashboards
-* [Backup](docs/backup.md): Proxmox backup server
+* [Proxmox](docs/proxmox.md): VMs and LXCs management
+* [Backup](docs/backup.md): Proxmox backup server, offisite backups
+* [SSH](docs/ssh.md): Remote access to servers
+* [Media](docs/media.md): TV box, streaming, audio
 
 As always, I encourage you to visit my blog for more details [https://mkuthan.github.io/tags/#homelab](https://mkuthan.github.io/tags/#homelab).
