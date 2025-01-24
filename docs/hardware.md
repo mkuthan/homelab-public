@@ -68,10 +68,29 @@ See also:
 * <https://www.hardware-corner.net/guides/difference-optiplex-3050-5050-7050/>
 * <https://www.hardware-corner.net/guides/difference-optiplex-3070-5070-7070/>
 
+Show DELL service tag:
+
+```bash
+dmidecode -s system-serial-number
+```
+
+Check DELL BIOS version:
+
+```bash
+dmidecode -s bios-version
+```
+
 ## External disks
 
 * [WD Purple Pro 12TB](https://www.westerndigital.com/products/internal-drives/wd-purple-pro-sata-hdd?sku=WD121PURP)
 * [Seagate Momentus ST9500420AS 500GB](https://www.seagate.com/docs/pdf/datasheet/disc/ds_momentus_7200_4.pdf)
+
+Check USB external disks of `-d sat` type:
+
+```shell
+smartctl -a -d sat /dev/sdb
+smartctl -a -d sat /dev/sdc
+```
 
 ## UPS
 

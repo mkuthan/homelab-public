@@ -156,7 +156,7 @@ pveam download local debian-12-standard_12.7-1_amd64.tar.zst
 Create Debian 12 container template:
 
 ```shell
-pct create 1001 local:vztmpl/debian-12-standard_12.7-1_amd64.tar.zst \
+pct create 1000 local:vztmpl/debian-12-standard_12.7-1_amd64.tar.zst \
     --arch amd64 \
     --cores 1 \
     --hostname lxc-template \
@@ -187,15 +187,6 @@ qm set 1002 -scsi0 pool0:vm-1001-disk-0
 ```
 
 ## Useful commands
-
-### Smartctl
-
-Check USB external disks of `-d sat` type:
-
-```shell
-smartctl -a -d sat /dev/sdb
-smartctl -a -d sat /dev/sdc
-```
 
 ### Logs
 

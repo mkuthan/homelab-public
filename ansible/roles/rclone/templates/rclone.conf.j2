@@ -17,3 +17,12 @@ type = drive
 {% endfor %}
 
 {% endfor %}
+
+{% for config in rclone_crypt_configs | default ([]) %}
+[{{ config.name }}]
+type = crypt
+{% for key, value in config.properties.items() %}
+{{ key }} = {{ value }}
+{% endfor %}
+
+{% endfor %}

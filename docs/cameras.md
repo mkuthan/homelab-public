@@ -44,7 +44,7 @@ Audio:
 
 Network:
 
-* DHCP with fixed address (192.168.30.10-254)
+* DHCP with address reservation
 * Access platform: off
 
 Event: off everything
@@ -68,3 +68,7 @@ System:
 2.820.0000000.60.R, Build Date: 2023-10-21 (4Mpx 3rd gen)
 
 * IPC-HDW2431S-S2 (china)
+
+## Motion Detection
+
+See: [Frigate Ansible role](../ansible/roles/frigate)

@@ -25,10 +25,10 @@ Host pve2
 Host vps
     Hostname 100.111.142.62
 
-Host wieprz-traefik-0
+Host wieprz0
     Hostname 100.120.15.82
 
-Host wieprz-traefik-1
+Host wieprz1
     Hostname 100.90.156.33
 
 Host *

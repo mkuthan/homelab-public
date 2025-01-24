@@ -26,6 +26,8 @@ References:
 * Amplifier (BDM8-A TPA3255 2x300W): <https://pl.aliexpress.com/item/1005004883731361.html>
 * PSU 24V 6A: <https://pl.aliexpress.com/item/1005005916644628.html>
 
+See also: <https://mkuthan.github.io/blog/2024/05/30/amplifier/>
+
 ## Bookshelf speakers
 
 * [JBL Stage A130](https://www.jbl.com/loudspeakers/STAGE+A130.html)

@@ -8,7 +8,7 @@
 * Zigbee controller SLZB-06-1 - `192.168.40.13`
 * Android TV Box - `192.168.40.20`
 * Prusa 3D Printer - `192.168.40.30`
-* Bambu Lab 3D Printer - `192.168.40.40`
+* Bambulab 3D Printer - `192.168.40.40`
 
 > [!TIP]
 > If you connect to device directly, use easy to remember IP address like `192.168.40.20`, `192.168.40.30`, etc.
