@@ -12,7 +12,7 @@ Primary homelab based on Proxmox cluster and virtualization:
 
 ![Wieprz](docs/wieprz.jpg)
 
-My first homelab built on Raspberry Pi years ago:
+First homelab built on Raspberry Pi years ago, still in use:
 
 ![Bekasow](docs/bekasow.jpg)
 
@@ -21,7 +21,8 @@ My first homelab built on Raspberry Pi years ago:
 Terraform defines the following resources:
 
 * Linux containers (LXC) on Proxmox
-* Virtual private server in Google Cloud Platform (GCP)
+* Virtual private server in GCP
+* Offsite backup buckets in GCP
 * Tailscale access control lists (ACLs)
 * See [terraform](terraform) directory for more details
 
