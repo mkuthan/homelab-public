@@ -134,7 +134,7 @@
 
       PAPERLESS_ADMIN_USER: "{{ paperless_ngx_admin_user }}"
       PAPERLESS_ADMIN_PASSWORD: "{{ paperless_ngx_admin_password }}"
-      PAPERLESS_URL: "{{ paperless_ngx_url }}"
+      PAPERLESS_URL: "https://paperless.{{ ansible_domain }}"
 
     networks:
       - name: paperless-network
