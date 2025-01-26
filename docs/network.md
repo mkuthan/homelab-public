@@ -38,11 +38,11 @@ Other nodes can be accessed only by Tailnet owners (me).
 
 Cloudflare:
 
-* `*.wieprz.online` → `100.120.15.82` (or `100.90.156.33` as backup)
+* `*.wieprz.org` → `100.120.15.82` (or `100.90.156.33` as backup)
 
 Adguard rewrites
 
-* `*.wieprz.online` → `192.168.15.3`
+* `*.wieprz.org` → `192.168.15.3`
 * `*.bekasow.duckdns.org` → `100.113.217.2`
 
 Router DNS Proxy:
@@ -59,7 +59,7 @@ DuckDns:
 Adguard:
 
 * `*.bekasow.duckdns.org` → `192.168.1.2`
-* `*.wieprz.online` → `100.120.15.82` (or `100.90.156.33` as backup)
+* `*.wieprz.org` → `100.120.15.82` (or `100.90.156.33` as backup)
 
 ### VPS
 

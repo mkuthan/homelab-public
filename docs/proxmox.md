@@ -131,7 +131,7 @@ Send notifications using SMTP server.
     * Server: `smtp.gmail.com`
     * Port: `587`
     * Encryption: `STARTTLS`
-    * From address: `<pve@wieprz.online>`
+    * From address: `<pve@wieprz.org>`
     * Recipient(s): `root@pam` (define email address for this account)
 
 3. Change `default-matcher` to use `smtp` notification target.
@@ -142,7 +142,7 @@ Send notifications using SMTP server.
 
 System → DNS
 
-* Search domain: `wieprz.online`
+* Search domain: `wieprz.org`
 * DNS server 1: `192.168.10.1`
 
 ## Container templates
