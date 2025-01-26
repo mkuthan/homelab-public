@@ -13,7 +13,7 @@
     network_mode: host
 
     env:
-      DOMAIN: "{{ vaultwarden_domain }}"
+      DOMAIN: "https://vaultwarden.{{ ansible_domain }}"
       ADMIN_TOKEN: "{{ vaultwarden_admin_token }}"
 
       SMTP_HOST: "{{ vaultwarden_smtp_host }}"
