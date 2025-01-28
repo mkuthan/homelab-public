@@ -1,0 +1,35 @@
+- name: Create Open Web UI volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - openwebui-data
+
+- name: Create Open Web UI container
+  community.docker.docker_container:
+    name: openwebui
+    image: ghcr.io/open-webui/open-webui:main
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    env:
+      WEBUI_URL: "https://openwebui.{{ ansible_domain }}"
+
+      ENABLE_OLLAMA_API: "{{ openwebui_enable_ollama_api | default('true') }}"
+      OLLAMA_BASE_URL: "{{ openwebui_ollama_base_url | default('http://localhost:11434') }}"
+
+      ENABLE_OPENAI_API: "{{ openwebui_enable_openai_api | default('true') }}"
+      OPENAI_API_BASE_URL: "{{ openwebui_openai_api_base_url | default('https://api.openai.com/v1') }}"
+      OPENAI_API_KEY: "{{ openwebui_openai_api_key }}"
+
+    volumes:
+      - openwebui-data:/app/backend/data:rw
+
+    network_mode: host
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

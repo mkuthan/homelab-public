@@ -1,0 +1,25 @@
+- name: Create Ollama volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - ollama-data
+
+- name: Create Ollama container
+  community.docker.docker_container:
+    name: ollama
+    image: ollama/ollama:latest
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    volumes:
+      - ollama-data:/root/.ollama:rw
+
+    network_mode: host
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

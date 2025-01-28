@@ -1,0 +1,11 @@
+- hosts: openwebui
+  roles:
+    - apt_proxy
+
+    - security
+
+    - docker
+    - ollama
+    - openwebui
+
+    - promtail

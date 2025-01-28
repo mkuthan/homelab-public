@@ -44,6 +44,7 @@ Ansible playbooks manage all the services and configurations, for example:
 * Mosqquitto
 * NUT
 * Omada Software Controller
+* Open Web UI
 * Paperless NGX
 * Proxmox Backup Server
 * Prometheus
