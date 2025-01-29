@@ -29,7 +29,7 @@ provider "proxmox" {
 }
 
 locals {
-  default_ostemplate      = "local1:vztmpl/debian-12-standard_12.7-1_amd64.tar.zst"
+  default_ostemplate      = "usb1:vztmpl/debian-12-standard_12.7-1_amd64.tar.zst"
   default_ssh_public_keys = file("${path.module}/../ssh_public_keys")
 }
 
@@ -409,11 +409,34 @@ module "immich" {
 
   bind_mounts = [
     {
-      volume  = "/mnt/ssd0/immich"
-      mp      = "/media/immich"
-      shared  = true
+      volume = "/mnt/ssd0/immich"
+      mp     = "/media/immich"
+      shared = true
     }
   ]
+}
+
+module "openwebui" {
+  source = "../modules/lxc_container"
+
+  ostemplate = local.default_ostemplate
+
+  target_node = "pve0"
+  hostname    = "openwebui"
+
+  password        = var.default_password
+  ssh_public_keys = local.default_ssh_public_keys
+
+  cores  = 4
+  memory = 4096
+  rootfs_size = "20G"
+
+  network_ip = "192.168.10.20/24"
+  network_gw = "192.168.10.1"
+
+  nameserver = "192.168.10.1"
+
+  unprivileged = true
 }
 
 # services
