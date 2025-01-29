@@ -291,7 +291,7 @@ module "apt-cacher" {
   ssh_public_keys = local.default_ssh_public_keys
 
   cores       = 1
-  memory      = 1024
+  memory      = 512
   rootfs_size = "20G"
 
   network_ip = "192.168.10.14/24"
@@ -566,7 +566,7 @@ module "vlan15" {
   ssh_public_keys = local.default_ssh_public_keys
 
   cores  = 1
-  memory = 512
+  memory = 256
 
   network_ip  = "192.168.15.2/24"
   network_gw  = "192.168.15.1"
@@ -590,7 +590,7 @@ module "vlan20" {
   ssh_public_keys = local.default_ssh_public_keys
 
   cores  = 1
-  memory = 512
+  memory = 256
 
   network_ip  = "192.168.20.2/24"
   network_gw  = "192.168.20.1"
@@ -614,7 +614,7 @@ module "vlan25" {
   ssh_public_keys = local.default_ssh_public_keys
 
   cores  = 1
-  memory = 512
+  memory = 256
 
   network_ip  = "192.168.25.2/24"
   network_gw  = "192.168.25.1"
@@ -638,7 +638,7 @@ module "vlan30" {
   ssh_public_keys = local.default_ssh_public_keys
 
   cores  = 1
-  memory = 512
+  memory = 256
 
   network_ip  = "192.168.30.2/24"
   network_gw  = "192.168.30.1"
@@ -662,7 +662,7 @@ module "vlan40" {
   ssh_public_keys = local.default_ssh_public_keys
 
   cores  = 1
-  memory = 512
+  memory = 256
 
   network_ip  = "192.168.40.2/24"
   network_gw  = "192.168.40.1"
@@ -686,7 +686,7 @@ module "vlan50" {
   ssh_public_keys = local.default_ssh_public_keys
 
   cores  = 1
-  memory = 512
+  memory = 256
 
   network_ip  = "192.168.50.2/24"
   network_gw  = "192.168.50.1"
