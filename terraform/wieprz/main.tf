@@ -439,6 +439,28 @@ module "openwebui" {
   unprivileged = true
 }
 
+module "searxng" {
+  source = "../modules/lxc_container"
+
+  ostemplate = local.default_ostemplate
+
+  target_node = "pve0"
+  hostname    = "searxng"
+
+  password        = var.default_password
+  ssh_public_keys = local.default_ssh_public_keys
+
+  cores  = 1
+  memory = 512
+
+  network_ip = "192.168.10.21/24"
+  network_gw = "192.168.10.1"
+
+  nameserver = "192.168.10.1"
+
+  unprivileged = true
+}
+
 # services
 
 module "traefik-0" {

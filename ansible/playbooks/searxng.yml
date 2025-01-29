@@ -1,10 +1,10 @@
-- hosts: whoogle
+- hosts: searxng
   roles:
     - apt_proxy
 
     - security
 
     - docker
-    - whoogle
+    - searxng
 
     - promtail

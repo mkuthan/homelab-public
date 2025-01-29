@@ -1,0 +1,5 @@
+- name: Restart searxng
+  community.docker.docker_container:
+    name: searxng
+    state: started
+    restart: true
