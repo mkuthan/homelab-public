@@ -4,6 +4,23 @@
   loop:
     - openwebui-data
 
+- name: Create Tika container
+  community.docker.docker_container:
+    name: openwebui-tika
+    image: apache/tika:latest-full
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    network_mode: host
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped
+
 - name: Create Open Web UI container
   community.docker.docker_container:
     name: openwebui
@@ -19,6 +36,12 @@
       ENABLE_OPENAI_API: "{{ openwebui_enable_openai_api | default('true') }}"
       OPENAI_API_BASE_URL: "{{ openwebui_openai_api_base_url | default('https://api.openai.com/v1') }}"
       OPENAI_API_KEY: "{{ openwebui_openai_api_key }}"
+
+      RAG_WEB_SEARCH_ENGINE: searxng
+      SEARXNG_QUERY_URL: http://192.168.10.21:8080/search?q=<query>
+
+      CONTENT_EXTRACTION_ENGINE: tika
+      TIKA_SERVER_URL: http://localhost:9998
 
     volumes:
       - openwebui-data:/app/backend/data:rw
