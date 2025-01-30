@@ -6,14 +6,18 @@
 
 - name: Create Ollama container
   community.docker.docker_container:
-    name: ollama
+    name: "{{ ollama_container_name }}"
     image: ollama/ollama:latest
     pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    ports:
+      - "{{ ollama_port }}:11434"
 
     volumes:
       - ollama-data:/root/.ollama:rw
 
-    network_mode: host
+    networks:
+      - name: "{{ docker_network }}"
 
     comparisons:
       env: strict

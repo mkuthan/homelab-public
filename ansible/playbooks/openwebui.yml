@@ -6,6 +6,8 @@
 
     - docker
     - ollama
-    - openwebui
+    - tika
+    - searxng
+#    - openwebui
 
     - promtail

@@ -4,49 +4,36 @@
   loop:
     - openwebui-data
 
-- name: Create Tika container
-  community.docker.docker_container:
-    name: openwebui-tika
-    image: apache/tika:latest-full
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    network_mode: host
-
-    comparisons:
-      env: strict
-      labels: strict
-
-    image_name_mismatch: recreate
-
-    state: started
-    restart_policy: unless-stopped
-
 - name: Create Open Web UI container
   community.docker.docker_container:
     name: openwebui
     image: ghcr.io/open-webui/open-webui:main
     pull: "{{ homelab_docker_pull | default('missing') }}"
 
+    ports:
+      - "{{ openwebui_port }}:8080"
+
     env:
       WEBUI_URL: "https://openwebui.{{ ansible_domain }}"
 
       ENABLE_OLLAMA_API: "{{ openwebui_enable_ollama_api | default('true') }}"
-      OLLAMA_BASE_URL: "{{ openwebui_ollama_base_url | default('http://localhost:11434') }}"
+      OLLAMA_BASE_URL: "http://{{ searxng_container_name }}:{{ ollama_port }}"
 
       ENABLE_OPENAI_API: "{{ openwebui_enable_openai_api | default('true') }}"
       OPENAI_API_BASE_URL: "{{ openwebui_openai_api_base_url | default('https://api.openai.com/v1') }}"
       OPENAI_API_KEY: "{{ openwebui_openai_api_key }}"
 
       RAG_WEB_SEARCH_ENGINE: searxng
-      SEARXNG_QUERY_URL: http://192.168.10.21:8080/search?q=<query>
+      SEARXNG_QUERY_URL: http://{{ searxng_container_name }}:{{ searxng_port }}/search?q=<query>
 
       CONTENT_EXTRACTION_ENGINE: tika
-      TIKA_SERVER_URL: http://localhost:9998
+      TIKA_SERVER_URL: "http://{{ tika_container_name }}:{{ tika_port }}"
 
     volumes:
       - openwebui-data:/app/backend/data:rw
 
-    network_mode: host
+    networks:
+      - name: "{{ homelab_docker_network }}"
 
     comparisons:
       env: strict
@@ -56,3 +43,7 @@
 
     state: started
     restart_policy: unless-stopped
+
+- name: Register Open Web UI container facts
+  ansible.builtin.set_fact:
+    openwebui_container_name: "{{ openwebui_container.name }}"

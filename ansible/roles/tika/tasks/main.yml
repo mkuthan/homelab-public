@@ -1,0 +1,20 @@
+- name: Create Tika container
+  community.docker.docker_container:
+    name: "{{ tika_container_name }}"
+    image: apache/tika:latest-full
+    pull: "{{ homelab_docker_pull | default('missing') }}"
+
+    ports:
+      - "{{ tika_port }}:9998"
+
+    networks:
+      - name: "{{ docker_network }}"
+
+    comparisons:
+      env: strict
+      labels: strict
+
+    image_name_mismatch: recreate
+
+    state: started
+    restart_policy: unless-stopped

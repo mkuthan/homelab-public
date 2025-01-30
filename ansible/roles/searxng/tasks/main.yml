@@ -9,22 +9,18 @@
     src: settings.yml.j2
     dest: /etc/searxng/settings.yml
     mode: "0644"
-  notify: Restart searxng
+  notify: Restart SearXNG
 
 - name: Configure SearXNG limiter
   ansible.builtin.template:
     src: limiter.toml.j2
     dest: /etc/searxng/limiter.toml
     mode: "0644"
-  notify: Restart searxng
+  notify: Restart SearXNG
 
 - name: Create SearXNG volumes
   community.docker.docker_volume:
-    name: searxng-redis
-
-- name: Create SearXNG network
-  community.docker.docker_network:
-    name: searxng-network
+    name: searxng-redis-data
 
 - name: Create Redis container
   community.docker.docker_container:
@@ -32,13 +28,16 @@
     image: docker.io/valkey/valkey:8-alpine
     pull: "{{ homelab_docker_pull | default('missing') }}"
 
+    ports:
+      - "{{ searxng_redis_port }}:6379"
+
+    volumes:
+      - searxng-redis-data:/data:rw
+
     command: valkey-server --save 30 1 --loglevel warning
 
     networks:
-      - name: searxng-network
-
-    volumes:
-      - searxng-redis:/data:rw
+      - name: "{{ docker_network }}"
 
     comparisons:
       env: strict
@@ -51,23 +50,23 @@
 
 - name: Create SearXNG container
   community.docker.docker_container:
-    name: searxng
+    name: "{{ searxng_container_name }}"
     image: searxng/searxng:latest
     pull: "{{ homelab_docker_pull | default('missing') }}"
 
+    ports:
+      - "{{ searxng_port }}:8080"
+
     env:
       SEARXNG_BASE_URL: "https://searxng.{{ ansible_domain }}"
-      SEARXNG_REDIS_URL: redis://searxng-redis
-
-    ports:
-      - "8080:8080"
-
-    networks:
-      - name: searxng-network
+      SEARXNG_REDIS_URL: "redis://searxng-redis:{{ searxng_redis_port }}"
 
     volumes:
       - /etc/searxng/settings.yml:/etc/searxng/settings.yml
       - /etc/searxng/limiter.toml:/etc/searxng/limiter.toml
+
+    networks:
+      - name: "{{ docker_network }}"
 
     comparisons:
       env: strict
