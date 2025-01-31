@@ -8,10 +8,6 @@
   community.docker.docker_container:
     name: uptime-kuma
     image: louislam/uptime-kuma:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    ports:
-      - "{{ uptime_admin_port }}:3001"
 
     volumes:
       - uptime_kuma-data:/app/data:rw
@@ -20,13 +16,17 @@
       traefik.enable: "true"
       traefik.http.routers.uptime.rule: "Host(`uptime.{{ ansible_domain }}`)"
       traefik.http.routers.uptime.service: "uptime"
-      traefik.http.services.uptime.loadbalancer.server.port: "{{ uptime_admin_port }}"
+      traefik.http.services.uptime.loadbalancer.server.port: "3001"
 
-    comparisons:
-      env: strict
-      labels: strict
+    ports: "{{ uptime_kuma_ports | default([]) }}"
 
-    image_name_mismatch: recreate
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    state: started
-    restart_policy: unless-stopped
+- name: Register Uptime Kuma container name
+  ansible.builtin.set_fact:
+    uptime_kuma_container_name: "uptime-kuma"

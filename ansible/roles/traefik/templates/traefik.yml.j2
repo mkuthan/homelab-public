@@ -14,7 +14,7 @@ entryPoints:
           - main: "*.{{ ansible_domain }}"
 
   traefik:
-    address: :{{ traefik_admin_port }}
+    address: :8080
 
 api:
   insecure: true

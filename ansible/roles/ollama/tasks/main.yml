@@ -6,20 +6,21 @@
 
 - name: Create Ollama container
   community.docker.docker_container:
-    name: ollama
+    name: "ollama"
     image: ollama/ollama:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
 
     volumes:
       - ollama-data:/root/.ollama:rw
 
-    network_mode: host
+    ports: "{{ ollama_ports | default([]) }}"
 
-    comparisons:
-      env: strict
-      labels: strict
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    image_name_mismatch: recreate
-
-    state: started
-    restart_policy: unless-stopped
+- name: Register Ollama container name
+  ansible.builtin.set_fact:
+    ollama_container_name: "ollama"

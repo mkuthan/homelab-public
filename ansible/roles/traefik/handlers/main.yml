@@ -1,5 +1,5 @@
-- name: Restart SearXNG
+- name: Restart Traefik
   community.docker.docker_container:
-    name: "searxng"
+    name: "traefik"
     state: started
     restart: true
