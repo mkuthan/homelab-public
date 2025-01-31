@@ -1,3 +1,0 @@
-searxng_container_name: "searxng"
-searxng_port: "8080"
-searxng_redis_port: "6379"

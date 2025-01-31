@@ -8,6 +8,6 @@
     - ollama
     - tika
     - searxng
-#    - openwebui
+    - openwebui
 
     - promtail

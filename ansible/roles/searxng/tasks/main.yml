@@ -28,51 +28,39 @@
     image: docker.io/valkey/valkey:8-alpine
     pull: "{{ homelab_docker_pull | default('missing') }}"
 
-    ports:
-      - "{{ searxng_redis_port }}:6379"
-
     volumes:
       - searxng-redis-data:/data:rw
 
     command: valkey-server --save 30 1 --loglevel warning
 
-    networks:
-      - name: "{{ docker_network }}"
-
-    comparisons:
-      env: strict
-      labels: strict
-
-    image_name_mismatch: recreate
-
-    state: started
-    restart_policy: unless-stopped
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
 
 - name: Create SearXNG container
   community.docker.docker_container:
-    name: "{{ searxng_container_name }}"
+    name: "searxng"
     image: searxng/searxng:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    ports:
-      - "{{ searxng_port }}:8080"
 
     env:
       SEARXNG_BASE_URL: "https://searxng.{{ ansible_domain }}"
-      SEARXNG_REDIS_URL: "redis://searxng-redis:{{ searxng_redis_port }}"
+      SEARXNG_REDIS_URL: "redis://searxng-redis"
 
     volumes:
       - /etc/searxng/settings.yml:/etc/searxng/settings.yml
       - /etc/searxng/limiter.toml:/etc/searxng/limiter.toml
 
-    networks:
-      - name: "{{ docker_network }}"
+    ports: "{{ searxng_ports | default([]) }}"
 
-    comparisons:
-      env: strict
-      labels: strict
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    image_name_mismatch: recreate
-
-    state: started
-    restart_policy: unless-stopped
+- name: Register SearXNG container name
+  ansible.builtin.set_fact:
+    searxng_container_name: "searxng"

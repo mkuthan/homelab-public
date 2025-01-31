@@ -36,7 +36,7 @@ ansible-playbook playbooks/proxmox_all_lxc
 Update Docker containers:
 
 ```bash
-ansible-playbook -e homelab_docker_pull=always [playbook]
+ansible-playbook -e docker_pull=always [playbook]
 ```
 
 Execute remote command:
