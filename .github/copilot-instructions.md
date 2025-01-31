@@ -4,7 +4,7 @@ Keep the following elements order for `community.docker.docker_container`: `name
 
 For each `community.docker.docker_container` define: `ports: "{{ name_ports | default([]) }}"`, where `name` follows Ansible role name
 
-For each `community.docker.docker_container` define at the end fixed section:
+For each `community.docker.docker_container` define fixed section at the end:
 
 ```yaml
 networks: "{{ docker_networks }}"
@@ -14,3 +14,5 @@ state: "{{ docker_state }}"
 restart_policy: "{{ docker_restart_policy }}"
 pull: "{{ docker_pull }}"
 ```
+
+Register fact with `docker_container` name for docker based Ansible roles.
