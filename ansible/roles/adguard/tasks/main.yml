@@ -9,28 +9,26 @@
   community.docker.docker_container:
     name: adguard
     image: adguard/adguardhome:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
 
     volumes:
       - adguard-conf:/opt/adguardhome/conf:rw
       - adguard-work:/opt/adguardhome/work:rw
 
-    ports:
-      - 53:53/tcp # plain DNS
-      - 53:53/udp # plain DNS
-      - "{{ adguard_admin_port }}:3000"
-
     labels:
       traefik.enable: "true"
       traefik.http.routers.adguard.rule: "Host(`adguard.{{ ansible_domain }}`)"
       traefik.http.routers.adguard.service: "adguard"
-      traefik.http.services.adguard.loadbalancer.server.port: "{{ adguard_admin_port }}"
+      traefik.http.services.adguard.loadbalancer.server.port: "3000"
 
-    comparisons:
-      env: strict
-      labels: strict
+    ports: "{{ adguard_ports | default([]) }}"
 
-    image_name_mismatch: recreate
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    state: started
-    restart_policy: unless-stopped
+- name: Register AdGuard container name
+  ansible.builtin.set_fact:
+    adguard_container_name: "adguard"
