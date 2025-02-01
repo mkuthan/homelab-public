@@ -9,9 +9,6 @@
   community.docker.docker_container:
     name: grafana
     image: grafana/grafana:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    network_mode: host
 
     env:
       GF_SECURITY_ADMIN_USER: "{{ grafana_admin_user }}"
@@ -21,11 +18,15 @@
       - grafana-config:/etc/grafana:rw
       - grafana-data:/var/lib/grafana:rw
 
-    comparisons:
-      env: strict
-      labels: strict
+    ports: "{{ grafana_ports | default([]) }}"
 
-    image_name_mismatch: recreate
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    state: started
-    restart_policy: unless-stopped
+- name: Register Grafana container name
+  ansible.builtin.set_fact:
+    grafana_container_name: "grafana"
