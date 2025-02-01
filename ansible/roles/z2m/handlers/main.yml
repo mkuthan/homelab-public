@@ -1,4 +1,4 @@
-- name: Restart zigbee2mqtt
+- name: Restart Zigbee2MQTT
   community.docker.docker_container:
     name: zigbee2mqtt
     state: started
