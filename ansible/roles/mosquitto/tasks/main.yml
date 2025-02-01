@@ -68,7 +68,7 @@
   ansible.builtin.set_fact:
     mosquitto_container_name: "mosquitto"
 
-- name: Create Mosquitto exporter container
+- name: Create Mosquitto Prometheus exporter container
   community.docker.docker_container:
     name: mosquitto-prometheus-exporter
     image: sapcc/mosquitto-exporter:latest
