@@ -19,48 +19,25 @@
     - immich-pgdata
     - immich-model-cache
 
-- name: Create Immich network
-  community.docker.docker_network:
-    name: "immich-network"
-
 - name: Create Immich Redis container
   community.docker.docker_container:
     name: immich-redis
     image: docker.io/redis:6.2-alpine
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    networks:
-      - name: immich-network
 
     volumes:
       - immich-redisdata:/data:rw
 
-    comparisons:
-      env: strict
-      labels: strict
-
-    image_name_mismatch: recreate
-
-    state: started
-    restart_policy: unless-stopped
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
 - name: Create Immich Postgres container
   community.docker.docker_container:
     name: immich-postgres
     image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    env:
-      POSTGRES_DB: immich
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_INITDB_ARGS: '--data-checksums'
-
-    networks:
-      - name: immich-network
-
-    volumes:
-      - immich-pgdata:/var/lib/postgresql/data:rw
 
     command: >-
       postgres
@@ -71,23 +48,26 @@
       -c shared_buffers=512MB
       -c wal_compression=on
 
-    comparisons:
-      env: strict
-      labels: strict
+    env:
+      POSTGRES_DB: immich
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_INITDB_ARGS: '--data-checksums'
 
-    image_name_mismatch: recreate
+    volumes:
+      - immich-pgdata:/var/lib/postgresql/data:rw
 
-    state: started
-    restart_policy: unless-stopped
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
 - name: Create Immich ML container
   community.docker.docker_container:
     name: immich-machine-learning
     image: ghcr.io/immich-app/immich-machine-learning:release-openvino
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    networks:
-      - name: immich-network
 
     volumes:
       - immich-model-cache:/cache
@@ -97,32 +77,23 @@
 
     privileged: true
 
-    comparisons:
-      env: strict
-      labels: strict
-
-    image_name_mismatch: recreate
-
-    state: started
-    restart_policy: unless-stopped
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
 - name: Create Immich Server container
   community.docker.docker_container:
     name: immich-server
     image: ghcr.io/immich-app/immich-server:release
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    ports:
-      - '2283:2283'
 
     env:
       TZ: "{{ timezone | default('UTC') }}"
 
       REDIS_HOSTNAME: immich-redis
       DB_HOSTNAME: immich-postgres
-
-    networks:
-      - name: immich-network
 
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -133,11 +104,15 @@
 
     privileged: true
 
-    comparisons:
-      env: strict
-      labels: strict
+    ports: "{{ immich_ports | default([]) }}"
 
-    image_name_mismatch: recreate
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    state: started
-    restart_policy: unless-stopped
+- name: Register Immich container name
+  ansible.builtin.set_fact:
+    immich_container_name: "immich"
