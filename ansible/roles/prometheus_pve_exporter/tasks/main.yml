@@ -1,0 +1,23 @@
+- name: Create Prometheus PVE exporter container
+  community.docker.docker_container:
+    name: prometheus-pve-exporter
+    image: prompve/prometheus-pve-exporter:latest
+
+    env:
+      PVE_USER: "{{ prometheus_pve_exporter_user }}"
+      PVE_PASSWORD: "{{ prometheus_pve_exporter_password }}"
+      PVE_VERIFY_SSL: "false"
+      PYTHONWARNINGS: "ignore:Unverified HTTPS request"
+
+    ports: "{{ prometheus_pve_exporter_ports | default([]) }}"
+
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
+
+- name: Register Prometheus PVE exporter container name
+  ansible.builtin.set_fact:
+    prometheus_pve_exporter_container_name: "prometheus-pve-exporter"

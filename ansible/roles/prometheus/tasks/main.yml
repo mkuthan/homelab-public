@@ -10,7 +10,7 @@
     dest: /etc/prometheus/prometheus.yml
     mode: "0644"
   notify:
-    - Restart prometheus
+    - Restart Prometheus
 
 - name: Configure Prometheus web
   ansible.builtin.template:
@@ -18,7 +18,7 @@
     dest: /etc/prometheus/web.yml
     mode: "0644"
   notify:
-    - Restart prometheus
+    - Restart Prometheus
 
 - name: Create Prometheus volumes
   community.docker.docker_volume:
@@ -30,9 +30,6 @@
   community.docker.docker_container:
     name: prometheus
     image: prom/prometheus:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    network_mode: host
 
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
@@ -47,54 +44,15 @@
       - /etc/prometheus/web.yml:/etc/prometheus/web.yml:ro
       - prometheus-data:/prometheus:rw
 
-    comparisons:
-      env: strict
-      labels: strict
+    ports: "{{ prometheus_ports | default([]) }}"
 
-    image_name_mismatch: recreate
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    state: started
-    restart_policy: unless-stopped
-
-- name: Create PVE exporter container
-  community.docker.docker_container:
-    name: prometheus-pve-exporter
-    image: prompve/prometheus-pve-exporter:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    network_mode: host
-
-    env:
-      PVE_USER: "{{ prometheus_pve_exporter_user }}"
-      PVE_PASSWORD: "{{ prometheus_pve_exporter_password }}"
-      PVE_VERIFY_SSL: "false"
-      PYTHONWARNINGS: "ignore:Unverified HTTPS request"
-
-    comparisons:
-      env: strict
-      labels: strict
-
-    image_name_mismatch: recreate
-
-    state: started
-    restart_policy: unless-stopped
-
-- name: Create NUT exporter container
-  community.docker.docker_container:
-    name: prometheus-nut-exporter
-    image: druggeri/nut_exporter:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    network_mode: host
-
-    env:
-      NUT_EXPORTER_VARIABLES: "{{ prometheus_nut_exporter_vars | join(',') }}"
-
-    comparisons:
-      env: strict
-      labels: strict
-
-    image_name_mismatch: recreate
-
-    state: started
-    restart_policy: unless-stopped
+- name: Register Prometheus container name
+  ansible.builtin.set_fact:
+    prometheus_container_name: "prometheus"

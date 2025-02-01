@@ -5,6 +5,8 @@
     - security
 
     - docker
+    - prometheus_nut_exporter
+    - prometheus_pve_exporter
     - prometheus
 
     - promtail
