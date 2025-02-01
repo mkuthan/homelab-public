@@ -2,21 +2,21 @@
   community.docker.docker_container:
     name: whoogle
     image: benbusby/whoogle-search:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    ports:
-      - "5000:5000"
 
     env:
       # https://github.com/benbusby/whoogle-search/wiki/User-Agents
       WHOOGLE_USER_AGENT: "Mozilla/3.0 (compatible; MSIE 3.0; Windows NT 5.0)"
       WHOOGLE_USER_AGENT_MOBILE: "Mozilla/3.0 (compatible; MSIE 3.0; Windows NT 5.0)"
 
-    comparisons:
-      env: strict
-      labels: strict
+    ports: "{{ whoogle_ports | default([]) }}"
 
-    image_name_mismatch: recreate
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    state: started
-    restart_policy: unless-stopped
+- name: Register Whoogle container name
+  ansible.builtin.set_fact:
+    whoogle_container_name: "whoogle"
