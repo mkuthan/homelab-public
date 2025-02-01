@@ -5,6 +5,7 @@
     - security
 
     - docker
+    - tika
     - paperless_ngx
 
     - promtail
