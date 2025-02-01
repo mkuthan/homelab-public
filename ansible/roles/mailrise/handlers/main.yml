@@ -1,4 +1,4 @@
-- name: Restart mailrise
+- name: Restart Mailrise
   community.docker.docker_container:
     name: mailrise
     state: started
