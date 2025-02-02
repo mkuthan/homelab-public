@@ -1,25 +1,36 @@
 serial:
-    port: {{ z2m_adapter_port }}
-    baudrate: {{ z2m_adapter_baudrate | default('115200') }}
-    adapter: {{ z2m_adapter_type | default('zstack') }}
+  port: {{ z2m_adapter_port }}
+  baudrate: {{ z2m_adapter_baudrate | default('115200') }}
+  adapter: {{ z2m_adapter_type | default('zstack') }}
 
 mqtt:
-    server: {{ z2m_mqtt_server }}
-    user: {{ z2m_mqtt_user }}
-    password: {{ z2m_mqtt_password }}
-    base_topic: {{ z2m_mqtt_base_topic }}
-    version: {{ z2m_mqtt_version | default('5') }}
+  server: {{ z2m_mqtt_server }}
+  user: {{ z2m_mqtt_user }}
+  password: {{ z2m_mqtt_password }}
+  base_topic: {{ z2m_mqtt_base_topic }}
+  version: {{ z2m_mqtt_version | default('5') }}
 
 advanced:
-    channel: {{ z2m_zigbee_channel | default('11') }}
-    network_key: {{ z2m_zigbee_network_key }}
-    transmit_power: {{ z2m_zigbee_transmit_power | default('5') }}
+  channel: {{ z2m_zigbee_channel | default('11') }}
+  network_key: {{ z2m_zigbee_network_key }}
+  transmit_power: {{ z2m_zigbee_transmit_power | default('5') }}
+
+  legacy_api: false
+  legacy_availability_payload: false
+
+device_options:
+  legacy: false
 
 ota:
-    disable_automatic_update_check: true
+  disable_automatic_update_check: true
 
 availability: true
-homeassistant: true
+
+homeassistant:
+  legacy_triggers: false
+  legacy_entity_attributes: false
+  status_topic: homeassistant/status
+
 frontend: true
 permit_join: false
 
