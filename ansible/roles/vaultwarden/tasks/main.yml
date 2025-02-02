@@ -8,9 +8,6 @@
   community.docker.docker_container:
     name: vaultwarden
     image: vaultwarden/server:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    network_mode: host
 
     env:
       DOMAIN: "https://vaultwarden.{{ ansible_domain }}"
@@ -29,22 +26,23 @@
     volumes:
       - vaultwarden-data:/data:rw
 
-    comparisons:
-      env: strict
-      labels: strict
+    ports: "{{ vaultwarden_ports | default([]) }}"
 
-    image_name_mismatch: recreate
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    state: started
-    restart_policy: unless-stopped
+- name: Register Vaultwarden container name
+  ansible.builtin.set_fact:
+    vaultwarden_container_name: "vaultwarden"
 
 - name: Create Vaultwarden backup container
   community.docker.docker_container:
     name: "vaultwarden-backup"
     image: bruceforce/vaultwarden-backup:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    network_mode: host
 
     env:
       BACKUP_DIR: "/data/backup"
@@ -56,11 +54,9 @@
 
     volumes_from: vaultwarden
 
-    comparisons:
-      env: strict
-      labels: strict
-
-    image_name_mismatch: recreate
-
-    state: started
-    restart_policy: unless-stopped
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"

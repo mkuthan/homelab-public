@@ -9,6 +9,7 @@
     src: "traefik.yml.j2"
     dest: /etc/traefik/traefik.yml
     mode: "0644"
+  notify: Restart Traefik
 
 - name: Create /etc/traefik/dynamic
   ansible.builtin.file:
@@ -21,6 +22,7 @@
     src: http.yml.j2
     dest: /etc/traefik/dynamic/http.yml
     mode: "0644"
+  notify: Restart Traefik
 
 - name: Create Traefik volumes
   community.docker.docker_volume:
@@ -32,12 +34,6 @@
   community.docker.docker_container:
     name: traefik
     image: traefik:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    ports:
-      - "80:80"
-      - "443:443"
-      - "{{ traefik_admin_port }}:{{ traefik_admin_port }}"
 
     env:
       CF_DNS_API_TOKEN: '{{ traefik_cf_api_token | default("") }}'
@@ -53,11 +49,15 @@
       traefik.http.routers.traefik.rule: Host(`traefik.{{ ansible_domain }}`)
       traefik.http.routers.traefik.service: "api@internal"
 
-    comparisons:
-      env: strict
-      labels: strict
+    ports: "{{ traefik_ports | default([]) }}"
 
-    image_name_mismatch: recreate
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    state: started
-    restart_policy: unless-stopped
+- name: Register Traefik container name
+  ansible.builtin.set_fact:
+    traefik_container_name: "traefik"

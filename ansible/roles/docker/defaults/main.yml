@@ -1,0 +1,16 @@
+docker_network: "homelab"
+
+docker_networks:
+  - name: "{{ docker_network }}"
+
+docker_comparisons:
+  env: strict
+  labels: strict
+
+docker_image_name_mismatch: recreate
+
+docker_state: started
+
+docker_restart_policy: unless-stopped
+
+docker_pull: "missing"

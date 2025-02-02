@@ -11,36 +11,22 @@
     - gramps-media
     - gramps-tmp
 
-- name: Create Gramps network
-  community.docker.docker_network:
-    name: "gramps-network"
-
 - name: Create Gramps Redis container
   community.docker.docker_container:
     name: gramps-redis
     image: docker.io/library/redis:7
-    pull: "{{ homelab_docker_pull | default('missing') }}"
 
-    networks:
-      - name: gramps-network
-
-    comparisons:
-      env: strict
-      labels: strict
-
-    image_name_mismatch: recreate
-
-    state: started
-    restart_policy: unless-stopped
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
 - name: Create Gramps container
   community.docker.docker_container: &gramps_container
     name: gramps
     image: ghcr.io/gramps-project/grampsweb:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    ports:
-      - "5000:5000"
 
     env:
       GRAMPSWEB_TREE: "Gramps"
@@ -53,8 +39,7 @@
       GRAMPSWEB_EMAIL_USE_TLS: "False"
       GRAMPSWEB_REGISTRATION_DISABLED: "True"
 
-    networks:
-      - name: gramps-network
+      GUNICORN_NUM_WORKERS: "2"
 
     volumes:
       - gramps-users:/app/users
@@ -66,18 +51,22 @@
       - gramps-media:/app/media
       - gramps-tmp:/tmp
 
-    comparisons:
-      env: strict
-      labels: strict
+    ports: "{{ gramps_ports | default([]) }}"
 
-    image_name_mismatch: recreate
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    state: started
-    restart_policy: unless-stopped
+- name: Register Gramps container name
+  ansible.builtin.set_fact:
+    gramps_container_name: "gramps"
 
 - name: Create Gramps Celery container
   community.docker.docker_container:
     <<: *gramps_container
     name: gramps-celery
-    ports: []
     command: celery -A gramps_webapi.celery worker --loglevel=INFO --concurrency=1
+    ports: []

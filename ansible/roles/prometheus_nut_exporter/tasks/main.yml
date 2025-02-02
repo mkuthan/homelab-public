@@ -1,0 +1,20 @@
+- name: Create Prometheus NUT exporter container
+  community.docker.docker_container:
+    name: prometheus-nut-exporter
+    image: druggeri/nut_exporter:latest
+
+    env:
+      NUT_EXPORTER_VARIABLES: "{{ prometheus_nut_exporter_vars | join(',') }}"
+
+    ports: "{{ prometheus_nut_exporter_ports | default([]) }}"
+
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
+
+- name: Register Prometheus NUT exporter container name
+  ansible.builtin.set_fact:
+    prometheus_nut_exporter_container_name: "prometheus-nut-exporter"

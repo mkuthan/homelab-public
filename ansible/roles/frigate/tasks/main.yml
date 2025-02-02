@@ -23,13 +23,15 @@
     dest: /etc/frigate/config.yml
     mode: "0644"
   notify:
-    - Restart frigate
+    - Restart Frigate
 
 - name: Copy YOLO-NAS model
   ansible.builtin.copy:
     src: yolo_nas_s.onnx
     dest: /etc/frigate/yolo_nas_s.onnx
     mode: "0644"
+  notify:
+    - Restart Frigate
 
 - name: Create Frigate volumes
   community.docker.docker_volume:
@@ -41,9 +43,6 @@
   community.docker.docker_container:
     name: frigate
     image: ghcr.io/blakeblackshear/frigate:stable
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    network_mode: host
 
     env:
       FRIGATE_RTSP_PASSWORD: "{{ frigate_rtsp_password }}"
@@ -66,11 +65,15 @@
     shm_size: 256MB
     privileged: true
 
-    comparisons:
-      env: strict
-      labels: strict
+    ports: "{{ frigate_ports | default([]) }}"
 
-    image_name_mismatch: recreate
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    state: started
-    restart_policy: unless-stopped
+- name: Register Frigate container name
+  ansible.builtin.set_fact:
+    frigate_container_name: "frigate"

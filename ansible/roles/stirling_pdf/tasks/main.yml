@@ -2,20 +2,20 @@
   community.docker.docker_container:
     name: stirling-pdf
     image: frooodle/s-pdf:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    ports:
-      - "8080:8080"
 
     env:
       DOCKER_ENABLE_SECURITY: "false"
       INSTALL_BOOK_AND_ADVANCED_HTML_OPS: "false"
 
-    comparisons:
-      env: strict
-      labels: strict
+    ports: "{{ stirling_pdf_ports | default([]) }}"
 
-    image_name_mismatch: recreate
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    state: started
-    restart_policy: unless-stopped
+- name: Register Stirling-PDF container name
+  ansible.builtin.set_fact:
+    stirling_pdf_container_name: "stirling-pdf"

@@ -30,13 +30,19 @@ ansible-inventory --graph
 Update LXC containers:
 
 ```bash
-ansible-playbook playbooks/proxmox_all_lxc
+ansible-playbook playbooks/lxc_upgrade
 ```
 
 Update Docker containers:
 
 ```bash
-ansible-playbook -e homelab_docker_pull=always [playbook]
+ansible-playbook -e docker_pull=always [playbook]
+```
+
+Prune Docker dangling images:
+
+```bash
+ansible-playbook playbooks/lxc_docker_prune
 ```
 
 Execute remote command:

@@ -1,4 +1,4 @@
-- name: Restart mosquitto
+- name: Restart Mosquitto
   community.docker.docker_container:
     name: mosquitto
     state: started

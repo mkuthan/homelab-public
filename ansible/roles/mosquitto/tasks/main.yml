@@ -10,13 +10,7 @@
     dest: /etc/mosquitto/mosquitto.conf
     mode: "0644"
   notify:
-    - Restart mosquitto
-
-- name: Create Mosquitto volumes
-  community.docker.docker_volume:
-    volume_name: "{{ item }}"
-  loop:
-    - mosquitto-data
+    - Restart Mosquitto
 
 - name: Register Mosquitto password file status
   ansible.builtin.stat:
@@ -43,50 +37,56 @@
       loop: "{{ mosquitto_users | dict2items }}"
       no_log: true
       notify:
-        - Restart mosquitto
+        - Restart Mosquitto
+
+- name: Create Mosquitto volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - mosquitto-data
 
 - name: Create Mosquitto container
   community.docker.docker_container:
     name: mosquitto
     image: eclipse-mosquitto:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
 
     volumes:
       - /etc/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
       - /etc/mosquitto/passwd:/mosquitto/config/passwd
       - mosquitto-data:/mosquitto/data
 
-    ports:
-      - 1883:1883
-      - 9001:9001
+    ports: "{{ mosquitto_ports | default([]) }}"
 
-    comparisons:
-      env: strict
-      labels: strict
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    image_name_mismatch: recreate
+- name: Register Mosquitto container name
+  ansible.builtin.set_fact:
+    mosquitto_container_name: "mosquitto"
 
-    state: started
-    restart_policy: unless-stopped
-
-- name: Create Mosquitto exporter container
+- name: Create Mosquitto Prometheus exporter container
   community.docker.docker_container:
     name: mosquitto-prometheus-exporter
     image: sapcc/mosquitto-exporter:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    network_mode: host
 
     env:
-      BROKER_ENDPOINT: "tcp://localhost:1883"
+      BROKER_ENDPOINT: "tcp://{{ mosquitto_container_name }}:1883"
       MQTT_USER: "prometheus"
       MQTT_PASS: "{{ mosquitto_users['prometheus'] }}"
 
-    comparisons:
-      env: strict
-      labels: strict
+    ports: "{{ mosquitto_prometheus_exporter_ports | default([]) }}"
 
-    image_name_mismatch: recreate
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    state: started
-    restart_policy: unless-stopped
+- name: Register Mosquitto Prometheus exporter container name
+  ansible.builtin.set_fact:
+    mosquitto_prometheus_exporter_container_name: "mosquitto-prometheus-exporter"

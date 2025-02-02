@@ -5,14 +5,14 @@ global:
 scrape_configs:
   - job_name: "pve-exporter"
     static_configs:
-      - targets: ["localhost:9221"]
+      - targets: ["{{ prometheus_pve_exporter_container_name }}:9221"]
     metrics_path: /pve
     params:
       target: {{ prometheus_pve_exporter_targets }}
 
   - job_name: "nut-exporter"
     static_configs:
-      - targets: ["localhost:9199"]
+      - targets: ["{{ prometheus_nut_exporter_container_name }}:9199"]
     metrics_path: /ups_metrics
     params:
       server: {{ prometheus_nut_exporter_targets }}

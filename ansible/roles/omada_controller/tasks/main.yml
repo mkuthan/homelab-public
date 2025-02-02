@@ -6,13 +6,10 @@
     - omada-work
     - omada-logs
 
-- name: Create Omada container
+- name: Create Omada controller container
   community.docker.docker_container:
     name: omada-controller
     image: mbentley/omada-controller:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    network_mode: host
 
     volumes:
       - omada-data:/opt/tplink/EAPController/data:rw
@@ -25,35 +22,40 @@
     ulimits:
       - "nofile:4096:8192"
 
-    comparisons:
-      env: strict
-      labels: strict
+    ports: "{{ omada_controller_ports | default([]) }}"
 
-    image_name_mismatch: recreate
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    state: started
-    restart_policy: unless-stopped
+- name: Register Omada controller container name
+  ansible.builtin.set_fact:
+    omada_controller_container_name: "omada-controller"
 
-- name: Create Omada exporter container
+- name: Create Omada Prometheus exporter container
   community.docker.docker_container:
     name: omada-prometheus-exporter
     image: chhaley/omada_exporter:latest
-    pull: "{{ homelab_docker_pull | default('missing') }}"
-
-    network_mode: host
 
     env:
-      OMADA_HOST: "https://localhost:8043"
+      OMADA_HOST: "https://{{ omada_controller_container_name }}:8043"
       OMADA_USER: "{{ omada_prometheus_exporter_user }}"
       OMADA_PASS: "{{ omada_prometheus_exporter_password }}"
       OMADA_SITE: "{{ omada_prometheus_exporter_site }}"
       OMADA_INSECURE: "true"
 
-    comparisons:
-      env: strict
-      labels: strict
+    ports: "{{ omada_prometheus_exporter_ports | default([]) }}"
 
-    image_name_mismatch: recreate
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
 
-    state: started
-    restart_policy: unless-stopped
+- name: Register Omada Prometheus exporter container name
+  ansible.builtin.set_fact:
+    omada_prometheus_exporter_container_name: "omada-prometheus-exporter"
