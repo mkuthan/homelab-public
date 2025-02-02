@@ -188,6 +188,15 @@ qm set 1002 -scsi0 pool0:vm-1001-disk-0
 
 ## Useful commands
 
+### High Availability Resource Manager
+
+If you observe "lrm node1 (old timestamp - dead?)" in `ha-manager status`:
+
+```shell
+systemctl reset-failed pve-ha-lrm.service
+systemctl start pve-ha-lrm.service
+```
+
 ### Logs
 
 Filter errors (`-p 3`) from the current boot (`-xb`):
