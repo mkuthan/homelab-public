@@ -21,17 +21,12 @@ ffmpeg:
     record: preset-record-generic-audio-aac
 
 detectors:
-  ov:
+  ov1:
     type: openvino
     device: GPU
-
-#model:
-#  width: 300
-#  height: 300
-#  input_tensor: nhwc
-#  input_pixel_format: bgr
-#  path: /openvino-model/ssdlite_mobilenet_v2.xml
-#  labelmap_path: /openvino-model/coco_91cl_bkgr.txt
+  ov2:
+    type: openvino
+    device: GPU
 
 model:
   model_type: yolonas

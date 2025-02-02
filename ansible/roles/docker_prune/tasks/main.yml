@@ -1,0 +1,13 @@
+- name: Gather package facts
+  ansible.builtin.package_facts:
+
+- name: Check if Docker is installed
+  ansible.builtin.set_fact:
+    docker_installed: "{{ 'docker-ce' in ansible_facts.packages }}"
+
+- name: Prune Docker dangling images
+  community.docker.docker_prune:
+    images: true
+    images_filters:
+      dangling: true
+  when: docker_installed

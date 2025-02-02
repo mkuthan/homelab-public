@@ -39,6 +39,8 @@
       GRAMPSWEB_EMAIL_USE_TLS: "False"
       GRAMPSWEB_REGISTRATION_DISABLED: "True"
 
+      GUNICORN_NUM_WORKERS: "2"
+
     volumes:
       - gramps-users:/app/users
       - gramps-index:/app/indexdir
