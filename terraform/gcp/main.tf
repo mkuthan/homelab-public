@@ -87,16 +87,16 @@ resource "google_compute_instance" "vps" {
   }
 }
 
-resource "google_compute_router" "vps_router" {
-  name    = "vps-router"
-  network = google_compute_network.vps_network.id
-  region  = google_compute_subnetwork.vps_subnetwork.region
-}
+# resource "google_compute_router" "vps_router" {
+#   name    = "vps-router"
+#   network = google_compute_network.vps_network.id
+#   region  = google_compute_subnetwork.vps_subnetwork.region
+# }
 
-resource "google_compute_router_nat" "vps_nat" {
-  name                               = "vps-nat"
-  router                             = google_compute_router.vps_router.name
-  region                             = google_compute_subnetwork.vps_subnetwork.region
-  nat_ip_allocate_option             = "AUTO_ONLY"
-  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
-}
+# resource "google_compute_router_nat" "vps_nat" {
+#   name                               = "vps-nat"
+#   router                             = google_compute_router.vps_router.name
+#   region                             = google_compute_subnetwork.vps_subnetwork.region
+#   nat_ip_allocate_option             = "AUTO_ONLY"
+#   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+# }
