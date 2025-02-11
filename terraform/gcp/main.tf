@@ -50,42 +50,42 @@ module "backup_encrypted_bucket" {
 
 # vps
 
-resource "google_compute_network" "vps_network" {
-  name                    = "vps-network"
-  auto_create_subnetworks = false
-}
+# resource "google_compute_network" "vps_network" {
+#   name                    = "vps-network"
+#   auto_create_subnetworks = false
+# }
 
-resource "google_compute_subnetwork" "vps_subnetwork" {
-  name          = "vps-subnetwork"
-  network       = google_compute_network.vps_network.id
-  region        = local.vps_region
-  ip_cidr_range = "10.0.0.0/24"
-}
+# resource "google_compute_subnetwork" "vps_subnetwork" {
+#   name          = "vps-subnetwork"
+#   network       = google_compute_network.vps_network.id
+#   region        = local.vps_region
+#   ip_cidr_range = "10.0.0.0/24"
+# }
 
-resource "google_compute_instance" "vps" {
-  name = "vps"
+# resource "google_compute_instance" "vps" {
+#   name = "vps"
 
-  zone         = local.vps_zone
-  machine_type = local.vps_machine_type
+#   zone         = local.vps_zone
+#   machine_type = local.vps_machine_type
 
-  hostname = var.vps_hostname
+#   hostname = var.vps_hostname
 
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-12"
-    }
-  }
+#   boot_disk {
+#     initialize_params {
+#       image = "debian-cloud/debian-12"
+#     }
+#   }
 
-  network_interface {
-    network    = google_compute_network.vps_network.self_link
-    subnetwork = google_compute_subnetwork.vps_subnetwork.self_link
-  }
+#   network_interface {
+#     network    = google_compute_network.vps_network.self_link
+#     subnetwork = google_compute_subnetwork.vps_subnetwork.self_link
+#   }
 
-  metadata = {
-    ssh-keys        = "root:${local.default_ssh_public_keys}"
-    enable-osconfig = "TRUE"
-  }
-}
+#   metadata = {
+#     ssh-keys        = "root:${local.default_ssh_public_keys}"
+#     enable-osconfig = "TRUE"
+#   }
+# }
 
 # resource "google_compute_router" "vps_router" {
 #   name    = "vps-router"
