@@ -24,3 +24,4 @@
     - docker
     - adguard
     - traefik
+    - uptime_kuma
