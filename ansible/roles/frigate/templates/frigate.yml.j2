@@ -1,4 +1,4 @@
-version: 0.14
+version: 0.15-1
 
 database:
   path: /database/frigate.db
@@ -13,7 +13,6 @@ mqtt:
   password: "{FRIGATE_MQTT_PASSWORD}"
 
 ffmpeg:
-  hwaccel_args: preset-vaapi
   # Time in seconds to wait before ffmpeg retries connecting to the camera
   retry_interval: 60
   # Enable audio in recordings
@@ -76,9 +75,13 @@ record:
   retain:
     days: 30
     mode: all
-  events:
+  alerts:
     retain:
-      default: 60
+      days: 60
+      mode: active_objects
+  detections:
+    retain:
+      days: 60
       mode: active_objects
 
 snapshots:
@@ -111,9 +114,11 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/{{ camera.name }}_main
+          hwaccel_args: preset-intel-qsv-h265    
           roles:
             - record
         - path: rtsp://127.0.0.1:8554/{{ camera.name }}_sub
+          hwaccel_args: preset-intel-qsv-h264
           roles:
             - detect
     live:

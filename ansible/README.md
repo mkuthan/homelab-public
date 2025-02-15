@@ -42,7 +42,7 @@ ansible-playbook -e docker_pull=always [playbook]
 Prune Docker dangling images:
 
 ```bash
-ansible-playbook playbooks/lxc_docker_prune
+ansible-playbook playbooks/lxc_docker_prune.yml
 ```
 
 Execute remote command:

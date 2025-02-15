@@ -57,12 +57,12 @@
     mounts:
       - type: tmpfs
         target: /tmp/cache
-        tmpfs_size: 1000000000
+        tmpfs_size: 128M
 
     devices:
       - /dev/dri/renderD128
 
-    shm_size: 256MB
+    shm_size: 256M
     privileged: true
 
     ports: "{{ frigate_ports | default([]) }}"
