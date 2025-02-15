@@ -30,7 +30,7 @@ ansible-inventory --graph
 Update LXC containers:
 
 ```bash
-ansible-playbook playbooks/lxc_upgrade
+ansible-playbook playbooks/lxc_upgrade.yml
 ```
 
 Update Docker containers:
