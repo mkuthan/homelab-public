@@ -86,6 +86,8 @@
       PAPERLESS_TIME_ZONE: "{{ timezone | default('UTC') }}"
       PAPERLESS_OCR_LANGUAGES: "{{ paperless_ngx_ocr_languages | default('') }}"
       PAPERLESS_OCR_LANGUAGE: "{{ paperless_ngx_ocr_language | default('eng') }}"
+      # https://github.com/paperless-ngx/paperless-ngx/discussions/4047
+      PAPERLESS_OCR_USER_ARGS: '{"invalidate_digital_signatures": true}'
       PAPERLESS_FILENAME_FORMAT: "{created_year}/{title}"
 
       PAPERLESS_URL: "https://paperless.{{ ansible_domain }}"
