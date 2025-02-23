@@ -12,6 +12,9 @@ entryPoints:
         certResolver: {{ traefik_certificates_resolver }}
         domains:
           - main: "*.{{ ansible_domain }}"
+    transport:
+      respondingTimeouts:
+        readTimeout: 0s
 
   traefik:
     address: :8080
