@@ -7,6 +7,6 @@
 # --progress
 #
 
-rclone --bwlimit {{ rclone_bwlimit | default('1M') }} \
-    sync --fast-list --checksum \
+rclone --bwlimit {{ rclone_bwlimit | default('off:off') }} \
+    sync {{ rclone_sync_options | default('') }} \
     $@

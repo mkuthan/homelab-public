@@ -55,6 +55,8 @@ resource "proxmox_lxc" "lxc_container" {
       size      = mountpoint.value["size"]
       storage   = mountpoint.value["storage"]
       shared    = mountpoint.value["shared"]
+      replicate = mountpoint.value["replicate"]
+      backup    = mountpoint.value["backup"]
     }
   }
 

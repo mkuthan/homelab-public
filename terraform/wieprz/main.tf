@@ -187,8 +187,7 @@ module "frigate" {
 
   bind_mounts = [
     {
-      # TODO: revert to "/mnt/usb2/frigate"
-      volume = "/mnt/usb1/frigate"
+      volume = "/mnt/usb2/frigate"
       mp     = "/media/frigate"
       shared = true
     }
@@ -411,6 +410,11 @@ module "immich" {
     {
       volume = "/mnt/ssd0/immich"
       mp     = "/media/immich"
+      shared = true
+    },
+    {
+      volume = "/mnt/usb1/immich-backup"
+      mp     = "/media/backup"
       shared = true
     }
   ]

@@ -109,6 +109,8 @@ variable "bind_mounts" {
     size      = optional(string)
     storage   = optional(string)
     shared    = optional(bool)
+    replicate = optional(bool)
+    backup    = optional(bool)
   }))
   default = []
 }
