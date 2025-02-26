@@ -58,7 +58,8 @@ Dell Wyse 3040:
 Spare parts:
 
 * 8GB RAM DDR4 2666Mhz
-* 512GB HDD, Seagate ST500LM021
+* 512GB 2.5 HDD, Seagate ST500LM021
+* 512GB 2.5 HDD, [Seagate ST9500420AS](https://www.seagate.com/docs/pdf/datasheet/disc/ds_momentus_7200_4.pdf)
 * Micro VGA connector
 * Micro DP connector
 
@@ -82,14 +83,19 @@ dmidecode -s bios-version
 
 ## External disks
 
-* [WD Purple Pro 12TB](https://www.westerndigital.com/products/internal-drives/wd-purple-pro-sata-hdd?sku=WD121PURP)
-* [Seagate Momentus ST9500420AS 500GB](https://www.seagate.com/docs/pdf/datasheet/disc/ds_momentus_7200_4.pdf)
+* WD Gold 14TB [WD142KRYZ](https://www.westerndigital.com/products/internal-drives/wd-gold-sata-hdd?sku=WD142KRYZ)
+* WD Purple Pro 12TB [WD121PURP](https://www.westerndigital.com/products/internal-drives/wd-purple-pro-sata-hdd?sku=WD121PURP)
 
 Check USB external disks of `-d sat` type:
 
 ```shell
 smartctl -a -d sat /dev/sdb
-smartctl -a -d sat /dev/sdc
+```
+
+Run short disk self-test:
+
+```shell
+smartctl -t short -d sat /dev/sdb
 ```
 
 ## UPS

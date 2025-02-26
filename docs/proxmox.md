@@ -216,6 +216,7 @@ exportfs -v
 Show NFS shares on the client:
 
 ```shell
+showmount -e 10.0.10.30
 showmount -e 10.0.10.31
 ```
 
