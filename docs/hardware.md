@@ -59,7 +59,7 @@ Spare parts:
 
 * 8GB RAM DDR4 2666Mhz
 * 512GB 2.5 HDD, Seagate ST500LM021
-* 512GB 2.5 HDD, [Seagate ST9500420AS](https://www.seagate.com/docs/pdf/datasheet/disc/ds_momentus_7200_4.pdf)
+* 512GB 2.5 HDD, Seagate [ST9500420AS](https://www.seagate.com/docs/pdf/datasheet/disc/ds_momentus_7200_4.pdf)
 * Micro VGA connector
 * Micro DP connector
 

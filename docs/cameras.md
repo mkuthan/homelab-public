@@ -1,8 +1,9 @@
 # Cameras
 
-* Dahua Bullet 8Mpx, 4rd gen. [IPC-HFW2841S-S](https://www.dahuasecurity.com/products/All-Products/Network-Cameras/WizSense-Series/2-Series/8MP/IPC-HFW2841S-S)
+* Dahua Bullet 8Mpx, 4rd gen. [IPC-HFW2841S-S-0280B](https://www.dahuasecurity.com/products/All-Products/Network-Cameras/WizSense-Series/2-Series/8MP/IPC-HFW2841S-S)
 * Dahua Bullet 4Mpx, 3rd gen. [IPC-HFW2431S-S-S2](https://www.dahuasecurity.com/products/All-Products/Discontinued-Products/Network-Cameras/IPC-HFW2431S-S-S2=S2)
-* Dahua Eyeball 4Mpx, 4rd gen. [IPC-HDW2441T-S](https://www.dahuasecurity.com/products/All-Products/Network-Cameras/WizSense-Series/2-Series/4MP/IPC-HDW2441T-S)
+* Dahua Bullet 4Mpx, 4rd gen. [IPC-HFW5442T-ASE-0280B-S2](https://www.dahuasecurity.com/ceen/products/All-Products/Network-Cameras/WizMind-5-Series/S-Series/4MP/IPC-HFW5442T-ASE=S3)
+* Dahua Eyeball 4Mpx, 4rd gen. [IPC-HDW2441TM-S-0280B](https://www.dahuasecurity.com/products/All-Products/Network-Cameras/WizSense-Series/2-Series/4MP/IPC-HDW2441T-S)
 
 ## Configuration
 
@@ -56,18 +57,20 @@ System:
 
 ## Firmware
 
-2.880.0000000.7.R, Build Date: 2023-10-18 (8Mpx 4rd gen)
+2.880.0000000.7.R, Build Date: 2023-10-18
 
 * IPC-HFW2841S-S-0280B
 * IPC-HFW2841S-S (china)
 
-2.840.0000000.14.R, Build Date: 2023-11-24 (4Mpx 4rd gen)
+2.840.0000000.14.R, Build Date: 2023-11-24
 
 * IPC-HDW2441TM-S-0280B
 
-2.820.0000000.60.R, Build Date: 2023-10-21 (4Mpx 3rd gen)
+2.820.0000000.60.R, Build Date: 2023-10-21
 
 * IPC-HDW2431S-S2 (china)
+
+TODO: IPC-HFW5442T-ASE
 
 ## Motion Detection
 

@@ -35,6 +35,7 @@ Sonoff ZBDogle-E, references:
 * Light switch [Ikea E2001/E2002](https://www.zigbee2mqtt.io/devices/E2001_E2002.html)
 * Light bulb [Ikea LED2109G6](https://www.zigbee2mqtt.io/devices/LED2109G6.html)
 * Plug [Tyua BSD29_1](https://www.zigbee2mqtt.io/devices/BSD29_1.html)
+* Smoke detector [Tuya TS0205_smoke_2](https://www.zigbee2mqtt.io/devices/TS0205_smoke_2.html)
 * Smoke detector [ONENUO 288WZ](https://www.zigbee2mqtt.io/devices/288WZ.html)
 * Temperature and humidity sensor [Sonoff SNZB-02D](https://www.zigbee2mqtt.io/devices/SNZB-02D.html)
 * Window sensor [Tuya TS0203](https://www.zigbee2mqtt.io/devices/TS0203.html)
