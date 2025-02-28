@@ -6,12 +6,14 @@
 * Energy meter Shelly 3EM - `192.168.40.11`
 * Dishwasher Boash SMV4HTX31E - `192.168.40.12`
 * Zigbee controller SLZB-06-1 - `192.168.40.13`
-* Android TV Box - `192.168.40.20`
-* Prusa 3D Printer - `192.168.40.30`
-* Bambulab 3D Printer - `192.168.40.40`
+* Solis Datalogger - `192.168.40.14`
 
 > [!TIP]
 > If you connect to device directly, use easy to remember IP address like `192.168.40.20`, `192.168.40.30`, etc.
+
+* Android TV Box - `192.168.40.20`
+* Prusa 3D Printer - `192.168.40.30`
+* Bambulab 3D Printer - `192.168.40.40`
 
 ## ZigBee Coordinator
 
