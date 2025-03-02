@@ -114,7 +114,7 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/{{ camera.name }}_main
-          hwaccel_args: preset-intel-qsv-h265    
+          hwaccel_args: preset-intel-qsv-h265
           roles:
             - record
         - path: rtsp://127.0.0.1:8554/{{ camera.name }}_sub
