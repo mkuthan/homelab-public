@@ -1,0 +1,52 @@
+# lxc.mount.entry: /dev/dri dev/dri none bind,optional,create=dir
+# lxc.cgroup2.devices.allow: c 226:0 rwm
+# lxc.cgroup2.devices.allow: c 226:128 rwm
+
+- name: Stat /dev/dri
+  ansible.builtin.stat:
+    path: /dev/dri
+  register: dev_dri
+
+- name: Assert if /dev/dri exists
+  ansible.builtin.assert:
+    that: dev_dri.stat.exists
+
+- name: Create Jellyfin volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - jellyfin-config
+    - jellyfin-cache
+
+- name: Create Jellyfin container
+  community.docker.docker_container:
+    name: jellyfin
+    image: jellyfin/jellyfin:latest
+
+    env:
+      TZ: "{{ timezone | default('UTC') }}"
+      JELLYFIN_PublishedServerUrl: "https://jellyfin.{{ ansible_domain }}"
+
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - jellyfin-config:/config
+      - jellyfin-cache:/cache
+      - /media/jellyfin:/media
+
+    devices:
+      - /dev/dri
+
+    privileged: true
+
+    ports: "{{ jellyfin_ports | default([]) }}"
+
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
+
+- name: Register Jellyfin container name
+  ansible.builtin.set_fact:
+    immich_container_name: "jellyfin"

@@ -38,6 +38,7 @@ Ansible playbooks manage all the services and configurations, for example:
 * Gramps
 * Hyperion NG
 * Immich
+* Jellyfin
 * Kodi
 * Loki
 * Mailrise

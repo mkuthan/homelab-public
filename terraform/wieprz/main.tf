@@ -278,13 +278,13 @@ module "loki" {
   nameserver = "192.168.10.1"
 }
 
-module "apt-cacher" {
+module "samba" {
   source = "../modules/lxc_container"
 
   ostemplate = local.default_ostemplate
 
   target_node = "pve0"
-  hostname    = "apt-cacher"
+  hostname    = "samba"
 
   password        = var.default_password
   ssh_public_keys = local.default_ssh_public_keys
@@ -293,12 +293,10 @@ module "apt-cacher" {
   memory      = 512
   rootfs_size = "20G"
 
-  network_ip = "192.168.10.14/24"
-  network_gw = "192.168.10.1"
+  network_ip  = "192.168.10.14/24"
+  network_gw  = "192.168.10.1"
 
   nameserver = "192.168.10.1"
-
-  unprivileged = true
 }
 
 module "stirling-pdf" {
@@ -465,6 +463,35 @@ module "searxng" {
   unprivileged = true
 }
 
+module "jellyfin" {
+  source = "../modules/lxc_container"
+
+  ostemplate = local.default_ostemplate
+
+  target_node = "pve0"
+  hostname    = "jellyfin"
+
+  password        = var.default_password
+  ssh_public_keys = local.default_ssh_public_keys
+
+  cores       = 2
+  memory      = 4096
+
+  network_ip = "192.168.10.22/24"
+  network_gw = "192.168.10.1"
+
+  nameserver = "192.168.10.1"
+
+  bind_mounts = [
+    {
+      volume = "/mnt/usb1/jellyfin"
+      mp     = "/media/jellyfin"
+      shared = true
+    }
+  ]
+}
+
+
 # services
 
 module "traefik-0" {
@@ -533,13 +560,13 @@ module "adguard" {
   nameserver = "192.168.15.1"
 }
 
-module "samba" {
+module "apt-cacher" {
   source = "../modules/lxc_container"
 
   ostemplate = local.default_ostemplate
 
   target_node = "pve0"
-  hostname    = "samba"
+  hostname    = "apt-cacher"
 
   password        = var.default_password
   ssh_public_keys = local.default_ssh_public_keys
@@ -548,12 +575,15 @@ module "samba" {
   memory      = 512
   rootfs_size = "20G"
 
-  network_ip  = "192.168.15.20/24"
-  network_gw  = "192.168.15.1"
+  network_ip = "192.168.15.20/24"
+  network_gw = "192.168.15.1"
   network_tag = "15"
 
   nameserver = "192.168.15.1"
+
+  unprivileged = true
 }
+
 
 # jump hosts
 
