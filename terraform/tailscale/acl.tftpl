@@ -1,6 +1,10 @@
 {
     "tagOwners": {
-        "tag:proxy": [
+        "tag:server": [],
+        "tag:web": [
+            "autogroup:member"
+        ],
+        "tag:samba": [
             "autogroup:member"
         ]
     },
@@ -15,14 +19,15 @@
                 "autogroup:self:*"
             ],
         },
-        // members can access reverse proxies
+        // members can access web and samba
         {
             "action": "accept",
             "src": [
                 "autogroup:member"
             ],
             "dst": [
-                "tag:proxy:443"
+                "tag:web:443",
+                "tag:samba:445",
             ],
         },
         // admins can access all devices
@@ -35,14 +40,14 @@
                 "*:*"
             ],
         },
-        // proxy can access other proxies
+        // servers can access other servers
 		{
 			"action": "accept",
 			"src": [
-				"tag:proxy",
+				"tag:server",
 			],
 			"dst": [
-				"tag:proxy:443",
+				"tag:server:*",
 			],
 		},
     ],
@@ -51,8 +56,7 @@
         {
             "src": "${owner}",
             "accept": [
-                "tag:proxy:22",
-                "tag:proxy:443",
+                "tag:server:22",
             ],
         },
         %{ endfor ~}
@@ -60,21 +64,19 @@
         {
             "src": "${member}",
             "accept": [
-                "tag:proxy:443",
+                "tag:web:443",
+                "tag:samba:445",
             ],
             "deny": [
-                "tag:proxy:22",
+                "tag:server:22",
             ],
         },
         %{ endfor ~}
         {
-			"src": "tag:proxy",
+			"src": "tag:server",
 			"accept": [
-				"tag:proxy:443",
-			],
-			"deny": [
-				"tag:proxy:22",
-			],
+                "tag:server:22",
+			]
 		},
     ],
 }
