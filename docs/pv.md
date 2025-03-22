@@ -53,6 +53,20 @@ Documentation:
 * [Self-Use mode](https://usservice.solisinverters.com/support/solutions/articles/73000558744-11-of-20-energy-storage-operating-modes-self-use)
 * [Feed-In mode](https://usservice.solisinverters.com/support/solutions/articles/73000558755-12-of-20-energy-storage-operating-modes-feed-in-priority)
 
+### Time of Use
+
+Self-Use Mode:
+
+* "discharge slot" - battery -> grid
+* "charge slot" - doesn't matter if charging from grid isn't allowed
+* "out of defined slots" - solar -> load -> battery
+
+Feed-In Priority Mode:
+
+* "discharge slot" - battery -> grid
+* "charge slot" - solar -> battery (but load from grid only)
+* "out of defined slots" - solar -> load -> grid
+
 ## Data logger
 
 * Model: *S2-WL-ST*
