@@ -1,9 +1,11 @@
 # Cameras
 
-* Dahua Bullet 8Mpx, 4rd gen. [IPC-HFW2841S-S-0280B](https://www.dahuasecurity.com/products/All-Products/Network-Cameras/WizSense-Series/2-Series/8MP/IPC-HFW2841S-S)
-* Dahua Bullet 4Mpx, 3rd gen. [IPC-HFW2431S-S-S2](https://www.dahuasecurity.com/products/All-Products/Discontinued-Products/Network-Cameras/IPC-HFW2431S-S-S2=S2)
-* Dahua Bullet 4Mpx, 4rd gen. [IPC-HFW5442T-ASE-0280B-S2](https://www.dahuasecurity.com/ceen/products/All-Products/Network-Cameras/WizMind-5-Series/S-Series/4MP/IPC-HFW5442T-ASE=S3)
-* Dahua Eyeball 4Mpx, 4rd gen. [IPC-HDW2441TM-S-0280B](https://www.dahuasecurity.com/products/All-Products/Network-Cameras/WizSense-Series/2-Series/4MP/IPC-HDW2441T-S)
+* Dahua Bullet 8Mpx, 1/2.7" CMOS, IPC-HFW2841S-S
+* Dahua Bullet 4Mpx, 1/3” CMOS, IPC-HFW2431S-S-S2
+* Dahua Eyeball 4Mpx, 1/1.8" CMOS, IPC-HDW5442TM-ASE-S3
+* Dahua Eyeball 4Mpx, 1/2.9" CMOS, IPC-HDW2441TM-S
+
+<https://dahuawiki.com/Name_Rule#IP_Camera>
 
 ## Configuration
 
@@ -70,7 +72,9 @@ System:
 
 * IPC-HDW2431S-S2 (china)
 
-TODO: IPC-HFW5442T-ASE
+V3.142.0000000.3.R, Build Date: 2024-09-24
+
+* IPC-HDW5442TM-ASE-S3/IPC-T54IR-AS-S3  (empiretech)
 
 ## Motion Detection
 
