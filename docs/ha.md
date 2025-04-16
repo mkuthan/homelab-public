@@ -1,6 +1,7 @@
 # Home Assistant
 
-[Automations](https://mkuthan.github.io/blog/2024/12/08/home-assistant-automations/)
+* Blog post with CCTV, jeating, lighting and more <https://mkuthan.github.io/blog/2024/12/08/home-assistant-automations/>
+* Solar energy management automations <https://mkuthan.github.io/blog/2025/04/12/home-assistant-solar/>
 
 ## Integrations
 
