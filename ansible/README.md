@@ -3,11 +3,25 @@
 
 This repository contains over 50 roles and 30 playbooks to manage my homelab infrastructure.
 
-## Ansible setup
+## Ansible installation
 
-All host and group variables are encrypted with Ansible vault, password file is `.vault`.
+Install Ansible:
 
-## Ansible commands
+```bash
+pipx install --include-deps ansible
+```
+
+Update Ansible:
+
+```bash
+pipx upgrade --include-injected ansible
+```
+
+Install extra Python dependencies:
+
+```bash
+pipx inject ansible requests netaddr
+```
 
 Install Ansible roles:
 
@@ -20,6 +34,12 @@ Update Ansible roles:
 ```bash
 ansible-galaxy install -r requirements.yml  --force
 ```
+
+## Ansible setup
+
+All host and group variables are encrypted with Ansible vault, password file is `.vault`.
+
+## Ansible commands
 
 Show inventory:
 
