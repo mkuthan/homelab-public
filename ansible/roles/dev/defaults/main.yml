@@ -1,15 +1,7 @@
 dev_packages:
-  - ansible
-  - ansible-lint
   - curl
-  - google-cloud-cli
   - htop
-  - jq
-  - pip
   - screen
   - sudo
-  - terraform
-  - temurin-17-jdk
-  - temurin-21-jdk
   - vim
   - wget
