@@ -88,11 +88,15 @@
       PAPERLESS_OCR_LANGUAGE: "{{ paperless_ngx_ocr_language | default('eng') }}"
       # https://github.com/paperless-ngx/paperless-ngx/discussions/4047
       PAPERLESS_OCR_USER_ARGS: '{"invalidate_digital_signatures": true}'
-      PAPERLESS_FILENAME_FORMAT: "{created_year}/{title}"
+      PAPERLESS_FILENAME_FORMAT: "{% raw %}{{created_year}}/{{title}}{% endraw %}"
 
       PAPERLESS_URL: "https://paperless.{{ ansible_domain }}"
       PAPERLESS_ADMIN_USER: "{{ paperless_ngx_admin_user }}"
       PAPERLESS_ADMIN_PASSWORD: "{{ paperless_ngx_admin_password }}"
+
+      PAPERLESS_ALLOWED_HOSTS: "paperless.{{ ansible_domain }}"
+      PAPERLESS_CORS_ALLOWED_HOSTS: "https://paperless.{{ ansible_domain }}"
+      PAPERLESS_CSRF_TRUSTED_ORIGINS: "https://paperless.{{ ansible_domain }}"
 
     volumes:
       - paperless-data:/usr/src/paperless/data:rw
@@ -113,9 +117,9 @@
   ansible.builtin.set_fact:
     paperless_container_name: "paperless"
 
-- name: Schedule backup
+- name: Schedule Paperless export
   ansible.builtin.cron:
-    name: "backup"
-    hour: "{{ paperless_backup_hour | default('4') }}"
+    name: "paperless_export"
+    hour: "{{ paperless_backup_hour | default('22') }}"
     minute: "{{ paperless_backup_minute | default('0') }}"
     job: "docker exec paperless document_exporter --use-filename-format --delete --no-archive --no-thumbnail /usr/src/paperless/export"
