@@ -22,7 +22,6 @@
 * [Mobile App](https://www.home-assistant.io/integrations/mobile_app)
 * [Moon](https://www.home-assistant.io/integrations/moon)
 * [MQTT](https://www.home-assistant.io/integrations/mqtt)
-* [Network UPS Tools](https://www.home-assistant.io/integrations/nut)
 * [Proximity](https://www.home-assistant.io/integrations/proximity)
 * [PrusaLink](https://www.home-assistant.io/integrations/prusalink)
 * [Radio Browser](https://www.home-assistant.io/integrations/radio_browser)

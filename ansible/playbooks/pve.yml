@@ -9,7 +9,6 @@
     - hosts
     - journald
     - locale
-    - nut
     - prometheus_node_exporter
     - promtail
     - scaling_governor
