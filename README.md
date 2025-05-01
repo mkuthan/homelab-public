@@ -70,10 +70,11 @@ If code doesn't tell the whole story, documentation does.
 Here are some notes on various topics:
 
 * [Network](docs/network.md): VPN, DNS, VLAN
-* [Hardware](docs/hardware.md): network equipment, servers, disks, ups
+* [Hardware](docs/hardware.md): network equipment, servers, disks
 * [CCTV](docs/cameras.md): cameras, motion detection
 * [IoT](docs/iot.md): ZigBee coordinators, sensors, switches
 * [Home Assistant](docs/ha.md): Automations, dashboards
+* [Photovoltaics](docs/pv.md): Solar panels, batteries
 * [Proxmox](docs/proxmox.md): VMs and LXCs management
 * [Backup](docs/backup.md): Proxmox backup server, offisite backups
 * [SSH](docs/ssh.md): Remote access to servers
