@@ -177,7 +177,7 @@ module "frigate" {
   password        = var.default_password
   ssh_public_keys = local.default_ssh_public_keys
 
-  cores       = 3
+  cores       = 4
   memory      = 4096
   rootfs_size = "20G"
 
