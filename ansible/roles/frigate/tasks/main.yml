@@ -65,6 +65,9 @@
     shm_size: 256M
     privileged: true
 
+    capabilities:
+      - CAP_PERFMON
+
     ports: "{{ frigate_ports | default([]) }}"
 
     networks: "{{ docker_networks }}"

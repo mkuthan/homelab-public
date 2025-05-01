@@ -20,10 +20,7 @@ ffmpeg:
     record: preset-record-generic-audio-aac
 
 detectors:
-  ov1:
-    type: openvino
-    device: GPU
-  ov2:
+  ov:
     type: openvino
     device: GPU
 
@@ -35,6 +32,14 @@ model:
   input_pixel_format: bgr
   path: /config/yolo_nas_s.onnx
   labelmap_path: /labelmap/coco-80.txt
+
+#model:
+#  width: 300
+#  height: 300
+#  input_tensor: nhwc
+#  input_pixel_format: bgr
+#  path: /openvino-model/ssdlite_mobilenet_v2.xml
+#  labelmap_path: /openvino-model/coco_91cl_bkgr.txt
 
 birdseye:
   enabled: false
