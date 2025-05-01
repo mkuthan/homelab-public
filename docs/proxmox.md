@@ -140,6 +140,12 @@ Send notifications using SMTP server.
 
 ## Nodes Configuration
 
+System → Network
+
+* `eno1` (1Gbps), autostart: `no`
+* `enp2s0` (2.5Gbps), autostart: `yes`, CIDR: `10.0.10.x/24`
+* `vmbr0`, autostart: `yes`, CIDR: `192.168.10.x/24`, gateway: `192.168.10.1`, slaves: `eno1`
+
 System → DNS
 
 * Search domain: `wieprz.org`
