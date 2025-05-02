@@ -13,7 +13,7 @@ Dell Optiplex 5070 Micro (pve0):
 
 * CPU Intel i5-9500T 2.2-3.7GHz, 6 cores
 * GPU Intel® HD Graphics 630
-* 16GB RAM - TODO
+* 32GB RAM DDR4 2666MHz
 * 256 GB SSD, Samsung PM981 (NVMe, TLC)
 * 1.6TB SSD, Intel DC S3610 (SATA, MLC)
 * PCI Express 3.0
@@ -29,7 +29,7 @@ Dell Optiplex 5070 Micro (pve1):
 
 * CPU Intel i5-9500T 2.2-3.7GHz, 6 cores
 * GPU Intel® HD Graphics 630
-* 16GB RAM - TODO
+* 32GB RAM DDR4 2666MHz
 * 256 GB SSD, Samsung PM981 (NVMe, TLC)
 * 800GB SSD, Intel DC S3610 (SATA, MLC)
 * PCI Express 3.0
@@ -59,7 +59,7 @@ Dell Optiplex 3050 Micro (spare):
 
 * CPU Intel i5-7500T 2.7-3.3GHz, 4 cores
 * GPU Intel® HD Graphics 630
-* 16GB RAM DDR4 2666MHz
+* 16GB RAM DDR4 2666MH
 * 256 GB SSD
 * PCI Express 3.0
 * Built-in Gigabit Ethernet card
