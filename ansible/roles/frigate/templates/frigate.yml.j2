@@ -20,9 +20,11 @@ ffmpeg:
     record: preset-record-generic-audio-aac
 
 detectors:
-  ov:
+{% for i in range(frigate_detectors) %}
+  ov_{{ i }}:
     type: openvino
     device: GPU
+{% endfor %}
 
 model:
 {% if frigate_model is defined and frigate_model == "yolonas" %}
