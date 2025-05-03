@@ -3,3 +3,12 @@
     name: i8k
     params: "force=1 ignore_dmi=1"
     persistent: present
+
+- name: Enable VFIO (Virtual Function I/O)
+  community.general.modprobe:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - vfio
+    - vfio_iommu_type1
+    - vfio_pci
