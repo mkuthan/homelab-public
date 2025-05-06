@@ -151,6 +151,83 @@ System → DNS
 * Search domain: `wieprz.org`
 * DNS server 1: `192.168.10.1`
 
+## Maintenance mode
+
+Put the cluster in a maintenance mode during network upgrades and changes.
+It prevents unnecessary node restarts.
+
+### Before
+
+Once (on any node):
+
+```shell
+mv /etc/pve/ha/{resources.cfg,resources.cfg.bak}
+```
+
+Then on every node:
+
+```shell
+systemctl stop pve-ha-crm pve-ha-lrm
+systemctl is-active pve-ha-crm pve-ha-lrm
+test -d /run/watchdog-mux.active/ && echo nook || echo ok
+```
+
+### After
+
+On every node:
+
+```shell
+systemctl start pve-ha-crm pve-ha-lrm
+```
+
+And then once all nodes are ready, reactivate the HA:
+
+```shell
+mv /etc/pve/ha/{resources.cfg.bak,resources.cfg}
+```
+
+## Useful commands
+
+### High Availability Resource Manager
+
+If you observe "lrm node1 (old timestamp - dead?)" in `ha-manager status`:
+
+```shell
+systemctl reset-failed pve-ha-lrm.service
+systemctl start pve-ha-lrm.service
+```
+
+### Logs
+
+Filter errors (`-p 3`) from the current boot (`-xb`):
+
+```shell
+journalctl -p 3 -xb
+```
+
+### NFS
+
+Show NFS shares on the server:
+
+```shell
+exportfs -v
+```
+
+Show NFS shares on the client:
+
+```shell
+showmount -e 10.0.10.30
+showmount -e 10.0.10.31
+```
+
+### GPU
+
+Show GPU usage:
+
+```shell
+intel_gpu_top
+```
+
 ## Container templates
 
 Download Debian 12 template:
@@ -190,46 +267,4 @@ Create Ubuntu 24.04 VM template:
 qm create 1002 --name ubuntu-template-24.04
 qm importdisk 1002 ubuntu-24.04-server-cloudimg-amd64.img pool0
 qm set 1002 -scsi0 pool0:vm-1001-disk-0
-```
-
-## Useful commands
-
-### High Availability Resource Manager
-
-If you observe "lrm node1 (old timestamp - dead?)" in `ha-manager status`:
-
-```shell
-systemctl reset-failed pve-ha-lrm.service
-systemctl start pve-ha-lrm.service
-```
-
-### Logs
-
-Filter errors (`-p 3`) from the current boot (`-xb`):
-
-```shell
-journalctl -p 3 -xb
-```
-
-## NFS
-
-Show NFS shares on the server:
-
-```shell
-exportfs -v
-```
-
-Show NFS shares on the client:
-
-```shell
-showmount -e 10.0.10.30
-showmount -e 10.0.10.31
-```
-
-## GPU
-
-Show GPU usage:
-
-```shell
-intel_gpu_top
 ```
