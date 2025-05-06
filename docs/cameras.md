@@ -29,15 +29,17 @@ Night conditions:
 Main stream:
 
 * Codec: H.265
-* FPS: 5
-* Resolution: 3840 × 2160, 2688 × 1520
+* FPS: 10
+* I Frame Interval: 20
+* Resolution: 3840 × 2160 for 8Mpx, 2688 × 1520 for 4Mpx
 * BitRate: 6114Kb/s for 8Mpx, 3072Kb/s for 4Mpx
 * Watermark: Off
 
 Substream:
 
 * Codec: H.264
-* FPS: 20
+* FPS: 5
+* I Frame Interval: 5
 * BitRate: 512Kb/s
 
 Audio:
@@ -59,7 +61,7 @@ System:
 
 ## Firmware
 
-2.880.0000000.7.R, Build Date: 2023-10-18
+2.880.0000000.16.R, Build Date: 2024-08-30
 
 * IPC-HFW2841S-S-0280B
 * IPC-HFW2841S-S (china)
