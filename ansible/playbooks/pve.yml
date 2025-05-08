@@ -5,7 +5,6 @@
 
     - aria2
     - dell_optiplex
-    - hd_idle
     - hosts
     - journald
     - locale
