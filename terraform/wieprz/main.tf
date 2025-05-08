@@ -178,7 +178,7 @@ module "frigate" {
   ssh_public_keys = local.default_ssh_public_keys
 
   cores       = 4
-  memory      = 4096
+  memory      = 8192
   rootfs_size = "20G"
 
   network_ip = "192.168.10.9/24"
