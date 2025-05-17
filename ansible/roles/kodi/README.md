@@ -20,7 +20,7 @@ apt-get build-dep kodi
 Get the source code:
 
 ```shell
-git clone --depth 1 --branch Nexus https://github.com/xbmc/xbmc kodi
+git clone --depth 1 --branch Omega https://github.com/xbmc/xbmc kodi
 ```
 
 Create build directory:

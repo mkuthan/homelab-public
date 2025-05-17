@@ -35,7 +35,7 @@
 [INPUT]
     Name systemd
     Tag systemd
-    DB {{ td_agent_bit_var_dir }}/systemd.db
+    DB {{ fluent_bit_var_dir }}/systemd.db
     DB.Sync Normal
 
 [FILTER]
@@ -57,7 +57,7 @@
     Name loki
     Match *
     Tls On
-    host {{ td_agent_bit_loki_host }}
-    port {{ td_agent_bit_loki_port }}
-    http_user {{ td_agent_bit_loki_username }}
-    http_passwd {{ td_agent_bit_loki_password }}
+    host {{ fluent_bit_loki_host }}
+    port {{ fluent_bit_loki_port }}
+    http_user {{ fluent_bit_loki_username }}
+    http_passwd {{ fluent_bit_loki_password }}

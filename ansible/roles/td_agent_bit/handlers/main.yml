@@ -1,4 +1,0 @@
-- name: Restart td-agent-bit
-  ansible.builtin.systemd:
-    name: td-agent-bit
-    state: restarted

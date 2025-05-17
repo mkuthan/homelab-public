@@ -17,7 +17,7 @@ flowchart TD
     end
 
     subgraph Bekasow
-        BEKASOW[bekasow <br> 100.113.217.2 <br> 192.168.1.2]
+        BEKASOW[bekasow <br> 100.113.237.33 <br> 192.168.1.2]
     end
     
     subgraph GCP
@@ -44,7 +44,7 @@ Cloudflare:
 Adguard rewrites
 
 * `*.wieprz.org` → `192.168.15.3`
-* `*.bekasow.duckdns.org` → `100.113.217.2`
+* `*.bekasow.duckdns.org` → `100.113.237.33`
 
 Router DNS Proxy:
 
@@ -55,7 +55,7 @@ Router DNS Proxy:
 
 DuckDns:
 
-* `*.bekasow.duckdns.org` → `100.113.217.2`
+* `*.bekasow.duckdns.org` → `100.113.237.33`
 
 Adguard:
 

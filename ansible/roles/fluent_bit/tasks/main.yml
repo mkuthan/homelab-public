@@ -1,0 +1,33 @@
+- name: Add fluent_bit apt key
+  ansible.builtin.apt_key:
+    url: http://packages.fluentbit.io/fluentbit.key
+    keyring: /etc/apt/trusted.gpg.d/fluent_bit.gpg
+
+- name: Add fluent_bit apt repository
+  ansible.builtin.apt_repository:
+    repo: "deb https://packages.fluentbit.io/{{ ansible_lsb.id | lower }}/{{ ansible_distribution_release }} {{ ansible_distribution_release }} main"
+    filename: "fluent_bit"
+
+- name: Install fluent_bit
+  ansible.builtin.apt:
+    name: fluent-bit
+
+- name: Create fluent_bit directories
+  ansible.builtin.file:
+    path: "{{ fluent_bit_var_dir }}"
+    mode: "0755"
+    state: directory
+
+- name: Configure fluent_bit
+  ansible.builtin.template:
+    src: fluent-bit.conf.j2
+    dest: /etc/fluent-bit/fluent-bit.conf
+    mode: "0644"
+  notify:
+    - Restart fluent-bit
+
+- name: Enable fluent_bit service
+  ansible.builtin.systemd:
+    name: fluent-bit
+    state: started
+    enabled: true

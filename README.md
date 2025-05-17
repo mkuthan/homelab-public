@@ -32,6 +32,7 @@ Ansible playbooks manage all the services and configurations, for example:
 * Apt Cacher NG
 * Backup Ninja
 * Docker
+* Fluent Bit
 * Frigate
 * Grafana
 * Grafana Agent

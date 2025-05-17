@@ -5,6 +5,7 @@
 
     - aria2
     - backup_ninja
+    - fluent_bit
     - hd_idle
     - hosts
     - hyperion
@@ -18,7 +19,6 @@
     - smartmontools
     - tailscale
     - timezone
-    - td_agent_bit
     - transmission
 
     - docker

@@ -1,0 +1,4 @@
+fluent_bit_loki_host: "logs-prod-us-central1.grafana.net"
+fluent_bit_loki_port: "443"
+
+fluent_bit_var_dir: /opt/fluent-bit/var

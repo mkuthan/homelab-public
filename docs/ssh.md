@@ -6,7 +6,7 @@ Configuration in `~/.ssh/config` file:
 
 ```
 Host bekasow
-    Hostname 100.113.217.2
+    Hostname 100.113.237.33
     User pi
 
 Host dev
