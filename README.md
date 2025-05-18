@@ -77,6 +77,7 @@ Here are some notes on various topics:
 * [Home Assistant](docs/ha.md): Automations, dashboards
 * [Photovoltaics](docs/pv.md): Solar panels, batteries
 * [Proxmox](docs/proxmox.md): VMs and LXCs management
+* [Raspberry Pi](docs/rpi.md): Raspberry Pi OS
 * [Backup](docs/backup.md): Proxmox backup server, offisite backups
 * [SSH](docs/ssh.md): Remote access to servers
 * [Media](docs/media.md): TV box, streaming, audio
