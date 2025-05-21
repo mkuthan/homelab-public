@@ -4,6 +4,8 @@
     image: benbusby/whoogle-search:latest
 
     env:
+      WHOOGLE_CONFIG_THEME: "system"
+
       # https://github.com/benbusby/whoogle-search/wiki/User-Agents
       WHOOGLE_USER_AGENT: "Mozilla/3.0 (compatible; MSIE 3.0; Windows NT 5.0)"
       WHOOGLE_USER_AGENT_MOBILE: "Mozilla/3.0 (compatible; MSIE 3.0; Windows NT 5.0)"
