@@ -81,15 +81,15 @@ detect:
 record:
   enabled: true
   retain:
-    days: 30
+    days: {{ frigate_retention_record_days }}
     mode: all
-  alerts:
-    retain:
-      days: 60
-      mode: active_objects
   detections:
     retain:
-      days: 60
+      days: {{ frigate_retention_detections_days }}
+      mode: active_objects
+  alerts:
+    retain:
+      days: {{ frigate_retention_alerts_days }}
       mode: active_objects
 
 snapshots:
