@@ -7,7 +7,8 @@
 * Dishwasher Boash SMV4HTX31E - `192.168.40.12`
 * Zigbee controller SLZB-06-1 - `192.168.40.13`
 * Solis Datalogger S2-WL-ST - `192.168.40.14`
-* Home Assistant Voice - TODO
+* Home Assistant Voice 1 - `192.168.40.15`
+* HeishaMon - `192.168.40.16`
 
 > [!TIP]
 > If you connect to device directly, use easy to remember IP address like `192.168.40.20`, `192.168.40.30`, etc.
