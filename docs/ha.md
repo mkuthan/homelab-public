@@ -10,6 +10,7 @@
 * [Auto Backup](https://github.com/jcwillox/hass-auto-backup)
 * [Bambu Lab](https://github.com/greghesp/ha-bambulab)
 * [Electricity Maps](https://www.home-assistant.io/integrations/co2signal)
+* [ESPHome](https://www.home-assistant.io/integrations/esphome)
 * [ENTSO-e](https://github.com/JaccoR/hass-entso-e)
 * [Forecast.Solar](https://www.home-assistant.io/integrations/forecast_solar)
 * [Frigate](https://github.com/blakeblackshear/frigate)
@@ -41,12 +42,16 @@
 * [Solis Inverter](https://github.com/hultenvp/solis-sensor/)
 * [Sun](https://www.home-assistant.io/integrations/sun)
 * [TP-Link Omada](https://www.home-assistant.io/integrations/tplink_omada)
+* [Universal Media Player](https://www.home-assistant.io/integrations/universal)
 * [WebRTC Camera](https://github.com/AlexxIT/WebRTC)
+* [Wyoming Protocol](https://www.home-assistant.io/integrations/wyoming)
 
 ## Add-ons
 
 * Studio Code Server
 * Music Assistant Server
+* Pipper
+* Whsiper
 * Zigbee2MQTT Proxy
 
 ## Dashboard add-ons
