@@ -75,22 +75,20 @@ VLANs numbering scheme `192.168.XX.YYY` where `XX` is one of:
 1. `10` - Management
 2. `15` - Services
 3. `20` - Home
-4. `25` - Gaming
-5. `30` - Cameras
-6. `40` - IoT
-7. `50` - Guest
+4. `30` - Cameras
+5. `40` - IoT
+6. `50` - Guest
 
 VLANs ACLs:
 
 | Network | WAN | Management | Services | IoT | Other VLANs | Peers |
 | ------- | :-: | :--------: | :------: | :-: | :---------: | :---: |
 | Management | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
-| Services | 🟢 | 🟢 | 🟢 | 🚫 | 🚫 | 🟢 |
-| Home | 🟢 | 🚫 | 🟢 | 🟢 | 🚫 | 🟢 |
-| Gaming |  🟢 | 🚫 | 🟢 | 🚫 | 🚫 | 🟢 |
-| IoT | 🟢 | 🚫 | 🟢 | 🚫 | 🚫 | 🚫 |
-| Cameras | 🚫 | 🚫 | 🟢 | 🚫 | 🚫 | 🚫 |
-| Guests | 🟢 | 🚫 | 🟢 | 🚫 | 🚫 | 🚫 |
+| Services   | 🟢 | 🟢 | 🟢 | 🚫 | 🚫 | 🟢 |
+| Home       | 🟢 | 🚫 | 🟢 | 🟢 | 🚫 | 🟢 |
+| IoT        | 🟢 | 🚫 | 🟢 | 🚫 | 🚫 | 🚫 |
+| Cameras    | 🚫 | 🚫 | 🟢 | 🚫 | 🚫 | 🚫 |
+| Guests     | 🟢 | 🚫 | 🟢 | 🚫 | 🚫 | 🚫 |
 
 ### Management LAN
 
@@ -98,7 +96,8 @@ Addressing scheme:
 
 * `192.168.10.1` - gateway
 * `192.168.10.2-29` - virtual machines / linux containers
-* `192.168.10.30-32` - Proxmox nodes
+* `192.168.10.30-34` - Proxmox nodes
+* `192.168.10.35-40` - trusted IoT devices
 * `192.168.10.98` - WiFi access Point (EAP610)
 * `192.168.10.99` - Switch (TL-SG2428P)
 * `192.168.10.100-254` - DHCP
@@ -110,7 +109,7 @@ Addressing scheme:
 * `192.168.15.3-99` - virtual machines / linux containers
 * `192.168.15.100-254` - DHCP
 
-### Home/Gaming LAN
+### Home LAN
 
 * `192.168.20.1` - gateway
 * `192.168.20.2` - jump host

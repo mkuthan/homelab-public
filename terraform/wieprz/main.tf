@@ -636,30 +636,6 @@ module "vlan20" {
   unprivileged = true
 }
 
-module "vlan25" {
-  source = "../modules/lxc_container"
-
-  ostemplate = local.default_ostemplate
-
-  target_node = "pve0"
-  hostname    = "lxc25"
-  tags        = ["jump_host"]
-
-  password        = var.default_password
-  ssh_public_keys = local.default_ssh_public_keys
-
-  cores  = 1
-  memory = 256
-
-  network_ip  = "192.168.25.2/24"
-  network_gw  = "192.168.25.1"
-  network_tag = "25"
-
-  nameserver = "192.168.25.1"
-
-  unprivileged = true
-}
-
 module "vlan30" {
   source = "../modules/lxc_container"
 
