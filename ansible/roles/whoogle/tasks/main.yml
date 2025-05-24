@@ -5,6 +5,7 @@
 
     env:
       WHOOGLE_CONFIG_THEME: "system"
+      WHOOGLE_UPDATE_CHECK: "true"
 
       # https://github.com/benbusby/whoogle-search/wiki/User-Agents
       WHOOGLE_USER_AGENT: "Mozilla/3.0 (compatible; MSIE 3.0; Windows NT 5.0)"
