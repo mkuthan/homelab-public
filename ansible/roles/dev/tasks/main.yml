@@ -5,29 +5,12 @@
 - name: Add Google repository key
   ansible.builtin.apt_key:
     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    keyring: /etc/apt/trusted.gpg.d/google-cloud-sdk.gpg
 
 - name: Add Google Cloud SDK repository
   ansible.builtin.apt_repository:
     repo: deb http://packages.cloud.google.com/apt cloud-sdk main
-    filename: cloud-sdk
-
-- name: Add Hashicorp repository key
-  ansible.builtin.apt_key:
-    url: https://apt.releases.hashicorp.com/gpg
-
-- name: Add Hashicorp repository
-  ansible.builtin.apt_repository:
-    repo: deb https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
-    filename: hashicorp
-
-- name: Add Adoptium repository key
-  ansible.builtin.apt_key:
-    url: https://packages.adoptium.net/artifactory/api/gpg/key/public
-
-- name: Add Adoptium repository
-  ansible.builtin.apt_repository:
-    repo: deb https://packages.adoptium.net/artifactory/deb {{ ansible_distribution_release }} main
-    filename: adoptium
+    filename: google-cloud-sdk
 
 - name: Install packages
   ansible.builtin.apt:

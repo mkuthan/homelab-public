@@ -1,7 +1,12 @@
 dev_packages:
+  # system
   - curl
   - htop
   - screen
   - sudo
   - vim
   - wget
+  # dev
+  - build-essential
+  - git
+  - google-cloud-cli
