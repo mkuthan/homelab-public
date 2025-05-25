@@ -14,6 +14,7 @@
     driver_options:
       type: cifs
       device: "{{ paperless_ngx_consume_share }}"
+      o: "username={{ paperless_ngx_consume_share_user }},password={{ paperless_ngx_consume_share_password }},rw"
 
 - name: Create Paperless Redis container
   community.docker.docker_container:

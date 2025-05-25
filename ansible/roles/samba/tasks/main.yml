@@ -5,13 +5,27 @@
     - samba
     - smbclient
 
+- name: Create Samba user
+  ansible.builtin.user:
+    name: "{{ samba_user }}"
+    create_home: no
+
+- name: Set Samba user password
+  ansible.builtin.shell: |
+    (echo "{{ samba_password }}"; echo "{{ samba_password }}") | smbpasswd -s -a {{ samba_user }}
+  args:
+    creates: "/var/lib/samba/private/{{ samba_user }}.tdb"
+
+- name: Ensure user is enabled for Samba
+  ansible.builtin.shell: smbpasswd -e {{ samba_user }}
+
 - name: Create Samba public shares
   ansible.builtin.file:
     dest: "{{ item.path }}"
     state: directory
-    mode: "2770"
-    owner: nobody
-    group: nogroup
+    mode: "0770"
+    owner: "{{ samba_user }}"
+    group: "{{ samba_user }}"
   loop: "{{ samba_public_shares }}"
 
 - name: Configure Samba

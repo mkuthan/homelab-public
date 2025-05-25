@@ -3,6 +3,7 @@
   server string = %v on (%L)
   
   server role = standalone server
+  security = user
   map to guest = Bad User
 
   logging = syslog
@@ -22,7 +23,6 @@
   path = {{ item.path }}
   read only = {{ item.read_only | default('no') }}
   browseable = {{ item.browseable | default('yes') }}
-  guest ok = yes
-  guest only = yes
+  valid users = {{ samba_user }}
 
 {% endfor %}
