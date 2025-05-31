@@ -6,18 +6,16 @@
 ## Integrations
 
 * [Android TV Remote](https://www.home-assistant.io/integrations/androidtv_remote)
-* [Aquarea Smart Cloud](https://github.com/cjaliaga/home-assistant-aquarea)
 * [Auto Backup](https://github.com/jcwillox/hass-auto-backup)
 * [Bambu Lab](https://github.com/greghesp/ha-bambulab)
 * [Electricity Maps](https://www.home-assistant.io/integrations/co2signal)
 * [ESPHome](https://www.home-assistant.io/integrations/esphome)
-* [ENTSO-e](https://github.com/JaccoR/hass-entso-e)
-* [Forecast.Solar](https://www.home-assistant.io/integrations/forecast_solar)
 * [Frigate](https://github.com/blakeblackshear/frigate)
 * [Google Cast](https://www.home-assistant.io/integrations/cast)
 * [Google Cloud](https://www.home-assistant.io/integrations/google_cloud)
 * [Google Generative AI](https://www.home-assistant.io/integrations/google_generative_ai_conversation)
 * [HACS](https://hacs.xyz/docs/use/)
+* [HeishaMon](https://github.com/kamaradclimber/heishamon-homeassistant)
 * [Home Assistant Supervisor](https://www.home-assistant.io/integrations/hassio)
 * [Home Connect](https://www.home-assistant.io/integrations/home_connect)
 * [Local Calendar](https://www.home-assistant.io/integrations/local_calendar)
@@ -28,11 +26,8 @@
 * [MQTT](https://www.home-assistant.io/integrations/mqtt)
 * [Music Assistant](https://www.home-assistant.io/integrations/music_assistant)
 * [Proximity](https://www.home-assistant.io/integrations/proximity)
-* [PrusaLink](https://www.home-assistant.io/integrations/prusalink)
 * [PSE RCE Integration](https://github.com/robertugo2/ha_rce/)
 * [Radio Browser](https://www.home-assistant.io/integrations/radio_browser)
-* [RESTful](https://www.home-assistant.io/integrations/rest)
-* [Retry](https://github.com/amitfin/retry)
 * [Risco](https://www.home-assistant.io/integrations/risco)
 * [Season](https://www.home-assistant.io/integrations/season)
 * [Shelly](https://www.home-assistant.io/integrations/shelly)
@@ -45,6 +40,15 @@
 * [Universal Media Player](https://www.home-assistant.io/integrations/universal)
 * [WebRTC Camera](https://github.com/AlexxIT/WebRTC)
 * [Wyoming Protocol](https://www.home-assistant.io/integrations/wyoming)
+
+Unused integrations:
+
+* [Aquarea Smart Cloud](https://github.com/cjaliaga/home-assistant-aquarea)
+* [ENTSO-e](https://github.com/JaccoR/hass-entso-e)
+* [Forecast.Solar](https://www.home-assistant.io/integrations/forecast_solar)
+* [PrusaLink](https://www.home-assistant.io/integrations/prusalink)
+* [RESTful](https://www.home-assistant.io/integrations/rest)
+* [Retry](https://github.com/amitfin/retry)
 
 ## Add-ons
 

@@ -16,7 +16,7 @@
 
 Trusted devices connected to Management LAN:
 
-* HeishaMon - `192.168.10.35`
+* HeishaMon Small v1.5- `192.168.10.35`
 * Home Assistant Voice 1 - `192.168.10.36`
 
 ## ZigBee Coordinator
