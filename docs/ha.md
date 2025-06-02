@@ -16,7 +16,6 @@
 * [Google Generative AI](https://www.home-assistant.io/integrations/google_generative_ai_conversation)
 * [HACS](https://hacs.xyz/docs/use/)
 * [HeishaMon](https://github.com/kamaradclimber/heishamon-homeassistant)
-* [Home Assistant Supervisor](https://www.home-assistant.io/integrations/hassio)
 * [Home Connect](https://www.home-assistant.io/integrations/home_connect)
 * [Local Calendar](https://www.home-assistant.io/integrations/local_calendar)
 * [Local To-do](https://www.home-assistant.io/integrations/local_todo)
@@ -24,7 +23,6 @@
 * [Mobile App](https://www.home-assistant.io/integrations/mobile_app)
 * [Moon](https://www.home-assistant.io/integrations/moon)
 * [MQTT](https://www.home-assistant.io/integrations/mqtt)
-* [Music Assistant](https://www.home-assistant.io/integrations/music_assistant)
 * [Proximity](https://www.home-assistant.io/integrations/proximity)
 * [PSE RCE Integration](https://github.com/robertugo2/ha_rce/)
 * [Radio Browser](https://www.home-assistant.io/integrations/radio_browser)
@@ -46,6 +44,7 @@ Unused integrations:
 * [Aquarea Smart Cloud](https://github.com/cjaliaga/home-assistant-aquarea)
 * [ENTSO-e](https://github.com/JaccoR/hass-entso-e)
 * [Forecast.Solar](https://www.home-assistant.io/integrations/forecast_solar)
+* [Music Assistant](https://www.home-assistant.io/integrations/music_assistant)
 * [PrusaLink](https://www.home-assistant.io/integrations/prusalink)
 * [RESTful](https://www.home-assistant.io/integrations/rest)
 * [Retry](https://github.com/amitfin/retry)
@@ -53,8 +52,10 @@ Unused integrations:
 ## Add-ons
 
 * Studio Code Server
-* Music Assistant Server
+* Music Assistant Server (unused)
+* Open Wake World
 * Pipper
+* SQLite Web
 * Whsiper
 * Zigbee2MQTT Proxy
 
