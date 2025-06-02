@@ -37,7 +37,7 @@ Dell Optiplex 5070 Micro (pve1):
 * PCIe M.2 A+E 2.5Gb RTL8125B network card
 * USB 3.1 Gen 2 x 1 Type-C
 * USB 3.1 Gen 1 x 5
-* Power Supply 65W, 4.5x3.0mm
+* Power Supply 130W, 7.4x5.0mm + adapter to 4.5x3.0mm
 * Service Tag: HLM8263
 * Bios Version: 1.32.0
 
@@ -65,6 +65,7 @@ Dell Optiplex 3050 Micro (spare):
 * Built-in Gigabit Ethernet card
 * USB 3.0 Gen 1 x 4
 * USB 2.0 x 2
+* Power Supply 65W, 4.5x3.0mm
 * Service Tag: 5MTZ7N2
 * Bios Version: 1.32.0
 
