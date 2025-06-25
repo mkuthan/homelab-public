@@ -7,8 +7,8 @@ Tailscale machines:
 ```mermaid
 flowchart TD
     subgraph Wieprz
-        WIEPRZ0[wieprz0 <br> 100.120.15.82 <br> 192.168.15.3]
-        WIEPRZ1[wieprz1 <br> 100.90.156.33 <br> 192.168.15.4]
+        WEB0[wieprz0 <br> 100.120.15.82 <br> 192.168.15.3]
+        WEB1[wieprz1 <br> 100.90.156.33 <br> 192.168.15.4]
         PVE0[pve0 <br> 100.65.128.50 <br> 192.168.10.30]
         PVE1[pve1 <br> 100.96.18.66 <br> 192.168.10.31]
         PVE2[pve2 <br> 100.67.72.64 <br> 192.168.10.32]
@@ -27,11 +27,7 @@ flowchart TD
     Wieprz ~~~ Bekasow ~~~GCP
 ```
 
-Nodes `wieprz0`, `wieprz1`, `bekasow`, and `vps` act as proxies.
-All Tailnet members can connect to these nodes on port `443` for secure communication.
 For detailed configuration, refer to the [Terraform configuration file](../terraform/tailscale/main.tf).
-
-Other nodes can be accessed only by Tailnet owners (me).
 
 ## DNS
 
@@ -43,7 +39,7 @@ Cloudflare:
 
 Adguard rewrites
 
-* `*.wieprz.org` → `192.168.15.3`
+* `*.wieprz.org` → `192.168.15.3` (or `192.168.15.4` as backup)
 * `*.bekasow.duckdns.org` → `100.113.237.33`
 
 Router DNS Proxy:
@@ -53,18 +49,18 @@ Router DNS Proxy:
 
 ### Bekasow
 
-DuckDns:
+Duckdns:
 
 * `*.bekasow.duckdns.org` → `100.113.237.33`
 
-Adguard:
+Adguard rewrites:
 
 * `*.bekasow.duckdns.org` → `192.168.1.2`
 * `*.wieprz.org` → `100.120.15.82` (or `100.90.156.33` as backup)
 
 ### VPS
 
-DuckDns:
+Duckdns:
 
 * `*.vps64.duckdns.org` → `100.111.142.62`
 
@@ -91,8 +87,6 @@ VLANs ACLs:
 | Guests     | 🟢 | 🚫 | 🟢 | 🚫 | 🚫 | 🚫 |
 
 ### Management LAN
-
-Addressing scheme:
 
 * `192.168.10.1` - gateway
 * `192.168.10.2-29` - virtual machines / linux containers
