@@ -2,6 +2,7 @@ dev_packages:
   # system
   - curl
   - htop
+  - keychain
   - screen
   - sudo
   - vim

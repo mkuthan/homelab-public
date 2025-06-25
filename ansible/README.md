@@ -8,13 +8,13 @@ This repository contains over 50 roles and 30 playbooks to manage my homelab inf
 Install Ansible:
 
 ```bash
-pipx install --include-deps ansible
+pipx install --include-deps ansible ansible-lint
 ```
 
 Update Ansible:
 
 ```bash
-pipx upgrade --include-injected ansible
+pipx upgrade --include-injected ansible ansible-lint
 ```
 
 Install extra Python dependencies:

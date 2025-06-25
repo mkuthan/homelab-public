@@ -8,7 +8,7 @@
 - name: Create Samba user
   ansible.builtin.user:
     name: "{{ samba_user }}"
-    create_home: no
+    create_home: true
 
 - name: Set Samba user password
   ansible.builtin.shell: |
