@@ -2,6 +2,8 @@
 # lxc.cgroup2.devices.allow: c 226:0 rwm
 # lxc.cgroup2.devices.allow: c 226:128 rwm
 
+# https://github.com/immich-app/immich/blob/main/docker/docker-compose.yml
+
 - name: Stat /dev/dri
   ansible.builtin.stat:
     path: /dev/dri
@@ -22,7 +24,7 @@
 - name: Create Immich Redis container
   community.docker.docker_container:
     name: immich-redis
-    image: docker.io/redis:6.2-alpine
+    image: docker.io/valkey/valkey:8-bookworm
 
     volumes:
       - immich-redisdata:/data:rw
@@ -37,16 +39,7 @@
 - name: Create Immich Postgres container
   community.docker.docker_container:
     name: immich-postgres
-    image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0
-
-    command: >-
-      postgres
-      -c shared_preload_libraries=vectors.so
-      -c 'search_path="$$user", public, vectors'
-      -c logging_collector=on
-      -c max_wal_size=2GB
-      -c shared_buffers=512MB
-      -c wal_compression=on
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0
 
     env:
       POSTGRES_DB: immich
@@ -56,6 +49,8 @@
 
     volumes:
       - immich-pgdata:/var/lib/postgresql/data:rw
+
+    shm_size: 128M
 
     networks: "{{ docker_networks }}"
     comparisons: "{{ docker_comparisons }}"
@@ -68,6 +63,10 @@
   community.docker.docker_container:
     name: immich-machine-learning
     image: ghcr.io/immich-app/immich-machine-learning:release-openvino
+
+    env:
+      # https://github.com/immich-app/immich/discussions/8880
+      MACHINE_LEARNING_WORKER_TIMEOUT: "300"
 
     volumes:
       - immich-model-cache:/cache
