@@ -15,9 +15,9 @@ terraform {
 }
 
 provider "proxmox" {
-  pm_api_url  = var.proxmox_url
-  pm_user     = var.proxmox_user
-  pm_password = var.proxmox_password
+  pm_api_url      = var.proxmox_url
+  pm_user         = var.proxmox_user
+  pm_password     = var.proxmox_password
   pm_tls_insecure = true
 
   # pm_log_enable = true
@@ -294,8 +294,8 @@ module "samba" {
   memory      = 512
   rootfs_size = "20G"
 
-  network_ip  = "192.168.10.14/24"
-  network_gw  = "192.168.10.1"
+  network_ip = "192.168.10.14/24"
+  network_gw = "192.168.10.1"
 
   nameserver = "192.168.10.1"
 }
@@ -397,8 +397,10 @@ module "immich" {
   password        = var.default_password
   ssh_public_keys = local.default_ssh_public_keys
 
-  cores  = 4
-  memory = 8192
+  cores       = 4
+  memory      = 8192
+  rootfs_size = "20G"
+
 
   network_ip = "192.168.10.19/24"
   network_gw = "192.168.10.1"
@@ -430,8 +432,8 @@ module "openwebui" {
   password        = var.default_password
   ssh_public_keys = local.default_ssh_public_keys
 
-  cores  = 4
-  memory = 4096
+  cores       = 4
+  memory      = 4096
   rootfs_size = "20G"
 
   network_ip = "192.168.10.20/24"
@@ -475,8 +477,8 @@ module "jellyfin" {
   password        = var.default_password
   ssh_public_keys = local.default_ssh_public_keys
 
-  cores       = 2
-  memory      = 4096
+  cores  = 2
+  memory = 4096
 
   network_ip = "192.168.10.22/24"
   network_gw = "192.168.10.1"
@@ -576,8 +578,8 @@ module "apt-cacher" {
   memory      = 512
   rootfs_size = "20G"
 
-  network_ip = "192.168.15.20/24"
-  network_gw = "192.168.15.1"
+  network_ip  = "192.168.15.20/24"
+  network_gw  = "192.168.15.1"
   network_tag = "15"
 
   nameserver = "192.168.15.1"
