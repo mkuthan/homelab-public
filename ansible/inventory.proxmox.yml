@@ -1,4 +1,4 @@
-plugin: community.general.proxmox
+plugin: community.proxmox.proxmox
 url: "https://192.168.10.30:8006"
 user: "ansible@pve"
 password: !vault |

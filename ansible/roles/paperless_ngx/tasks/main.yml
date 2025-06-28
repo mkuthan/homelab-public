@@ -1,3 +1,5 @@
+# https://github.com/paperless-ngx/paperless-ngx/blob/dev/docker/compose/docker-compose.postgres-tika.yml
+
 - name: Create Paperless volumes
   community.docker.docker_volume:
     volume_name: "{{ item }}"
@@ -19,7 +21,7 @@
 - name: Create Paperless Redis container
   community.docker.docker_container:
     name: paperless-redis
-    image: docker.io/library/redis:7
+    image: docker.io/library/redis:8
 
     volumes:
       - paperless-redisdata:/data:rw
@@ -34,6 +36,7 @@
 - name: Create Paperless Postgres container
   community.docker.docker_container:
     name: paperless-postgres
+    # Don't updgrade without proper migration https://www.postgresql.org/docs/current/upgrading.html
     image: docker.io/library/postgres:16
 
     env:
@@ -54,7 +57,7 @@
 - name: Create Paperless Gotenberg container
   community.docker.docker_container:
     name: paperless-gotenberg
-    image: docker.io/gotenberg/gotenberg:8.7
+    image: docker.io/gotenberg/gotenberg:8.20
 
     command:
       - "gotenberg"
