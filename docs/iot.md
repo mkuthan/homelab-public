@@ -8,6 +8,7 @@
 * Zigbee controller SLZB-06-1 - `192.168.40.13`
 * Solis Datalogger S2-WL-ST - `192.168.40.14`
 * Android TV Box - `192.168.40.20`
+* LG TV - `192.168.40.25`
 * Prusa 3D Printer - `192.168.40.30`
 * Bambulab 3D Printer - `192.168.40.40`
 
