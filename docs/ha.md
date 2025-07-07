@@ -17,6 +17,7 @@
 * [HACS](https://hacs.xyz/docs/use/)
 * [HeishaMon](https://github.com/kamaradclimber/heishamon-homeassistant)
 * [Home Connect](https://www.home-assistant.io/integrations/home_connect)
+* [LG webOS TV](https://www.home-assistant.io/integrations/webostv/)
 * [Local Calendar](https://www.home-assistant.io/integrations/local_calendar)
 * [Local To-do](https://www.home-assistant.io/integrations/local_todo)
 * [Meteorologisk institutt](https://www.home-assistant.io/integrations/met)
