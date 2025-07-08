@@ -20,6 +20,10 @@ References:
 * <https://hdtv.com.pl/threads/box-tv-smart-4k-dv8988-amlogic-s905x4-z-av1-i-wifi6-cert-netflix.153812/>
 * <https://forum.kodiwpigulce.pl/showthread.php?tid=5110>
 
+## TV
+
+* [LG 65C4](https://www.displayspecifications.com/en/model/1b82389c)
+
 ## Amplifier
 
 * DAC (CS8416 CS4398 24BIT192KHz): <https://pl.aliexpress.com/item/32960837911.html>
