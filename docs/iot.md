@@ -12,13 +12,13 @@
 * Prusa 3D Printer - `192.168.40.30`
 * Bambulab 3D Printer - `192.168.40.40`
 
-> [!TIP]
-> If you connect to device directly, use easy to remember IP address like `192.168.40.20`, `192.168.40.30`, etc.
-
 Trusted devices connected to Management LAN:
 
 * HeishaMon Small v1.5- `192.168.10.35`
 * Home Assistant Voice 1 - `192.168.10.36`
+
+> [!TIP]
+> If you connect to device directly, use easy to remember IP address like `192.168.40.20`, `192.168.40.30`, etc.
 
 ## ZigBee Coordinator
 
@@ -26,7 +26,7 @@ SLZB-06 Zigbee CC2652P (PoE, channel 15), references:
 
 * <https://smlight.tech/product/slzb-06/>
 
-Sonoff ZBDogle-E, references:
+Sonoff ZBDogle-E (unused), references:
 
 * <https://sonoff.tech/product/gateway-and-sensors/sonoff-zigbee-3-0-usb-dongle-plus-e/>
 * <https://www.silabs.com/developers/zigbee-emberznet?tab=documentation>
