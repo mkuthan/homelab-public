@@ -15,23 +15,19 @@ advanced:
   network_key: {{ z2m_zigbee_network_key }}
   transmit_power: {{ z2m_zigbee_transmit_power | default('5') }}
 
-  legacy_api: false
-  legacy_availability_payload: false
-
-device_options:
-  legacy: false
-
 ota:
   disable_automatic_update_check: true
 
-availability: true
+availability: 
+  enabled: true
 
 homeassistant:
-  legacy_triggers: false
-  legacy_entity_attributes: false
+  enabled: true
   status_topic: homeassistant/status
 
-frontend: true
+frontend: 
+  enabled: true
+
 permit_join: false
 
 devices: devices.yaml
