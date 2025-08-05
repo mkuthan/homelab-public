@@ -31,7 +31,8 @@ See [Terraform definition](../terraform/wieprz/main.tf) for container specificat
 
 ### Backup jobs
 
-* Container `pbs` to `usb1` storage at `01:30` with keep last set to `7`. Recovery for this container must be possible without Proxmox Backup Server running.
+* Container `pbs` to `usb1` storage at `01:30` with keep last set to `7`.
+  Recovery for this container must be possible without Proxmox Backup Server running.
 * All VMs/containers except `pbs` and Home Assistant to `pbs` storage at `02:00`
 * Home Assistant container to `pbs` storage on every hour (`*/1:00`)
 

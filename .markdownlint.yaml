@@ -1,2 +1,5 @@
+# Default 80 limit is too restrictive
+MD013:
+  line_length: 120
 # Fenced code blocks should have a language specified
 MD040: false

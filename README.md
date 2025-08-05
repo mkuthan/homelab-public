@@ -1,6 +1,8 @@
 # Homelab by Marcin
 
-Welcome to my homelab project. This repository contains configurations and documentation for my self-hosted infrastructure. The purpose of this homelab is to experiment with and manage various technologies and services in a controlled environment, emphasizing self-hosting, simplicity, and Infrastructure as Code (IaaC) principles.
+Welcome to my homelab project. This repository contains configurations and documentation for my self-hosted infrastructure.
+The purpose of this homelab is to experiment with and manage various technologies and services in a controlled environment,
+emphasizing self-hosting, simplicity, and Infrastructure as Code (IaaC) principles.
 
 Manifesto:
 
