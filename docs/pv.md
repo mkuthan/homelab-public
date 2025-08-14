@@ -3,7 +3,7 @@
 ## Inverter
 
 * Model: *Solis S6-EH3P12K02-NV-YD-L*
-* Version: *010003-0a000e*
+* Version: *060008-080005* (14.08.2025)
 
 ### Battery related configuration
 
