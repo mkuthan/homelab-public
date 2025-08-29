@@ -34,7 +34,7 @@ Sonoff ZBDogle-E (unused), references:
 
 ## Zigbee Devices
 
-* 1 gang switch [SONOFF ZBMINI](https://www.zigbee2mqtt.io/devices/ZBMINI.html)
+* 1 gang switch [Sonoff ZBMINI](https://www.zigbee2mqtt.io/devices/ZBMINI.html)
 * 1 gang switch [Tuya TS0001](https://www.zigbee2mqtt.io/devices/TS0001_switch_module.html)
 * 1 gang switch [Tuya TS0001 power](https://www.zigbee2mqtt.io/devices/TS0001_power.html)
 * Curtain switch [Tyua TS130F](https://www.zigbee2mqtt.io/devices/TS130F.html)
@@ -46,5 +46,6 @@ Sonoff ZBDogle-E (unused), references:
 * Smoke detector [Tuya TS0205_smoke_2](https://www.zigbee2mqtt.io/devices/TS0205_smoke_2.html)
 * Smoke detector [ONENUO 288WZ](https://www.zigbee2mqtt.io/devices/288WZ.html)
 * Temperature and humidity sensor [Sonoff SNZB-02D](https://www.zigbee2mqtt.io/devices/SNZB-02D.html)
+* Temperature and humidity sensor [Tyua TH02Z](https://www.zigbee2mqtt.io/devices/TH02Z.html)
 * Vibration sensor [Tuya TS0210](https://www.zigbee2mqtt.io/devices/TS0210.html)
 * Window sensor [Tuya TS0203](https://www.zigbee2mqtt.io/devices/TS0203.html)
