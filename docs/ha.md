@@ -72,3 +72,25 @@ Unused integrations:
 * [Mushroom](https://github.com/piitaya/lovelace-mushroom)
 * [Power Flow Card Plus](https://github.com/flixlix/power-flow-card-plus)
 * [Trash Card](https://github.com/idaho/hassio-trash-card)
+
+## Database statistics
+
+Top 50 entities by number of state changes in the last 7 days (604800 seconds):
+
+```sql
+WITH recent_states AS (
+  SELECT
+    s.metadata_id,
+    s.last_updated_ts
+  FROM states s
+  WHERE s.last_updated_ts > strftime('%s','now') - 604800
+)
+SELECT
+  sm.entity_id,
+  COUNT(*) AS state_rows
+FROM recent_states rs
+JOIN states_meta sm ON rs.metadata_id = sm.metadata_id
+GROUP BY sm.entity_id
+ORDER BY state_rows DESC
+LIMIT 50;
+```
