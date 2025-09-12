@@ -4,12 +4,13 @@
     image: benbusby/whoogle-search:latest
 
     env:
+      WHOOGLE_CONFIG_URL: "https://whoogle.{{ ansible_domain }}"
       WHOOGLE_CONFIG_THEME: "system"
       WHOOGLE_UPDATE_CHECK: "true"
 
       # https://github.com/benbusby/whoogle-search/wiki/User-Agents
-      WHOOGLE_USER_AGENT: "Mozilla/3.0 (compatible; MSIE 3.0; Windows NT 5.0)"
-      WHOOGLE_USER_AGENT_MOBILE: "Mozilla/3.0 (compatible; MSIE 3.0; Windows NT 5.0)"
+      WHOOGLE_USER_AGENT: "Mozilla/4.0 (PSP (PlayStation Portable); 2.00)"
+      WHOOGLE_USER_AGENT_MOBILE: "Mozilla/4.0 (PSP (PlayStation Portable); 2.00)"
 
     ports: "{{ whoogle_ports | default([]) }}"
 
