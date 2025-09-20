@@ -42,6 +42,7 @@ Sonoff ZBDogle-E (unused), references:
 * Fingerbot [Tuya TS0001_fingerbot](https://www.zigbee2mqtt.io/devices/TS0001_fingerbot.html)
 * Light switch [Ikea E2001/E2002](https://www.zigbee2mqtt.io/devices/E2001_E2002.html)
 * Light bulb [Ikea LED2109G6](https://www.zigbee2mqtt.io/devices/LED2109G6.html)
+* Plug [Ikea E2206](https://www.zigbee2mqtt.io/devices/E2206.html)
 * Plug [Tyua BSD29_1](https://www.zigbee2mqtt.io/devices/BSD29_1.html)
 * Smoke detector [Tuya TS0205_smoke_2](https://www.zigbee2mqtt.io/devices/TS0205_smoke_2.html)
 * Smoke detector [ONENUO 288WZ](https://www.zigbee2mqtt.io/devices/288WZ.html)
