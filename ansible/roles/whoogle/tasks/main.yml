@@ -8,10 +8,6 @@
       WHOOGLE_CONFIG_THEME: "system"
       WHOOGLE_UPDATE_CHECK: "true"
 
-      # https://github.com/benbusby/whoogle-search/wiki/User-Agents
-      WHOOGLE_USER_AGENT: "Mozilla/4.0 (PSP (PlayStation Portable); 2.00)"
-      WHOOGLE_USER_AGENT_MOBILE: "Mozilla/4.0 (PSP (PlayStation Portable); 2.00)"
-
     ports: "{{ whoogle_ports | default([]) }}"
 
     networks: "{{ docker_networks }}"
