@@ -46,6 +46,7 @@ Sonoff ZBDogle-E (unused), references:
 * Plug [Tyua BSD29_1](https://www.zigbee2mqtt.io/devices/BSD29_1.html)
 * Smoke detector [Tuya TS0205_smoke_2](https://www.zigbee2mqtt.io/devices/TS0205_smoke_2.html)
 * Smoke detector [ONENUO 288WZ](https://www.zigbee2mqtt.io/devices/288WZ.html)
+* Sound remote [Ikea E2123](https://www.zigbee2mqtt.io/devices/E2123.html)
 * Temperature and humidity sensor [Sonoff SNZB-02D](https://www.zigbee2mqtt.io/devices/SNZB-02D.html)
 * Temperature and humidity sensor [Tyua TH02Z](https://www.zigbee2mqtt.io/devices/TH02Z.html)
 * Vibration sensor [Tuya TS0210](https://www.zigbee2mqtt.io/devices/TS0210.html)
