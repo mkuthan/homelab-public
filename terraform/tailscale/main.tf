@@ -5,7 +5,7 @@ terraform {
   required_providers {
     tailscale = {
       source  = "tailscale/tailscale"
-      version = "0.19.0"
+      version = "0.22.0"
     }
   }
 }
@@ -66,7 +66,7 @@ data "tailscale_devices" "devices" {
 resource "tailscale_device_tags" "tags" {
   for_each = { for machine in local.machines : machine.name => machine }
 
-  device_id = lookup({for d in data.tailscale_devices.devices.devices : d.name => d.id}, each.key, null)
+  device_id = lookup({ for d in data.tailscale_devices.devices.devices : d.name => d.id }, each.key, null)
   tags      = each.value.tags
 }
 
