@@ -1,3 +1,10 @@
+- name: Set IP of apt proxy
+  set_fact:
+    apt_proxy_host: >-
+      {{ lookup('pipe', 'terraform -chdir=/root/homelab-public/terraform/wieprz output -json')
+         | from_json
+         | json_query('apt_cacher_ip.value') }}
+
 - name: Install detect-http-proxy
   ansible.builtin.template:
     src: detect-http-proxy.j2
