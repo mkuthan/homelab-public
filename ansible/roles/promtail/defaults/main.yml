@@ -1,0 +1,2 @@
+promtail_loki_host: "{{ hostvars['loki']['ansible_host'] | default('localhost') }}"
+promtail_loki_port: "3100"

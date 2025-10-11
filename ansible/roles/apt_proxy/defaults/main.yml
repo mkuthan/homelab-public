@@ -1,0 +1,2 @@
+apt_proxy_host: "{{ hostvars['apt-cacher']['ansible_host'] | default('localhost') }}"
+apt_proxy_port: "3142"

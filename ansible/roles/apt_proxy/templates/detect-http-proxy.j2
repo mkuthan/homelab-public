@@ -20,7 +20,7 @@ show_proxy_messages=1
 # be available on the top. If no proxy is available, a direct connection will
 # be used
 try_proxies=(
-{{ apt_proxy_host | default('localhost') }}:{{ apt_proxy_port | default('3142') }}
+{{ apt_proxy_host }}:{{ apt_proxy_port }}
 )
 
 print_msg() {
