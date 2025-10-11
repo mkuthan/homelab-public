@@ -1,7 +1,9 @@
 # Home Assistant
 
+## Automations
+
+* Solar energy management <https://github.com/mkuthan/home-assistant-appdaemon>
 * CCTV, heating, lighting and more automations <https://mkuthan.github.io/blog/2024/12/08/home-assistant-automations/>
-* Solar energy management automations <https://mkuthan.github.io/blog/2025/04/12/home-assistant-solar/>
 
 ## Integrations
 
@@ -37,7 +39,6 @@
 * [Solis Inverter](https://github.com/hultenvp/solis-sensor/)
 * [Spook](https://spook.boo/)
 * [Sun](https://www.home-assistant.io/integrations/sun)
-* [TP-Link Omada](https://www.home-assistant.io/integrations/tplink_omada)
 * [Universal Media Player](https://www.home-assistant.io/integrations/universal)
 * [WebRTC Camera](https://github.com/AlexxIT/WebRTC)
 * [Wyoming Protocol](https://www.home-assistant.io/integrations/wyoming)
@@ -51,9 +52,12 @@ Unused integrations:
 * [PrusaLink](https://www.home-assistant.io/integrations/prusalink)
 * [RESTful](https://www.home-assistant.io/integrations/rest)
 * [Retry](https://github.com/amitfin/retry)
+* [TP-Link Omada](https://www.home-assistant.io/integrations/tplink_omada)
+
 
 ## Add-ons
 
+* AppDaemon
 * Studio Code Server
 * Music Assistant Server (unused)
 * Open Wake World
