@@ -1,6 +1,13 @@
+- name: Check if rclone is installed
+  ansible.builtin.command: rclone version
+  register: rclone_version_check
+  failed_when: false
+  changed_when: false
+
 - name: Install rclone
   ansible.builtin.apt:
     deb: https://downloads.rclone.org/rclone-current-linux-amd64.deb
+  when: rclone_version_check.rc != 0
 
 - name: Create rclone configuration directory
   ansible.builtin.file:

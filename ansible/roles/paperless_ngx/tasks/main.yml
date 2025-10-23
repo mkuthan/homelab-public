@@ -7,7 +7,7 @@
     - paperless-data
     - paperless-media
     - paperless-export
-    - paperless-pgdata
+    - paperless-pgdata18
     - paperless-redisdata
 
 - name: Create Paperless consume volume
@@ -33,11 +33,12 @@
     restart_policy: "{{ docker_restart_policy }}"
     pull: "{{ docker_pull }}"
 
-- name: Create Paperless Postgres container
+
+- name: Create Paperless Postgres 18 container
   community.docker.docker_container:
-    name: paperless-postgres
-    # Don't updgrade without proper migration https://www.postgresql.org/docs/current/upgrading.html
-    image: docker.io/library/postgres:16
+    name: paperless-postgres18
+    # don't upgrade without database migration see: docs/postgres.md
+    image: docker.io/library/postgres:18
 
     env:
       POSTGRES_DB: paperless
@@ -45,7 +46,7 @@
       POSTGRES_PASSWORD: paperless
 
     volumes:
-      - paperless-pgdata:/var/lib/postgresql/data:rw
+      - paperless-pgdata18:/var/lib/postgresql:rw
 
     networks: "{{ docker_networks }}"
     comparisons: "{{ docker_comparisons }}"
@@ -82,7 +83,7 @@
       PAPERLESS_CONSUMER_POLLING: "1"
 
       PAPERLESS_REDIS: redis://paperless-redis:6379
-      PAPERLESS_DBHOST: paperless-postgres
+      PAPERLESS_DBHOST: paperless-postgres18
       PAPERLESS_TIKA_ENABLED: "1"
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg:3000
       PAPERLESS_TIKA_ENDPOINT: http://{{ tika_container_name }}:9998

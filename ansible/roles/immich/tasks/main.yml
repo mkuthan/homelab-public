@@ -39,6 +39,7 @@
 - name: Create Immich Postgres container
   community.docker.docker_container:
     name: immich-postgres
+    # don't upgrade without database migration see: docs/postgres.md
     image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0
 
     env:

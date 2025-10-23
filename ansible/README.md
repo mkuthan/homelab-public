@@ -1,4 +1,3 @@
-
 # Ansible
 
 This repository contains over 50 roles and 30 playbooks to manage my homelab infrastructure.
