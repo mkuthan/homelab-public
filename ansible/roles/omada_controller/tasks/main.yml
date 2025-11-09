@@ -9,7 +9,7 @@
 - name: Create Omada controller container
   community.docker.docker_container:
     name: omada-controller
-    image: mbentley/omada-controller:latest
+    image: mbentley/omada-controller:6 # expect breaking changes with major version updates
 
     volumes:
       - omada-data:/opt/tplink/EAPController/data:rw
