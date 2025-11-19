@@ -2,7 +2,8 @@
 
 ## Automations
 
-* Solar energy management <https://github.com/mkuthan/home-assistant-appdaemon>
+* Solar & HVAC energy management <https://github.com/mkuthan/home-assistant-appdaemon>
+* Solar energy management v1 <https://github.com/mkuthan/home-assistant-appdaemon>
 * CCTV, heating, lighting and more automations <https://mkuthan.github.io/blog/2024/12/08/home-assistant-automations/>
 
 ## Integrations
@@ -28,9 +29,9 @@
 * [Moon](https://www.home-assistant.io/integrations/moon)
 * [MQTT](https://www.home-assistant.io/integrations/mqtt)
 * [Proximity](https://www.home-assistant.io/integrations/proximity)
-* [PSE RCE Integration](https://github.com/robertugo2/ha_rce/)
 * [Radio Browser](https://www.home-assistant.io/integrations/radio_browser)
 * [Risco](https://www.home-assistant.io/integrations/risco)
+* [Rynkowa Cena Energii](https://github.com/Lewa-Reka/ha-rce-pse)
 * [Season](https://www.home-assistant.io/integrations/season)
 * [Shelly](https://www.home-assistant.io/integrations/shelly)
 * [SMLIGHT](https://www.home-assistant.io/integrations/smlight)
@@ -43,7 +44,7 @@
 * [WebRTC Camera](https://github.com/AlexxIT/WebRTC)
 * [Wyoming Protocol](https://www.home-assistant.io/integrations/wyoming)
 
-Unused integrations:
+Retired integrations:
 
 * [Aquarea Smart Cloud](https://github.com/cjaliaga/home-assistant-aquarea)
 * [ENTSO-e](https://github.com/JaccoR/hass-entso-e)
