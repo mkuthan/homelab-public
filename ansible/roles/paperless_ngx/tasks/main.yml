@@ -58,7 +58,7 @@
 - name: Create Paperless Gotenberg container
   community.docker.docker_container:
     name: paperless-gotenberg
-    image: docker.io/gotenberg/gotenberg:8.20
+    image: docker.io/gotenberg/gotenberg:8.25
 
     command:
       - "gotenberg"
