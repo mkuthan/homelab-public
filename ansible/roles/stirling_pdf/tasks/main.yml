@@ -1,11 +1,20 @@
+- name: Create Stirling-PDF volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - stirling-pdf-data
+
 - name: Create Stirling-PDF container
   community.docker.docker_container:
     name: stirling-pdf
-    image: frooodle/s-pdf:latest
+    image: stirlingtools/stirling-pdf:latest
 
     env:
-      DOCKER_ENABLE_SECURITY: "false"
-      INSTALL_BOOK_AND_ADVANCED_HTML_OPS: "false"
+      SECURITY_ENABLELOGIN: "false"
+      VITE_API_BASE_URL: "https://pdf.{{ ansible_domain }}"
+
+    volumes:
+      - stirling-pdf-data:/configs:rw
 
     ports: "{{ stirling_pdf_ports | default([]) }}"
 
