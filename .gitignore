@@ -7,3 +7,4 @@
 default.tfstate
 default.tfstate.backup
 telmate.log
+*.onnx

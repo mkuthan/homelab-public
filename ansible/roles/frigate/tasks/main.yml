@@ -25,11 +25,15 @@
   notify:
     - Restart Frigate
 
-- name: Copy YOLO-NAS model
+- name: Copy YOLO models
   ansible.builtin.copy:
-    src: yolo_nas_s.onnx
-    dest: /etc/frigate/yolo_nas_s.onnx
+    src: "{{ item }}"
+    dest: "/etc/frigate/{{ item }}"
     mode: "0644"
+  loop:
+    - yolo_nas_s.onnx
+    - yolo_v9_t_320.onnx
+    - yolo_v9_t_640.onnx
   notify:
     - Restart Frigate
 

@@ -27,13 +27,29 @@ detectors:
 {% endfor %}
 
 model:
-{% if frigate_model is defined and frigate_model == "yolonas" %}
+{% if frigate_model is defined and frigate_model == "yolo-nas" %}
   model_type: yolonas
   width: 320
   height: 320
   input_tensor: nchw
   input_pixel_format: bgr
   path: /config/yolo_nas_s.onnx
+  labelmap_path: /labelmap/coco-80.txt
+{% elif frigate_model is defined and frigate_model == "yolo-v9-320" %}
+  model_type: yolo-generic
+  width: 320
+  height: 320
+  input_tensor: nchw
+  input_dtype: float
+  path: /config/yolo_v9_t_320.onnx
+  labelmap_path: /labelmap/coco-80.txt
+{% elif frigate_model is defined and frigate_model == "yolo-v9-640" %}
+  model_type: yolo-generic
+  width: 640
+  height: 640
+  input_tensor: nchw
+  input_dtype: float
+  path: /config/yolo_v9_t_640.onnx
   labelmap_path: /labelmap/coco-80.txt
 {% else %}
   width: 300
