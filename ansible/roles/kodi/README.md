@@ -41,7 +41,7 @@ cmake ../kodi -DCMAKE_INSTALL_PREFIX=/usr/local/kodi \
     -DENABLE_PULSEAUDIO=OFF \
     -DENABLE_INTERNAL_FMT=ON \
     -DENABLE_INTERNAL_SPDLOG=ON \
-    -DCMAKE_CXX_STANDARD_LIBRARIES="-latomic"  
+    -DCMAKE_CXX_STANDARD_LIBRARIES="-latomic"
 ```
 
 Build:
@@ -69,14 +69,6 @@ Clean extensions:
 ```shell
 sudo make -j$(getconf _NPROCESSORS_ONLN) \
     -C tools/depends/target/binary-addons PREFIX=/usr/local/kodi distclean
-```
-
-Build and install all extensions:
-
-```shell
-sudo make -j$(getconf _NPROCESSORS_ONLN) \
-    -C tools/depends/target/binary-addons PREFIX=/usr/local/kodi \
-    ADDONS="inputstream.adaptive pvr.iptvsimple"
 ```
 
 Build and install specified extensions:
