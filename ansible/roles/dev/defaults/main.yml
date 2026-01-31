@@ -11,3 +11,4 @@ dev_packages:
   - build-essential
   - git
   - google-cloud-cli
+  - mise

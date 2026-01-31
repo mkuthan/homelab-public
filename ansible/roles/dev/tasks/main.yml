@@ -12,6 +12,16 @@
     repo: deb http://packages.cloud.google.com/apt cloud-sdk main
     filename: google-cloud-sdk
 
+- name: Add Mise repository key
+  ansible.builtin.apt_key:
+    url: https://mise.jdx.dev/gpg-key.pub
+    keyring: /etc/apt/trusted.gpg.d/mise.gpg
+
+- name: Add Mise repository
+  ansible.builtin.apt_repository:
+    repo: deb https://mise.jdx.dev/deb stable main
+    filename: mise
+
 - name: Install packages
   ansible.builtin.apt:
     name: "{{ dev_packages }}"

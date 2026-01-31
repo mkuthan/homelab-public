@@ -1,11 +1,5 @@
 # Remote development environment setup
 
-Install mise:
-
-```shell
-curl https://mise.run | sh
-```
-
 Install starship:
 
 ```shell
