@@ -220,6 +220,12 @@ showmount -e 10.0.10.30
 showmount -e 10.0.10.31
 ```
 
+Re-export shares:
+
+```shell
+exportfs -ra
+```
+
 ### GPU
 
 Show GPU usage:
