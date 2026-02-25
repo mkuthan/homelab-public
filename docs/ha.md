@@ -37,7 +37,7 @@
 * [SMLIGHT](https://www.home-assistant.io/integrations/smlight)
 * [Solcast PV Forecast](https://github.com/BJReplay/ha-solcast-solar)
 * [Solis Cloud Control Integration](https://github.com/mkuthan/solis-cloud-control)
-* [Solis Inverter](https://github.com/hultenvp/solis-sensor/)
+* [Solis Modbus](https://github.com/Pho3niX90/solis_modbus)
 * [Spook](https://spook.boo/)
 * [Sun](https://www.home-assistant.io/integrations/sun)
 * [Universal Media Player](https://www.home-assistant.io/integrations/universal)
@@ -53,17 +53,18 @@ Retired integrations:
 * [PrusaLink](https://www.home-assistant.io/integrations/prusalink)
 * [RESTful](https://www.home-assistant.io/integrations/rest)
 * [Retry](https://github.com/amitfin/retry)
+* [Solis Inverter](https://github.com/hultenvp/solis-sensor/)
 * [TP-Link Omada](https://www.home-assistant.io/integrations/tplink_omada)
 
-
-## Add-ons
+## Apps
 
 * AppDaemon
-* Studio Code Server
+* Home Assistant MCP Server
 * Music Assistant Server (unused)
 * Open Wake World
 * Pipper
 * SQLite Web
+* Studio Code Server
 * Whsiper
 * Zigbee2MQTT Proxy
 

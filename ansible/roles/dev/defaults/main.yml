@@ -2,7 +2,9 @@ dev_packages:
   # system
   - curl
   - htop
+  - iperf
   - keychain
+  - mtr
   - screen
   - sudo
   - vim

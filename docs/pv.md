@@ -98,7 +98,7 @@ Feed-In Priority Mode:
 ## Data logger
 
 - Model: *S2-WL-ST*
-- Version: *1001318c*
+- Version: *100121d0*
 
 ## Battery
 
