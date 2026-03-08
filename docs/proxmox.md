@@ -186,6 +186,29 @@ And then once all nodes are ready, reactivate the HA:
 mv /etc/pve/ha/{resources.cfg.bak,resources.cfg}
 ```
 
+## ZFS reservations
+
+Create 10% reservation for `backup` pool:
+
+```shell
+zfs create backup/reservation
+zfs set refreservation=37G backup/reservation
+```
+
+Create 10% reservation for `pool0` pool:
+
+```shell
+zfs create pool0/reservation
+zfs set refreservation=37G pool0/reservation
+```
+
+Remove reservations:
+
+```shell
+zfs set refreservation=none backup/reservation
+zfs set refreservation=none pool0/reservation
+```
+
 ## Useful commands
 
 ### High Availability Resource Manager
