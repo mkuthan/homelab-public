@@ -7,6 +7,7 @@
 * Dishwasher Boash SMV4HTX31E - `192.168.40.12`
 * Zigbee controller SLZB-06-1 - `192.168.40.13`
 * Solis Datalogger S2-WL-ST - `192.168.40.14`
+* Water meter (ESP32 + C1101) - `192.168.40.15`
 * Android TV Box - `192.168.40.20`
 * LG TV - `192.168.40.25`
 * Prusa 3D Printer - `192.168.40.30`
@@ -14,7 +15,7 @@
 
 Trusted devices connected to Management LAN:
 
-* HeishaMon Small v1.5- `192.168.10.35`
+* HeishaMon Small v1.5 - `192.168.10.35`
 * Home Assistant Voice 1 - `192.168.10.36`
 
 > [!TIP]
