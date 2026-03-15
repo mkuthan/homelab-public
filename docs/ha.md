@@ -59,6 +59,7 @@ Retired integrations:
 ## Apps
 
 * AppDaemon
+* ESPHome Device Builder
 * Home Assistant MCP Server
 * Music Assistant Server (unused)
 * Open Wake World
