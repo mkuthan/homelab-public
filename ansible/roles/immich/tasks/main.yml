@@ -7,11 +7,11 @@
 - name: Stat /dev/dri
   ansible.builtin.stat:
     path: /dev/dri
-  register: dev_dri
+  register: immich_dev_dri
 
 - name: Assert if /dev/dri exists
   ansible.builtin.assert:
-    that: dev_dri.stat.exists
+    that: immich_dev_dri.stat.exists
 
 - name: Create Immich volumes
   community.docker.docker_volume:
@@ -46,7 +46,7 @@
       POSTGRES_DB: immich
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_INITDB_ARGS: '--data-checksums'
+      POSTGRES_INITDB_ARGS: "--data-checksums"
 
     volumes:
       - immich-pgdata:/var/lib/postgresql/data:rw

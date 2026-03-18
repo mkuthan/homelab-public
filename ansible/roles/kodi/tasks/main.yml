@@ -19,7 +19,7 @@
     group: "{{ kodi_group }}"
     groups: ["audio", "input", "video", "render"]
     system: true
-  register: user
+  register: kodi_user
 
 - name: Install Kodi service
   ansible.builtin.template:
@@ -31,7 +31,7 @@
 
 - name: Check for initial Kodi configuration
   ansible.builtin.stat:
-    path: "{{ user.home }}/.kodi"
+    path: "{{ kodi_user.home }}/.kodi"
   register: kodi_configuration_directory
 
 - name: Create Kodi initial configuration
@@ -42,8 +42,8 @@
 
 - name: Create Kodi directories
   ansible.builtin.file:
-    path: "{{ user.home }}/.kodi/{{ item }}"
-    owner: "{{ kodi_user }}"
+    path: "{{ kodi_user.home }}/.kodi/{{ item }}"
+    owner: "{{ kodi_user.name }}"
     group: "{{ kodi_group }}"
     mode: "0755"
     state: directory
@@ -60,39 +60,39 @@
 - name: Configure Kodi sources
   ansible.builtin.template:
     src: sources.xml.j2
-    dest: "{{ user.home }}/.kodi/{{ kodi_userdata_dir }}/sources.xml"
+    dest: "{{ kodi_user.home }}/.kodi/{{ kodi_userdata_dir }}/sources.xml"
     mode: "0644"
 
 - name: Configure Kodi advanced settings
   ansible.builtin.template:
     src: advancedsettings.xml.j2
-    dest: "{{ user.home }}/.kodi/{{ kodi_userdata_dir }}/advancedsettings.xml"
+    dest: "{{ kodi_user.home }}/.kodi/{{ kodi_userdata_dir }}/advancedsettings.xml"
     mode: "0644"
 
 - name: Configure Kodi guisettings.xml
   community.general.xml:
-    file: "{{ user.home }}/.kodi/{{ kodi_userdata_dir }}/guisettings.xml"
+    file: "{{ kodi_user.home }}/.kodi/{{ kodi_userdata_dir }}/guisettings.xml"
     xpath: "/settings/setting[@id='{{ item.id }}']"
     value: "{{ item.value }}"
   with_items: "{{ kodi_gui_settings }}"
 
 - name: Configure Kodi guisettings.xml (drop default attributes)
   community.general.xml:
-    path: "/home/kodi/.kodi/{{ kodi_userdata_dir }}/guisettings.xml"
+    path: "{{ kodi_user.home }}/.kodi/{{ kodi_userdata_dir }}/guisettings.xml"
     xpath: "/settings/setting[@id='{{ item.id }}']/@default"
     state: absent
   with_items: "{{ kodi_gui_settings }}"
 
 - name: Configure Kodi subtitles guisettings.xml
   community.general.xml:
-    file: "{{ user.home }}/.kodi/{{ kodi_userdata_dir }}/guisettings.xml"
+    file: "{{ kodi_user.home }}/.kodi/{{ kodi_userdata_dir }}/guisettings.xml"
     xpath: "/settings/setting[@id='{{ item.id }}']"
     value: "{{ item.value }}"
   with_items: "{{ kodi_subtitles_gui_settings }}"
 
 - name: Configure Kodi subtitles guisettings.xml (drop default attributes)
   community.general.xml:
-    path: "/home/kodi/.kodi/{{ kodi_userdata_dir }}/guisettings.xml"
+    path: "{{ kodi_user.home }}/.kodi/{{ kodi_userdata_dir }}/guisettings.xml"
     xpath: "/settings/setting[@id='{{ item.id }}']/@default"
     state: absent
   with_items: "{{ kodi_subtitles_gui_settings }}"

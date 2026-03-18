@@ -5,11 +5,11 @@
 - name: Stat /dev/dri
   ansible.builtin.stat:
     path: /dev/dri
-  register: dev_dri
+  register: frigate_dev_dri
 
 - name: Assert if /dev/dri exists
   ansible.builtin.assert:
-    that: dev_dri.stat.exists
+    that: frigate_dev_dri.stat.exists
 
 - name: Create /etc/frigate
   ansible.builtin.file:

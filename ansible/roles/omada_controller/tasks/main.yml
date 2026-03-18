@@ -58,4 +58,4 @@
 
 - name: Register Omada Prometheus exporter container name
   ansible.builtin.set_fact:
-    omada_prometheus_exporter_container_name: "omada-prometheus-exporter"
+    omada_controller_prometheus_exporter_container_name: "omada-prometheus-exporter"

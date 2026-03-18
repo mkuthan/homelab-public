@@ -33,7 +33,6 @@
     restart_policy: "{{ docker_restart_policy }}"
     pull: "{{ docker_pull }}"
 
-
 - name: Create Paperless Postgres 18 container
   community.docker.docker_container:
     name: paperless-postgres18
@@ -109,7 +108,7 @@
       - paperless-export:/usr/src/paperless/export:rw
       - paperless-consume:/usr/src/paperless/consume:rw
 
-    ports: "{{ paperless_ports | default([]) }}"
+    ports: "{{ paperless_ngx_ports | default([]) }}"
 
     networks: "{{ docker_networks }}"
     comparisons: "{{ docker_comparisons }}"
@@ -120,11 +119,11 @@
 
 - name: Register Paperless container name
   ansible.builtin.set_fact:
-    paperless_container_name: "paperless"
+    paperless_ngx_container_name: "paperless"
 
 - name: Schedule Paperless export
   ansible.builtin.cron:
     name: "paperless_export"
     hour: "{{ paperless_backup_hour | default('22') }}"
     minute: "{{ paperless_backup_minute | default('0') }}"
-    job: "docker exec paperless document_exporter --use-filename-format --delete --no-archive --no-thumbnail /usr/src/paperless/export"
+    job: "docker exec {{ paperless_ngx_container_name }} document_exporter --use-filename-format --delete --no-archive --no-thumbnail /usr/src/paperless/export"

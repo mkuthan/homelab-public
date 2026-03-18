@@ -1,11 +1,11 @@
 - name: Check for dphys-swapfile
   ansible.builtin.stat:
     path: /etc/dphys-swapfile
-  register: dphys_swapfile
+  register: pi_dphys_swapfile
 
 - name: Disable swap
   when:
-    - dphys_swapfile.stat.exists
+    - pi_dphys_swapfile.stat.exists
   block:
     - name: Turn off swap
       ansible.builtin.command: dphys-swapfile swapoff
