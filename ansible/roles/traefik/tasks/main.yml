@@ -46,7 +46,7 @@
 
     labels:
       traefik.enable: "true"
-      traefik.http.routers.traefik.rule: Host(`traefik.{{ ansible_domain }}`)
+      traefik.http.routers.traefik.rule: Host(`traefik.{{ ansible_facts['domain'] }}`)
       traefik.http.routers.traefik.service: "api@internal"
 
     ports: "{{ traefik_ports | default([]) }}"

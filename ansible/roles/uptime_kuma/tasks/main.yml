@@ -14,7 +14,7 @@
 
     labels:
       traefik.enable: "true"
-      traefik.http.routers.uptime.rule: "Host(`uptime.{{ ansible_domain }}`)"
+      traefik.http.routers.uptime.rule: "Host(`uptime.{{ ansible_facts['domain'] }}`)"
       traefik.http.routers.uptime.service: "uptime"
       traefik.http.services.uptime.loadbalancer.server.port: "3001"
 

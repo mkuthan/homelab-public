@@ -11,7 +11,7 @@ entryPoints:
       tls:
         certResolver: {{ traefik_certificates_resolver }}
         domains:
-          - main: "*.{{ ansible_domain }}"
+          - main: "*.{{ ansible_facts['domain'] }}"
     transport:
       respondingTimeouts:
         readTimeout: 0s

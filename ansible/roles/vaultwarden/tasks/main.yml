@@ -10,7 +10,7 @@
     image: vaultwarden/server:latest
 
     env:
-      DOMAIN: "https://vaultwarden.{{ ansible_domain }}"
+      DOMAIN: "https://vaultwarden.{{ ansible_facts['domain'] }}"
       ADMIN_TOKEN: "{{ vaultwarden_admin_token }}"
 
       SMTP_HOST: "{{ vaultwarden_smtp_host }}"

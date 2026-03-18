@@ -10,7 +10,7 @@
     image: ghcr.io/open-webui/open-webui:main
 
     env:
-      WEBUI_URL: "https://openwebui.{{ ansible_domain }}"
+      WEBUI_URL: "https://openwebui.{{ ansible_facts['domain'] }}"
 
       ENABLE_OLLAMA_API: "{{ openwebui_enable_ollama_api | default('true') }}"
       OLLAMA_BASE_URL: "http://{{ ollama_container_name }}:11434"

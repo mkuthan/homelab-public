@@ -4,7 +4,7 @@
     image: benbusby/whoogle-search:latest
 
     env:
-      WHOOGLE_CONFIG_URL: "https://whoogle.{{ ansible_domain }}"
+      WHOOGLE_CONFIG_URL: "https://whoogle.{{ ansible_facts['domain'] }}"
       WHOOGLE_CONFIG_THEME: "system"
       WHOOGLE_UPDATE_CHECK: "true"
 

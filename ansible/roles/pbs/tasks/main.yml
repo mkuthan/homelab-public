@@ -4,12 +4,12 @@
 
 - name: Add Proxmox Backup Server repository key
   ansible.builtin.apt_key:
-    url: https://enterprise.proxmox.com/{{ ansible_distribution | lower }}/proxmox-release-{{ ansible_distribution_release }}.gpg
+    url: https://enterprise.proxmox.com/{{ ansible_facts['distribution'] | lower }}/proxmox-release-{{ ansible_facts['distribution_release'] }}.gpg
     keyring: /etc/apt/trusted.gpg.d/pbs.gpg
 
 - name: Add Proxmox Backup Server repository
   ansible.builtin.apt_repository:
-    repo: deb http://download.proxmox.com/{{ ansible_distribution | lower }}/pbs {{ ansible_distribution_release }} pbs-no-subscription
+    repo: deb http://download.proxmox.com/{{ ansible_facts['distribution'] | lower }}/pbs {{ ansible_facts['distribution_release'] }} pbs-no-subscription
     filename: pbs
 
 - name: Install Proxmox Backup Server

@@ -35,7 +35,7 @@
       GRAMPSWEB_CELERY_CONFIG__broker_url: "redis://gramps-redis:6379/0"
       GRAMPSWEB_CELERY_CONFIG__result_backend: "redis://gramps-redis:6379/0"
       GRAMPSWEB_RATELIMIT_STORAGE_URI: redis://gramps-redis:6379/1
-      GRAMPSWEB_BASE_URL: "https://gramps.{{ ansible_domain }}"
+      GRAMPSWEB_BASE_URL: "https://gramps.{{ ansible_facts['domain'] }}"
       GRAMPSWEB_EMAIL_HOST: "192.168.10.12"
       GRAMPSWEB_EMAIL_PORT: "8025"
       GRAMPSWEB_EMAIL_USE_TLS: "False"

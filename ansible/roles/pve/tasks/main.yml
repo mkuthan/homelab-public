@@ -10,7 +10,7 @@
 - name: Add pve-no-subscription repository
   ansible.builtin.apt_repository:
     filename: pve-no-subscription
-    repo: "deb http://download.proxmox.com/{{ ansible_distribution | lower }}/pve {{ ansible_distribution_release }} pve-no-subscription"
+    repo: "deb http://download.proxmox.com/{{ ansible_facts['distribution'] | lower }}/pve {{ ansible_facts['distribution_release'] }} pve-no-subscription"
     mode: "0644"
     state: present
 

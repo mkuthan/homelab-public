@@ -21,7 +21,7 @@ scrape_configs:
     pipeline_stages:
       - static_labels:
           job: journal
-          hostname: {{ ansible_hostname }}
+          hostname: {{ ansible_facts["hostname"] }}
 
 {% if promtail_docker.stat.issock is defined and promtail_docker.stat.issock %}
   - job_name: docker
@@ -35,5 +35,5 @@ scrape_configs:
     pipeline_stages:
       - static_labels:
           job: docker
-          hostname: {{ ansible_hostname }}
+          hostname: {{ ansible_facts["hostname"] }}
 {% endif %}

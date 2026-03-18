@@ -25,7 +25,7 @@
 
     env:
       TZ: "{{ timezone | default('UTC') }}"
-      JELLYFIN_PublishedServerUrl: "https://jellyfin.{{ ansible_domain }}"
+      JELLYFIN_PublishedServerUrl: "https://jellyfin.{{ ansible_facts['domain'] }}"
 
     volumes:
       - /etc/localtime:/etc/localtime:ro

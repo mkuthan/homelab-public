@@ -1,6 +1,6 @@
 # See /usr/share/postfix/main.cf.dist for a commented, more complete version
 
-myhostname={{ ansible_fqdn }}
+myhostname={{ ansible_facts['fqdn'] }}
 
 smtpd_banner = $myhostname ESMTP
 biff = no

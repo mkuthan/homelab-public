@@ -3,7 +3,7 @@ http:
   routers:
 {% for site in traefik_http_sites %}
     {{ site.name }}:
-      rule: "Host(`{{ site.name }}.{{ ansible_domain }}`)"
+      rule: "Host(`{{ site.name }}.{{ ansible_facts['domain'] }}`)"
       service: {{ site.name }}
 {% endfor %}
 

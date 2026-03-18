@@ -45,7 +45,7 @@
     image: searxng/searxng:latest
 
     env:
-      SEARXNG_BASE_URL: "https://searxng.{{ ansible_domain }}"
+      SEARXNG_BASE_URL: "https://searxng.{{ ansible_facts['domain'] }}"
       SEARXNG_REDIS_URL: "redis://searxng-redis"
 
     volumes:

@@ -1,5 +1,5 @@
 127.0.0.1 localhost.localdomain localhost
-{{ ansible_default_ipv4.address }} {{ ansible_hostname }}.{{ ansible_domain }} {{ ansible_hostname }}
+{{ ansible_facts['default_ipv4']['address'] }} {{ ansible_facts['hostname'] }}.{{ ansible_facts['domain'] }} {{ ansible_facts['hostname'] }}
 
 ::1     ip6-localhost ip6-loopback
 fe00::0 ip6-localnet

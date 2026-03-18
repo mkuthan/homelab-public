@@ -16,7 +16,7 @@
 
     labels:
       traefik.enable: "true"
-      traefik.http.routers.adguard.rule: "Host(`adguard.{{ ansible_domain }}`)"
+      traefik.http.routers.adguard.rule: "Host(`adguard.{{ ansible_facts['domain'] }}`)"
       traefik.http.routers.adguard.service: "adguard"
       traefik.http.services.adguard.loadbalancer.server.port: "3000"
 

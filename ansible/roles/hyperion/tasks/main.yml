@@ -5,7 +5,7 @@
 
 - name: Add Hyperion apt repository
   ansible.builtin.apt_repository:
-    repo: "deb https://apt.hyperion-project.org/ {{ ansible_distribution_release }} main"
+    repo: "deb https://apt.hyperion-project.org/ {{ ansible_facts['distribution_release'] }} main"
     filename: "hyperion"
 
 - name: Install Hyperion

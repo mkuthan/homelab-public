@@ -16,12 +16,12 @@
 
 - name: Add Tailscale repository key
   ansible.builtin.apt_key:
-    url: https://pkgs.tailscale.com/stable/{{ ansible_distribution | lower }}/{{ ansible_distribution_release }}.noarmor.gpg
+    url: https://pkgs.tailscale.com/stable/{{ ansible_facts['distribution'] | lower }}/{{ ansible_facts['distribution_release'] }}.noarmor.gpg
     keyring: /etc/apt/trusted.gpg.d/tailscale.gpg
 
 - name: Add Tailscale repository
   ansible.builtin.apt_repository:
-    repo: deb https://pkgs.tailscale.com/stable/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main
+    repo: deb https://pkgs.tailscale.com/stable/{{ ansible_facts['distribution'] | lower }} {{ ansible_facts['distribution_release'] }} main
     filename: tailscale
 
 - name: Install Tailscale

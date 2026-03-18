@@ -94,13 +94,13 @@
       PAPERLESS_OCR_USER_ARGS: '{"invalidate_digital_signatures": true}'
       PAPERLESS_FILENAME_FORMAT: "{% raw %}{{created_year}}/{{title}}{% endraw %}"
 
-      PAPERLESS_URL: "https://paperless.{{ ansible_domain }}"
+      PAPERLESS_URL: "https://paperless.{{ ansible_facts['domain'] }}"
       PAPERLESS_ADMIN_USER: "{{ paperless_ngx_admin_user }}"
       PAPERLESS_ADMIN_PASSWORD: "{{ paperless_ngx_admin_password }}"
 
-      PAPERLESS_ALLOWED_HOSTS: "paperless.{{ ansible_domain }}"
-      PAPERLESS_CORS_ALLOWED_HOSTS: "https://paperless.{{ ansible_domain }}"
-      PAPERLESS_CSRF_TRUSTED_ORIGINS: "https://paperless.{{ ansible_domain }}"
+      PAPERLESS_ALLOWED_HOSTS: "paperless.{{ ansible_facts['domain'] }}"
+      PAPERLESS_CORS_ALLOWED_HOSTS: "https://paperless.{{ ansible_facts['domain'] }}"
+      PAPERLESS_CSRF_TRUSTED_ORIGINS: "https://paperless.{{ ansible_facts['domain'] }}"
 
     volumes:
       - paperless-data:/usr/src/paperless/data:rw
