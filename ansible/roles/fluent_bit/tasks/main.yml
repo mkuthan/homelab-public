@@ -4,8 +4,11 @@
     keyring: /etc/apt/trusted.gpg.d/fluent_bit.gpg
 
 - name: Add fluent_bit apt repository
+  vars:
+    fluent_bit_repo_distro: "{{ ansible_facts['lsb']['id'] | lower }}"
+    fluent_bit_repo_release: "{{ ansible_facts['distribution_release'] }}"
   ansible.builtin.apt_repository:
-    repo: "deb https://packages.fluentbit.io/{{ ansible_facts['lsb']['id'] | lower }}/{{ ansible_facts['distribution_release'] }} {{ ansible_facts['distribution_release'] }} main"
+    repo: deb https://packages.fluentbit.io/{{ fluent_bit_repo_distro }}/{{ fluent_bit_repo_release }} {{ fluent_bit_repo_release }} main
     filename: "fluent_bit"
 
 - name: Install fluent_bit
