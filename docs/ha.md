@@ -9,7 +9,6 @@
 ## Integrations
 
 * [Android TV Remote](https://www.home-assistant.io/integrations/androidtv_remote)
-* [Auto Backup](https://github.com/jcwillox/hass-auto-backup)
 * [Bambu Lab](https://github.com/greghesp/ha-bambulab)
 * [Electricity Maps](https://www.home-assistant.io/integrations/co2signal)
 * [ESPHome](https://www.home-assistant.io/integrations/esphome)
@@ -40,6 +39,7 @@
 * [Solis Modbus](https://github.com/Pho3niX90/solis_modbus)
 * [Spook](https://spook.boo/)
 * [Sun](https://www.home-assistant.io/integrations/sun)
+* [System monitor](https://www.home-assistant.io/integrations/systemmonitor/)
 * [Universal Media Player](https://www.home-assistant.io/integrations/universal)
 * [WebRTC Camera](https://github.com/AlexxIT/WebRTC)
 * [Wyoming Protocol](https://www.home-assistant.io/integrations/wyoming)
@@ -47,6 +47,7 @@
 Retired integrations:
 
 * [Aquarea Smart Cloud](https://github.com/cjaliaga/home-assistant-aquarea)
+* [Auto Backup](https://github.com/jcwillox/hass-auto-backup)
 * [ENTSO-e](https://github.com/JaccoR/hass-entso-e)
 * [Forecast.Solar](https://www.home-assistant.io/integrations/forecast_solar)
 * [Music Assistant](https://www.home-assistant.io/integrations/music_assistant)
@@ -61,13 +62,16 @@ Retired integrations:
 * AppDaemon
 * ESPHome Device Builder
 * Home Assistant MCP Server
-* Music Assistant Server (unused)
 * Open Wake World
 * Pipper
 * SQLite Web
 * Studio Code Server
 * Whsiper
 * Zigbee2MQTT Proxy
+
+Retired apps:
+
+* Music Assistant Server
 
 ## Dashboard add-ons
 
