@@ -61,7 +61,7 @@
     mounts:
       - type: tmpfs
         target: /tmp/cache
-        tmpfs_size: 128M
+        tmpfs_size: 192M
 
     devices:
       - /dev/dri/renderD128
