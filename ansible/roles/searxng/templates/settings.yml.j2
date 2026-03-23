@@ -1,7 +1,51 @@
 use_default_settings: true
-server:
-  secret_key: "{{ searxng_secret_key }}"
+
+general:
+  instance_name: "SearXNG"
+  ultrasurf: true
+
 search:
+  safe_search: 1  # 0=None, 1=Moderate, 2=Strict
+  autocomplete: "duckduckgo"
+  default_lang: "auto"
   formats:
     - html
     - json
+
+server:
+  secret_key: "{{ searxng_secret_key }}"
+  image_proxy: true
+  method: "GET"
+
+ui:
+  static_use_hash: true
+  default_theme: "simple"
+  infinite_scroll: true
+  results_on_new_tab: true
+
+engines:
+  - name: google
+    engine: google
+    enabled: true
+  - name: bing
+    engine: bing
+    enabled: true
+  - name: duckduckgo
+    engine: duckduckgo
+    enabled: true
+  - name: startpage
+    engine: startpage
+    enabled: true
+  - name: wikipedia
+    engine: wikipedia
+    enabled: true
+  - name: wikidata
+    engine: wikidata
+    enabled: true
+  # Disable problematic or noisy engines
+  - name: twitter
+    engine: twitter
+    enabled: false
+  - name: genius
+    engine: genius
+    enabled: false
