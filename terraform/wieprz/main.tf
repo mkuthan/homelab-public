@@ -292,7 +292,7 @@ module "samba" {
 
   cores       = 1
   memory      = 512
-  rootfs_size = "20G"
+  rootfs_size = "30G"
 
   network_ip = "192.168.10.14/24"
   network_gw = "192.168.10.1"
@@ -494,6 +494,27 @@ module "jellyfin" {
   ]
 }
 
+module "media-manager" {
+  source = "../modules/lxc_container"
+
+  ostemplate = local.default_ostemplate
+
+  target_node = "pve0"
+  hostname    = "media-manager"
+
+  password        = var.default_password
+  ssh_public_keys = local.default_ssh_public_keys
+
+  cores  = 2
+  memory = 2048
+
+  network_ip = "192.168.10.23/24"
+  network_gw = "192.168.10.1"
+
+  nameserver = "192.168.10.1"
+
+  unprivileged = true
+}
 
 # services
 
