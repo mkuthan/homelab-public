@@ -92,6 +92,7 @@ VLANs ACLs:
 * `192.168.10.2-29` - virtual machines / linux containers
 * `192.168.10.30-34` - Proxmox nodes
 * `192.168.10.35-40` - trusted IoT devices
+* `192.168.10.97` - WiFi access point (EAP683 UR)
 * `192.168.10.98` - WiFi access Point (EAP610)
 * `192.168.10.99` - Switch (TL-SG2428P)
 * `192.168.10.100-254` - DHCP

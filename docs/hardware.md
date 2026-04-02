@@ -6,6 +6,7 @@
 * Router [ER605](https://www.tp-link.com/en/business-networking/vpn-router/er605/)
 * Switch PoE [TL-SG2428P](https://www.tp-link.com/en/business-networking/omada-switch-poe/tl-sg2428p/v1/)
 * Access point [EAP610](https://www.tp-link.com/en/business-networking/omada-wifi-ceiling-mount/eap610/v3/)
+* Access point [EAP683 UR](https://www.tp-link.com/en/business-networking/omada-wifi-ceiling-mount/eap683-ur/)
 
 ## Server
 
