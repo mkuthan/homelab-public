@@ -102,7 +102,7 @@ Feed-In Priority Mode:
 
 ## Battery
 
-- Sunwooda Atrix LV, 10kWh
+- Sunwooda Atrix LV, 20kWh
 
 ## Solar Panels
 
