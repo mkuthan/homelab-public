@@ -1,4 +1,4 @@
-version: 0.16-0
+version: 0.17-0
 
 database:
   path: /database/frigate.db
@@ -72,6 +72,8 @@ objects:
     - dog
     - cat
     - bird
+    - sheep
+    - cow
   filters:
     person:
       min_area: 500 # avoid small objects (birds) detection
@@ -80,9 +82,11 @@ objects:
 
 review:
   alerts:
-    labels:
-      - person
-      - car
+    enabled: True
+    # default: car, person labels are tracked
+  detections:
+    enabled: True
+    # default: all labels are tracked
 
 motion:
   improve_contrast: true
@@ -90,23 +94,18 @@ motion:
 detect:
   enabled: true
 
-# Mode for retention:
-# all - save all recording segments for events regardless of activity
-# motion - save all recordings segments for events with any detected motion
-# active_objects - save all recording segments for event with active/moving objects
 record:
   enabled: true
-  retain:
-    days: {{ frigate_retention_record_days }}
-    mode: all
+  continuous:
+    days: {{ frigate_retention_continuous_days }}
+  motion:
+    days: {{ frigate_retention_motion_days }}
   detections:
     retain:
       days: {{ frigate_retention_detections_days }}
-      mode: active_objects
   alerts:
     retain:
       days: {{ frigate_retention_alerts_days }}
-      mode: active_objects
 
 snapshots:
   enabled: true

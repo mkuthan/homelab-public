@@ -47,7 +47,7 @@
 - name: Create Frigate container
   community.docker.docker_container:
     name: frigate
-    image: ghcr.io/blakeblackshear/frigate:stable
+    image: ghcr.io/blakeblackshear/frigate:0.17.1
 
     env:
       FRIGATE_RTSP_PASSWORD: "{{ frigate_rtsp_password }}"
