@@ -20,6 +20,20 @@ GRID o----/  ----+-----------------------------------o
                                       +----------+
 ```
 
+## Turn off
+
+1. Inverter on/off
+2. AC Circuit Breaker
+3. Battery Storage
+4. DC Isolator
+
+## Turn on
+
+1. DC Isolator
+2. Battery Storage
+3. AC Circuit Breaker
+4. Inverter on/off
+
 ## Inverter
 
 - Model: *Solis S6-EH3P12K02-NV-YD-L*
