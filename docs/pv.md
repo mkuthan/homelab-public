@@ -29,9 +29,9 @@ GRID o----/  ----+-----------------------------------o
 
 ## Turn on
 
-1. DC Isolator
+1. AC Circuit Breaker
 2. Battery Storage
-3. AC Circuit Breaker
+3. DC Isolator
 4. Inverter on/off
 
 ## Inverter
