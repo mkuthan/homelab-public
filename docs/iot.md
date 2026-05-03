@@ -8,6 +8,7 @@
 * Zigbee controller SLZB-06-1 - `192.168.40.13`
 * Solis Datalogger S2-WL-ST - `192.168.40.14`
 * Water meter (ESP32 + C1101) - `192.168.40.15`
+* Roomba 965 - `192.168.40.16`
 * Android TV Box - `192.168.40.20`
 * LG TV - `192.168.40.25`
 * Prusa 3D Printer - `192.168.40.30`
