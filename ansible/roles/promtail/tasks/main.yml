@@ -1,16 +1,31 @@
-- name: Install gpg
+- name: Install prerequisites
   ansible.builtin.apt:
-    name: gpg
+    name:
+      - gpg
+      - python3-debian
 
-- name: Add Grafana repository key
+- name: Add Grafana repository (deb822)
+  ansible.builtin.deb822_repository:
+    name: grafana
+    types: deb
+    uris: "http://apt.grafana.com"
+    suites: stable
+    components:
+      - main
+    signed_by: "https://apt.grafana.com/gpg.key"
+  when: ansible_facts['distribution_major_version'] | int >= 13
+
+- name: Add Grafana repository key (legacy)
   ansible.builtin.apt_key:
     url: https://apt.grafana.com/gpg.key
     keyring: /etc/apt/trusted.gpg.d/grafana.gpg
+  when: ansible_facts['distribution_major_version'] | int < 13
 
-- name: Add Grafana repository
+- name: Add Grafana repository (legacy)
   ansible.builtin.apt_repository:
     repo: deb http://apt.grafana.com stable main
     filename: grafana
+  when: ansible_facts['distribution_major_version'] | int < 13
 
 - name: Install promtail
   ansible.builtin.apt:

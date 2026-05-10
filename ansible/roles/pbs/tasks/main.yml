@@ -1,16 +1,18 @@
-- name: Install gpg
+- name: Install prerequisites
   ansible.builtin.apt:
-    name: gpg
-
-- name: Add Proxmox Backup Server repository key
-  ansible.builtin.apt_key:
-    url: https://enterprise.proxmox.com/{{ ansible_facts['distribution'] | lower }}/proxmox-release-{{ ansible_facts['distribution_release'] }}.gpg
-    keyring: /etc/apt/trusted.gpg.d/pbs.gpg
+    name:
+      - gpg
+      - python3-debian
 
 - name: Add Proxmox Backup Server repository
-  ansible.builtin.apt_repository:
-    repo: deb http://download.proxmox.com/{{ ansible_facts['distribution'] | lower }}/pbs {{ ansible_facts['distribution_release'] }} pbs-no-subscription
-    filename: pbs
+  ansible.builtin.deb822_repository:
+    name: pbs
+    types: deb
+    uris: "http://download.proxmox.com/{{ ansible_facts['distribution'] | lower }}/pbs"
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components:
+      - pbs-no-subscription
+    signed_by: "https://enterprise.proxmox.com/{{ ansible_facts['distribution'] | lower }}/proxmox-release-{{ ansible_facts['distribution_release'] }}.gpg"
 
 - name: Install Proxmox Backup Server
   ansible.builtin.apt:

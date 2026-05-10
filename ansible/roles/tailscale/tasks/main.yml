@@ -10,19 +10,34 @@
   ansible.builtin.assert:
     that: tailscale_dev_net_tun.stat.exists
 
-- name: Install gpg
+- name: Install prerequisites
   ansible.builtin.apt:
-    name: gpg
+    name:
+      - gpg
+      - python3-debian
 
-- name: Add Tailscale repository key
+- name: Add Tailscale repository (deb822)
+  ansible.builtin.deb822_repository:
+    name: tailscale
+    types: deb
+    uris: "https://pkgs.tailscale.com/stable/{{ ansible_facts['distribution'] | lower }}"
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components:
+      - main
+    signed_by: "https://pkgs.tailscale.com/stable/{{ ansible_facts['distribution'] | lower }}/{{ ansible_facts['distribution_release'] }}.noarmor.gpg"
+  when: ansible_facts['distribution_major_version'] | int >= 13
+
+- name: Add Tailscale repository key (legacy)
   ansible.builtin.apt_key:
-    url: https://pkgs.tailscale.com/stable/{{ ansible_facts['distribution'] | lower }}/{{ ansible_facts['distribution_release'] }}.noarmor.gpg
+    url: "https://pkgs.tailscale.com/stable/{{ ansible_facts['distribution'] | lower }}/{{ ansible_facts['distribution_release'] }}.noarmor.gpg"
     keyring: /etc/apt/trusted.gpg.d/tailscale.gpg
+  when: ansible_facts['distribution_major_version'] | int < 13
 
-- name: Add Tailscale repository
+- name: Add Tailscale repository (legacy)
   ansible.builtin.apt_repository:
-    repo: deb https://pkgs.tailscale.com/stable/{{ ansible_facts['distribution'] | lower }} {{ ansible_facts['distribution_release'] }} main
+    repo: "deb https://pkgs.tailscale.com/stable/{{ ansible_facts['distribution'] | lower }} {{ ansible_facts['distribution_release'] }} main"
     filename: tailscale
+  when: ansible_facts['distribution_major_version'] | int < 13
 
 - name: Install Tailscale
   ansible.builtin.apt:
