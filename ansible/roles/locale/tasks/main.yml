@@ -6,6 +6,7 @@
   community.general.locale_gen:
     name: "{{ locale }}"
 
+
 - name: Update 'LANG'
-  ansible.builtin.command: localectl set-locale LANG={{ locale }}
+  ansible.builtin.command: update-locale LANG={{ locale }}
   changed_when: locale != lookup('env', 'LANG')

@@ -1,18 +1,28 @@
-- name: Disable ceph and pve-enterprise repositories
-  ansible.builtin.replace:
-    path: "{{ item }}"
-    regexp: "^deb "
-    replace: "# deb "
-  loop:
-    - /etc/apt/sources.list.d/ceph.list
-    - /etc/apt/sources.list.d/pve-enterprise.list
+- name: Disable pve-enterprise repository
+  ansible.builtin.deb822_repository:
+    name: pve-enterprise
+    types: deb
+    uris: https://enterprise.proxmox.com/debian/pve
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components: pve-enterprise
+    enabled: false
+
+- name: Disable ceph enterprise repository
+  ansible.builtin.deb822_repository:
+    name: ceph
+    types: deb
+    uris: "https://enterprise.proxmox.com/debian/ceph-squid }}"
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components: enterprise
+    enabled: false
 
 - name: Add pve-no-subscription repository
-  ansible.builtin.apt_repository:
-    filename: pve-no-subscription
-    repo: "deb http://download.proxmox.com/{{ ansible_facts['distribution'] | lower }}/pve {{ ansible_facts['distribution_release'] }} pve-no-subscription"
-    mode: "0644"
-    state: present
+  ansible.builtin.deb822_repository:
+    name: pve-no-subscription
+    types: deb
+    uris: "http://download.proxmox.com/{{ ansible_facts['distribution'] | lower }}/pve"
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components: pve-no-subscription
 
 - name: Install packages
   ansible.builtin.apt:
