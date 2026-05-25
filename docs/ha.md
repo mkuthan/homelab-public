@@ -20,6 +20,7 @@
 * [HeishaMon](https://github.com/kamaradclimber/heishamon-homeassistant)
 * [Home Connect](https://www.home-assistant.io/integrations/home_connect)
 * [IMGW-PIB Monitor](https://github.com/abnvle/ha-imgw-pib-monitor)
+* [iRobot Roomba](https://www.home-assistant.io/integrations/roomba)
 * [LG webOS TV](https://www.home-assistant.io/integrations/webostv/)
 * [Local Calendar](https://www.home-assistant.io/integrations/local_calendar)
 * [Local To-do](https://www.home-assistant.io/integrations/local_todo)
@@ -50,7 +51,6 @@ Retired integrations:
 * [Auto Backup](https://github.com/jcwillox/hass-auto-backup)
 * [ENTSO-e](https://github.com/JaccoR/hass-entso-e)
 * [Forecast.Solar](https://www.home-assistant.io/integrations/forecast_solar)
-* [IMGW-PIB](https://www.home-assistant.io/integrations/imgw_pib)
 * [Music Assistant](https://www.home-assistant.io/integrations/music_assistant)
 * [PrusaLink](https://www.home-assistant.io/integrations/prusalink)
 * [RESTful](https://www.home-assistant.io/integrations/rest)
@@ -82,6 +82,7 @@ Retired apps:
 * [Card Mod](https://github.com/thomasloven/lovelace-card-mod)
 * [Mini Media Player](https://github.com/kalkih/mini-media-player)
 * [Mushroom](https://github.com/piitaya/lovelace-mushroom)
+* [Plotly Graph Card](https://github.com/dbuezas/lovelace-plotly-graph-card)
 * [Power Flow Card Plus](https://github.com/flixlix/power-flow-card-plus)
 * [Trash Card](https://github.com/idaho/hassio-trash-card)
 
