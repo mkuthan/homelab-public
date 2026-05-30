@@ -33,6 +33,7 @@ Ansible playbooks manage all the services and configurations, for example:
 * Adguard DNS
 * Apt Cacher NG
 * Backup Ninja
+* Bambuddy
 * Docker
 * Fluent Bit
 * Frigate

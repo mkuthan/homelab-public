@@ -1,17 +1,32 @@
-- name: Install gpg
+- name: Install prerequisites
   ansible.builtin.apt:
-    name: gpg
+    name:
+      - gpg
+      - python3-debian
 
-- name: Add Docker repository key
+- name: Add Docker repository (deb822)
+  ansible.builtin.deb822_repository:
+    name: docker
+    types: deb
+    uris: "http://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}"
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components:
+      - stable
+    signed_by: "https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}/gpg"
+  when: ansible_facts['distribution_major_version'] | int >= 13
+
+- name: Add Docker repository key (legacy)
   ansible.builtin.apt_key:
     url: https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}/gpg
     keyring: /etc/apt/trusted.gpg.d/docker.gpg
+  when: ansible_facts['distribution_major_version'] | int < 13
 
-- name: Add Docker repository
+- name: Add Docker repository (legacy)
   ansible.builtin.apt_repository:
     # Use HTTP to enable apt-cacher
     repo: deb http://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }} {{ ansible_facts['distribution_release'] }} stable
     filename: docker
+  when: ansible_facts['distribution_major_version'] | int < 13
 
 - name: Install Docker
   ansible.builtin.apt:

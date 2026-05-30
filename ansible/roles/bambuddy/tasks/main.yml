@@ -1,0 +1,31 @@
+- name: Create Bambuddy volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - bambuddy-data
+    - bambuddy-logs
+
+- name: Create Bambuddy container
+  community.docker.docker_container:
+    name: bambuddy
+    image: ghcr.io/maziggy/bambuddy:latest
+
+    volumes:
+      - bambuddy-data:/app/data
+      - bambuddy-logs:/app/logs
+
+    env:
+      TZ: "{{ timezone | default('UTC') }}"
+
+    ports: "{{ bambuddy_ports | default([]) }}"
+
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
+
+- name: Register Bambuddy container name
+  ansible.builtin.set_fact:
+    bambuddy_container_name: "bambuddy"

@@ -30,7 +30,7 @@ provider "proxmox" {
 }
 
 locals {
-  default_ostemplate      = "usb1:vztmpl/debian-12-standard_12.7-1_amd64.tar.zst"
+  default_ostemplate      = "usb1:vztmpl/debian-13-standard_13.1-2_amd64.tar.zst"
   default_ssh_public_keys = file("${path.module}/../ssh_public_keys")
 }
 
@@ -509,6 +509,28 @@ module "media-manager" {
   memory = 2048
 
   network_ip = "192.168.10.23/24"
+  network_gw = "192.168.10.1"
+
+  nameserver = "192.168.10.1"
+
+  unprivileged = true
+}
+
+module "bambuddy" {
+  source = "../modules/lxc_container"
+
+  ostemplate = local.default_ostemplate
+
+  target_node = "pve0"
+  hostname    = "bambuddy"
+
+  password        = var.default_password
+  ssh_public_keys = local.default_ssh_public_keys
+
+  cores  = 1
+  memory = 1024
+
+  network_ip = "192.168.10.24/24"
   network_gw = "192.168.10.1"
 
   nameserver = "192.168.10.1"

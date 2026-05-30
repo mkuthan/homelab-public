@@ -259,23 +259,29 @@ intel_gpu_top
 
 ## Container templates
 
-Download Debian 12 template:
+List available templates:
 
 ```shell
-pveam download local debian-12-standard_12.7-1_amd64.tar.zst
+pveam available
 ```
 
-Create Debian 12 container template:
+Download Debian 13 template:
 
 ```shell
-pct create 1000 local:vztmpl/debian-12-standard_12.7-1_amd64.tar.zst \
+pveam download local debian-13-standard_13.1-2_amd64.tar.zst
+```
+
+Create Debian 13 container template:
+
+```shell
+pct create 1000 local:vztmpl/debian-13-standard_13.1-2_amd64.tar.zst \
     --arch amd64 \
     --cores 1 \
     --hostname lxc-template \
     --memory 512 \
     --net0 name=eth0,bridge=vmbr0,gw=192.168.10.1,type=veth \
     --ostype debian \
-    --rootfs pool0:basevol-1000-disk-0,size=8G \
+    --rootfs pool0:8 \
     --swap 512 \
     --template 1
 ```

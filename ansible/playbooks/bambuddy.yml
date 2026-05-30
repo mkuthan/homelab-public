@@ -1,0 +1,10 @@
+- hosts: bambuddy
+  roles:
+    - apt_proxy
+
+    - security
+
+    - docker
+    - bambuddy
+
+    - promtail
