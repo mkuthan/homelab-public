@@ -13,3 +13,4 @@ dev_packages:
   - build-essential
   - git
   - mise
+  - tmux
