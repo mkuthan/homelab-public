@@ -4,6 +4,47 @@
   loop:
     - bambuddy-data
     - bambuddy-logs
+    - bambuddy-orcaslicer-data
+
+- name: Ensure Orcaslicer build directory exists
+  ansible.builtin.file:
+    path: "{{ bambuddy_orca_build_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Checkout Orcaslicer source
+  ansible.builtin.git:
+    repo: "{{ bambuddy_orca_slicer_api_git_repo }}"
+    dest: "{{ bambuddy_orca_build_dir }}"
+    version: "{{ bambuddy_orca_slicer_api_git_branch }}"
+    force: true
+
+- name: Build Orcaslicer image
+  community.docker.docker_image:
+    name: "bambuddy-orcaslicer"
+    tag: "{{ bambuddy_orca_version }}"
+    source: build
+    build:
+      path: "{{ bambuddy_orca_build_dir }}"
+      dockerfile: "Dockerfile"
+      args:
+        ORCA_VERSION: "{{ bambuddy_orca_version }}"
+
+- name: Create Orcaslicer container
+  community.docker.docker_container:
+    name: bambuddy-orcaslicer
+    image: "bambuddy-orcaslicer:{{ bambuddy_orca_version }}"
+
+    volumes:
+      - bambuddy-orcaslicer-data:/app/data
+
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    # pull: "{{ docker_pull }}"
+
 
 - name: Create Bambuddy container
   community.docker.docker_container:
@@ -16,6 +57,7 @@
 
     env:
       TZ: "{{ timezone | default('UTC') }}"
+      SLICER_API_URL: "http://bambuddy-orcaslicer:3000"
 
     ports: "{{ bambuddy_ports | default([]) }}"
 
