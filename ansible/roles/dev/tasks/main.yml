@@ -2,15 +2,15 @@
   ansible.builtin.apt:
     name: gpg
 
-- name: Add Mise repository key
-  ansible.builtin.apt_key:
-    url: https://mise.jdx.dev/gpg-key.pub
-    keyring: /etc/apt/trusted.gpg.d/mise.gpg
-
 - name: Add Mise repository
-  ansible.builtin.apt_repository:
-    repo: deb https://mise.jdx.dev/deb stable main
-    filename: mise
+  ansible.builtin.deb822_repository:
+    name: mise
+    types: deb
+    uris: "https://mise.jdx.dev/deb"
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components:
+      - stable
+    signed_by: "https://mise.jdx.dev/gpg-key.pub"
 
 - name: Install packages
   ansible.builtin.apt:
