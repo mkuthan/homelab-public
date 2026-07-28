@@ -54,4 +54,5 @@ Sonoff ZBDogle-E (unused), references:
 * Temperature and humidity sensor [Tyua TH02Z](https://www.zigbee2mqtt.io/devices/TH02Z.html)
 * Temperature and humidity sensor [Tyua IH-K009](https://www.zigbee2mqtt.io/devices/IH-K009.html)
 * Vibration sensor [Tuya TS0210](https://www.zigbee2mqtt.io/devices/TS0210.html)
+* Water valve [Sonoff SWV](https://www.zigbee2mqtt.io/devices/SWV.html)
 * Window sensor [Tuya TS0203](https://www.zigbee2mqtt.io/devices/TS0203.html)
