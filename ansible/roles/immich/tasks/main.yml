@@ -24,7 +24,7 @@
 - name: Create Immich Redis container
   community.docker.docker_container:
     name: immich-redis
-    image: docker.io/valkey/valkey:8-bookworm
+    image: docker.io/valkey/valkey:9
 
     volumes:
       - immich-redisdata:/data:rw
