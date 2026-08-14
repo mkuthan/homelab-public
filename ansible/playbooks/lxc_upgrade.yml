@@ -1,4 +1,5 @@
 - hosts: proxmox_all_lxc
   serial: 1
+  ignore_unreachable: true
   roles:
     - upgrade
