@@ -7,9 +7,9 @@
     name: mise
     types: deb
     uris: "https://mise.jdx.dev/deb"
-    suites: "{{ ansible_facts['distribution_release'] }}"
+    suites: stable 
     components:
-      - stable
+      - main
     signed_by: "https://mise.jdx.dev/gpg-key.pub"
 
 - name: Install packages
