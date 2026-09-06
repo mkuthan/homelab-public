@@ -79,7 +79,6 @@ Retired apps:
 * [Advanced Camera Card](https://github.com/dermotduffy/advanced-camera-card)
 * [ApexCharts Card](https://github.com/RomRider/apexcharts-card)
 * [Auto Entities](https://github.com/thomasloven/lovelace-auto-entities)
-* [Card Mod](https://github.com/thomasloven/lovelace-card-mod)
 * [Mini Media Player](https://github.com/kalkih/mini-media-player)
 * [Mushroom](https://github.com/piitaya/lovelace-mushroom)
 * [Plotly Graph Card](https://github.com/dbuezas/lovelace-plotly-graph-card)
