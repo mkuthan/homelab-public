@@ -22,6 +22,7 @@
 * [IMGW-PIB Monitor](https://github.com/abnvle/ha-imgw-pib-monitor)
 * [iRobot Roomba](https://www.home-assistant.io/integrations/roomba)
 * [LG webOS TV](https://www.home-assistant.io/integrations/webostv/)
+* [Librus Synergia](https://github.com/LukMaverick/LibrusSynergiaHA)
 * [Local Calendar](https://www.home-assistant.io/integrations/local_calendar)
 * [Local To-do](https://www.home-assistant.io/integrations/local_todo)
 * [Meteorologisk institutt](https://www.home-assistant.io/integrations/met)
