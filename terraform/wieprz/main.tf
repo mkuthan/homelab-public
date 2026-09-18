@@ -166,6 +166,8 @@ module "dev" {
   nameserver = "192.168.10.1"
 }
 
+# 192.168.10.8 - Home Assistant VM (reserved)
+
 module "frigate" {
   source = "../modules/lxc_container"
 
@@ -217,47 +219,8 @@ module "mqtt" {
   unprivileged = true
 }
 
-module "whoogle" {
-  source = "../modules/lxc_container"
-
-  ostemplate = local.default_ostemplate
-
-  target_node = "pve0"
-  hostname    = "whoogle"
-
-  password        = var.default_password
-  ssh_public_keys = local.default_ssh_public_keys
-
-  cores  = 1
-  memory = 512
-
-  network_ip = "192.168.10.11/24"
-  network_gw = "192.168.10.1"
-
-  nameserver = "192.168.10.1"
-
-  unprivileged = true
-}
-
-module "mailrise" {
-  source = "../modules/lxc_container"
-
-  ostemplate = local.default_ostemplate
-
-  target_node = "pve0"
-  hostname    = "mailrise"
-
-  password        = var.default_password
-  ssh_public_keys = local.default_ssh_public_keys
-
-  cores  = 1
-  memory = 512
-
-  network_ip = "192.168.10.12/24"
-  network_gw = "192.168.10.1"
-
-  nameserver = "192.168.10.1"
-}
+# 192.168.10.11 - available
+# 192.168.10.12 - available
 
 module "loki" {
   source = "../modules/lxc_container"
@@ -421,50 +384,8 @@ module "immich" {
   ]
 }
 
-module "openwebui" {
-  source = "../modules/lxc_container"
-
-  ostemplate = local.default_ostemplate
-
-  target_node = "pve0"
-  hostname    = "openwebui"
-
-  password        = var.default_password
-  ssh_public_keys = local.default_ssh_public_keys
-
-  cores       = 4
-  memory      = 4096
-  rootfs_size = "20G"
-
-  network_ip = "192.168.10.20/24"
-  network_gw = "192.168.10.1"
-
-  nameserver = "192.168.10.1"
-
-  unprivileged = true
-}
-
-module "searxng" {
-  source = "../modules/lxc_container"
-
-  ostemplate = local.default_ostemplate
-
-  target_node = "pve0"
-  hostname    = "searxng"
-
-  password        = var.default_password
-  ssh_public_keys = local.default_ssh_public_keys
-
-  cores  = 1
-  memory = 512
-
-  network_ip = "192.168.10.21/24"
-  network_gw = "192.168.10.1"
-
-  nameserver = "192.168.10.1"
-
-  unprivileged = true
-}
+# 192.168.10.20 - available
+# 192.168.10.21 - available
 
 module "jellyfin" {
   source = "../modules/lxc_container"
@@ -494,49 +415,7 @@ module "jellyfin" {
   ]
 }
 
-module "media-manager" {
-  source = "../modules/lxc_container"
-
-  ostemplate = local.default_ostemplate
-
-  target_node = "pve0"
-  hostname    = "media-manager"
-
-  password        = var.default_password
-  ssh_public_keys = local.default_ssh_public_keys
-
-  cores  = 2
-  memory = 2048
-
-  network_ip = "192.168.10.23/24"
-  network_gw = "192.168.10.1"
-
-  nameserver = "192.168.10.1"
-
-  unprivileged = true
-}
-
-module "bambuddy" {
-  source = "../modules/lxc_container"
-
-  ostemplate = local.default_ostemplate
-
-  target_node = "pve0"
-  hostname    = "bambuddy"
-
-  password        = var.default_password
-  ssh_public_keys = local.default_ssh_public_keys
-
-  cores  = 1
-  memory = 1024
-
-  network_ip = "192.168.10.24/24"
-  network_gw = "192.168.10.1"
-
-  nameserver = "192.168.10.1"
-
-  unprivileged = true
-}
+# 192.168.10.23-29 - available
 
 # services
 
