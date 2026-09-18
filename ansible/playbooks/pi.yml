@@ -1,27 +1,27 @@
 - hosts: pi
   remote_user: pi
   roles:
-    - pi
+    - { role: pi, tags: pi }
 
-    - aria2
-    - backup_ninja
-    - fluent_bit
-    - hd_idle
-    - hosts
-    - hyperion
-    - grafana_agent
-    - kodi
-    - postfix
-    - raspotify
-    - samba
-    - security
-    - shairport
-    - smartmontools
-    - tailscale
-    - timezone
-    - transmission
+    - { role: aria2, tags: aria2 }
+    - { role: backup_ninja, tags: backup_ninja }
+    - { role: fluent_bit, tags: fluent_bit }
+    - { role: hd_idle, tags: hd_idle }
+    - { role: hosts, tags: hosts }
+    - { role: hyperion, tags: hyperion }
+    - { role: grafana_agent, tags: grafana_agent }
+    - { role: kodi, tags: kodi }
+    - { role: postfix, tags: postfix }
+    - { role: raspotify, tags: raspotify }
+    - { role: samba, tags: samba }
+    - { role: security, tags: security }
+    - { role: shairport, tags: shairport }
+    - { role: smartmontools, tags: smartmontools }
+    - { role: tailscale, tags: tailscale }
+    - { role: timezone, tags: timezone }
+    - { role: transmission, tags: transmission }
 
-    - docker
-    - adguard
-    - traefik
-    - uptime_kuma
+    - { role: docker, tags: docker }
+    - { role: adguard, tags: adguard }
+    - { role: traefik, tags: traefik }
+    - { role: uptime_kuma, tags: uptime_kuma }
