@@ -30,6 +30,11 @@ schema_config:
 limits_config:
   retention_period: 720h
 
+compactor:
+  working_directory: /loki/chunks
+  retention_enabled: true
+  delete_request_store: filesystem
+
 query_range:
   results_cache:
     cache:
