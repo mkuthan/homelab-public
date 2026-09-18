@@ -9,6 +9,6 @@ kodi_cpu_command: sed -e 's/\([0-9]*\)[0-9]\{3\}.*/\1 C/' /sys/class/thermal/the
 # keep subtitles in directory with RW access rights for kodi user
 kodi_subtitles_gui_settings:
   - id: subtitles.storagemode
-    value: 1 # custom folder
+    value: "1" # custom folder
   - id: subtitles.custompath
     value: "/home/{{ kodi_user }}/.kodi/{{ kodi_subtitles_dir }}"
