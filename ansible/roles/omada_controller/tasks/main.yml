@@ -22,6 +22,8 @@
     ulimits:
       - "nofile:4096:8192"
 
+    stop_timeout: 60
+
     ports: "{{ omada_controller_ports | default([]) }}"
 
     networks: "{{ docker_networks }}"
