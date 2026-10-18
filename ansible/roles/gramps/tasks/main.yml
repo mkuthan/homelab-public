@@ -16,7 +16,7 @@
 - name: Create Gramps Redis container
   community.docker.docker_container:
     name: gramps-redis
-    image: docker.io/library/redis:7
+    image: docker.io/valkey/valkey:8-alpine
 
     networks: "{{ docker_networks }}"
     comparisons: "{{ docker_comparisons }}"
@@ -36,9 +36,6 @@
       GRAMPSWEB_CELERY_CONFIG__result_backend: "redis://gramps-redis:6379/0"
       GRAMPSWEB_RATELIMIT_STORAGE_URI: redis://gramps-redis:6379/1
       GRAMPSWEB_BASE_URL: "https://gramps.{{ ansible_facts['domain'] }}"
-      GRAMPSWEB_EMAIL_HOST: "192.168.10.12"
-      GRAMPSWEB_EMAIL_PORT: "8025"
-      GRAMPSWEB_EMAIL_USE_TLS: "False"
       GRAMPSWEB_REGISTRATION_DISABLED: "True"
 
       GUNICORN_NUM_WORKERS: "2"
