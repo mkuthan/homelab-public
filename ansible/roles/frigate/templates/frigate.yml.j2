@@ -1,4 +1,4 @@
-version: 0.17-0
+version: 0.18-0
 
 database:
   path: /database/frigate.db
@@ -163,9 +163,14 @@ cameras:
       streams:
         Main Stream: {{ camera.name }}_main
         Sub Stream: {{ camera.name }}_sub
-{% if camera.motion_mask is defined %}
+{% if camera.motion_masks is defined %}
     motion:
-      mask: {{ camera.motion_mask | to_yaml }}
+      mask:
+{% for mask in camera.motion_masks %}
+        {{ mask.name | replace(' ', '_') }}:
+          friendly_name: {{ mask.name }}
+          coordinates: {{ mask.coordinates }}
+{% endfor %}
 {% endif %}
 {% if camera.zones is defined %}
     zones: 
