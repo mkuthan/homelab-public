@@ -7,7 +7,7 @@
     name: mise
     types: deb
     uris: "https://mise.jdx.dev/deb"
-    suites: stable 
+    suites: stable
     components:
       - main
     signed_by: "https://mise.jdx.dev/gpg-key.pub"
