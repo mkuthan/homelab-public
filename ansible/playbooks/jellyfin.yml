@@ -6,3 +6,5 @@
 
     - docker
     - jellyfin
+
+    - promtail
