@@ -21,7 +21,7 @@
 - name: Create Paperless Redis container
   community.docker.docker_container:
     name: paperless-redis
-    image: docker.io/library/redis:8
+    image: docker.io/valkey/valkey:9-alpine
 
     volumes:
       - paperless-redisdata:/data:rw
@@ -57,7 +57,7 @@
 - name: Create Paperless Gotenberg container
   community.docker.docker_container:
     name: paperless-gotenberg
-    image: docker.io/gotenberg/gotenberg:8.25
+    image: docker.io/gotenberg/gotenberg:8.37
 
     command:
       - "gotenberg"
@@ -79,28 +79,33 @@
     env:
       USERMAP_UID: "0"
       USERMAP_GID: "0"
-      PAPERLESS_CONSUMER_POLLING: "1"
 
       PAPERLESS_REDIS: redis://paperless-redis:6379
+      PAPERLESS_DBENGINE: postgresql
       PAPERLESS_DBHOST: paperless-postgres18
       PAPERLESS_TIKA_ENABLED: "1"
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg:3000
       PAPERLESS_TIKA_ENDPOINT: http://{{ tika_container_name }}:9998
 
       PAPERLESS_TIME_ZONE: "{{ timezone | default('UTC') }}"
-      PAPERLESS_OCR_LANGUAGES: "{{ paperless_ngx_ocr_languages | default('') }}"
-      PAPERLESS_OCR_LANGUAGE: "{{ paperless_ngx_ocr_language | default('eng') }}"
-      # https://github.com/paperless-ngx/paperless-ngx/discussions/4047
-      PAPERLESS_OCR_USER_ARGS: '{"invalidate_digital_signatures": true}'
-      PAPERLESS_FILENAME_FORMAT: "{% raw %}{{created_year}}/{{title}}{% endraw %}"
 
       PAPERLESS_URL: "https://paperless.{{ ansible_facts['domain'] }}"
       PAPERLESS_ADMIN_USER: "{{ paperless_ngx_admin_user }}"
       PAPERLESS_ADMIN_PASSWORD: "{{ paperless_ngx_admin_password }}"
 
+      PAPERLESS_SECRET_KEY: "{{ paperless_ngx_secret_key }}"
+
       PAPERLESS_ALLOWED_HOSTS: "paperless.{{ ansible_facts['domain'] }}"
       PAPERLESS_CORS_ALLOWED_HOSTS: "https://paperless.{{ ansible_facts['domain'] }}"
       PAPERLESS_CSRF_TRUSTED_ORIGINS: "https://paperless.{{ ansible_facts['domain'] }}"
+
+      PAPERLESS_CONSUMER_POLLING_INTERVAL: "1"
+
+      PAPERLESS_OCR_LANGUAGES: "{{ paperless_ngx_ocr_languages | default('') }}"
+      PAPERLESS_OCR_LANGUAGE: "{{ paperless_ngx_ocr_language | default('eng') }}"
+      # https://github.com/paperless-ngx/paperless-ngx/discussions/4047
+      PAPERLESS_OCR_USER_ARGS: '{"invalidate_digital_signatures": true}'
+      PAPERLESS_FILENAME_FORMAT: "{% raw %}{{created_year}}/{{title}}{% endraw %}"
 
     volumes:
       - paperless-data:/usr/src/paperless/data:rw
