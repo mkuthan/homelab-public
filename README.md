@@ -36,6 +36,7 @@ Ansible playbooks manage all the services and configurations, for example:
 * Bambuddy
 * Docker
 * Fluent Bit
+* Free LLM
 * Frigate
 * Grafana
 * Grafana Agent

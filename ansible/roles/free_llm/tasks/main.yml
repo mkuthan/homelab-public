@@ -1,0 +1,31 @@
+- name: Create FreeLLM volumes
+  community.docker.docker_volume:
+    volume_name: "{{ item }}"
+  loop:
+    - freellm-data
+
+- name: Create FreeLLM container
+  community.docker.docker_container:
+    name: freellm
+    image: ghcr.io/tashfeenahmed/freellmapi:latest
+
+    env:
+      NODE_ENV: "production"
+      HOST_BIND: "0.0.0.0"
+      ENCRYPTION_KEY: "{{ free_llm_encryption_key }}"
+
+    volumes:
+      - freellm-data:/app/server/data:rw
+
+    ports: "{{ free_llm_ports | default([]) }}"
+
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
+
+- name: Register FreeLLM container name
+  ansible.builtin.set_fact:
+    free_llm_container_name: "freellm"

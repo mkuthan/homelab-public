@@ -1,0 +1,10 @@
+- hosts: free-llm
+  roles:
+    - apt_proxy
+
+    - security
+
+    - docker
+    - free_llm
+
+    - promtail

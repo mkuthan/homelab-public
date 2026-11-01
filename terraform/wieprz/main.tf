@@ -219,7 +219,28 @@ module "mqtt" {
   unprivileged = true
 }
 
-# 192.168.10.11 - available
+module "free-llm" {
+  source = "../modules/lxc_container"
+
+  ostemplate = local.default_ostemplate
+
+  target_node = "pve0"
+  hostname    = "free-llm"
+
+  password        = var.default_password
+  ssh_public_keys = local.default_ssh_public_keys
+
+  cores  = 1
+  memory = 512
+
+  network_ip = "192.168.10.11/24"
+  network_gw = "192.168.10.1"
+
+  nameserver = "192.168.10.1"
+
+  unprivileged = true
+}
+
 # 192.168.10.12 - available
 
 module "loki" {
