@@ -6,7 +6,7 @@
 
 Specification:
 
-* Android: 11
+* Android: 14
 * Code name: DV8988
 * Manufacturer: SDMC
 * SoC: S905X4
