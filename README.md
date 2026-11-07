@@ -35,12 +35,14 @@ Ansible playbooks manage all the services and configurations, for example:
 * Backup Ninja
 * Bambuddy
 * Docker
+* Dockhand
 * Fluent Bit
 * Free LLM
 * Frigate
 * Grafana
 * Grafana Agent
 * Gramps
+* Hawser
 * Hyperion NG
 * Immich
 * Jellyfin

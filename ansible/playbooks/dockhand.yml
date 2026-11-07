@@ -1,0 +1,11 @@
+- hosts: dockhand
+  roles:
+    - apt_proxy
+
+    - security
+
+    - docker
+    - dockhand
+
+    - promtail
+    - hawser

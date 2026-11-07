@@ -8,4 +8,5 @@
     - omada_controller
 
     - promtail
+    - hawser
     - rclone

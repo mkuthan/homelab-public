@@ -9,4 +9,5 @@
     - paperless_ngx
 
     - promtail
+    - hawser
     - rclone

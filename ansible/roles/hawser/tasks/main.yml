@@ -1,0 +1,34 @@
+- name: Check Hawser token
+  ansible.builtin.assert:
+    that:
+      - hawser_token | default('') | length >= 0
+    fail_msg: "Set hawser_token in the vaulted inventory"
+
+- name: Create Hawser volume
+  community.docker.docker_volume:
+    volume_name: hawser-data
+
+- name: Create Hawser container
+  community.docker.docker_container:
+    name: hawser
+    image: ghcr.io/finsys/hawser:latest
+
+    env:
+      TOKEN: "{{ hawser_token }}"
+      AGENT_NAME: "{{ inventory_hostname }}"
+
+    volumes:
+      - "hawser-data:/data/stacks:rw"
+      - "/var/run/docker.sock:/var/run/docker.sock:rw"
+
+    ports: "{{ hawser_ports }}"
+
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
+
+- name: Register Hawser container name
+  ansible.builtin.set_fact:
+    hawser_container_name: "hawser"

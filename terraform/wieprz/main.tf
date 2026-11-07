@@ -241,7 +241,27 @@ module "free-llm" {
   unprivileged = true
 }
 
-# 192.168.10.12 - available
+module "dockhand" {
+  source = "../modules/lxc_container"
+
+  ostemplate = local.default_ostemplate
+
+  target_node = "pve0"
+  hostname    = "dockhand"
+
+  password        = var.default_password
+  ssh_public_keys = local.default_ssh_public_keys
+
+  cores  = 1
+  memory = 512
+
+  network_ip = "192.168.10.12/24"
+  network_gw = "192.168.10.1"
+
+  nameserver = "192.168.10.1"
+
+  unprivileged = true
+}
 
 module "loki" {
   source = "../modules/lxc_container"

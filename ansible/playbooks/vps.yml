@@ -8,3 +8,5 @@
     - docker
     - traefik
     - uptime_kuma
+
+    - hawser

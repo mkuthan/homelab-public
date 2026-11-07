@@ -1,0 +1,29 @@
+- name: Create Dockhand volume
+  community.docker.docker_volume:
+    volume_name: dockhand-data
+
+- name: Create Dockhand container
+  community.docker.docker_container:
+    name: dockhand
+    image: fnsys/dockhand:latest
+
+    env:
+      ORIGIN: "https://dockhand.{{ ansible_facts['domain'] }}"
+      TRUST_FORWARDED_HEADERS: "true"
+      DISABLE_WHATS_NEW: "true"
+
+    volumes:
+      - dockhand-data:/app/data:rw
+
+    ports: "{{ dockhand_ports }}"
+
+    networks: "{{ docker_networks }}"
+    comparisons: "{{ docker_comparisons }}"
+    image_name_mismatch: "{{ docker_image_name_mismatch }}"
+    state: "{{ docker_state }}"
+    restart_policy: "{{ docker_restart_policy }}"
+    pull: "{{ docker_pull }}"
+
+- name: Register Dockhand container name
+  ansible.builtin.set_fact:
+    dockhand_container_name: "dockhand"
