@@ -1,0 +1,5 @@
+raspotify_device_name: "raspotify"
+raspotify_device_type: "speaker"
+raspotify_bit_rate: "320"
+raspotify_alsa_device: "default"
+raspotify_alsa_mixer_control: "PCM"

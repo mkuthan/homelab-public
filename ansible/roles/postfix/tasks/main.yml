@@ -1,3 +1,9 @@
+- name: Verify vault variables are defined
+  ansible.builtin.assert:
+    that:
+      - postfix_sasl_password is defined and postfix_sasl_password | length > 0
+    fail_msg: "postfix_sasl_password must be defined in Ansible Vault"
+
 - name: Install postfix
   ansible.builtin.apt:
     name: "{{ item }}"

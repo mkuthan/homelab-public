@@ -1,0 +1,28 @@
+# File locations.
+pi_boot_config_file: /boot/firmware/config.txt
+pi_asound_config_file: /etc/asound.conf
+pi_journald_config_file: /etc/systemd/journald.conf
+pi_sshd_config_file: /etc/ssh/sshd_config
+
+# Packages installed on every Raspberry Pi.
+pi_packages: []
+
+# Extra mounts (uuid, path, fstype, opts).
+pi_mounts: []
+
+# /boot/firmware/config.txt tuning.
+pi_boot_config_params: []
+pi_boot_config_enabled: []
+boot_config_disabled: []
+
+# journald limits.
+pi_journald_system_max_use: "64M"
+pi_journald_max_file_sec: "1week"
+
+# log2ram.
+pi_log2ram_size: "128M"
+pi_log2ram_use_rsync: "true"
+
+# HiFiBerry ALSA card.
+pi_hifiberry_alias: "hifiberry"
+pi_hifiberry_card: "0"

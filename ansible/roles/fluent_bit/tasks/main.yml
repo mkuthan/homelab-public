@@ -1,3 +1,9 @@
+- name: Verify vault variables are defined
+  ansible.builtin.assert:
+    that:
+      - fluent_bit_loki_password is defined and fluent_bit_loki_password | length > 0
+    fail_msg: "fluent_bit_loki_password must be defined in Ansible Vault"
+
 - name: Add fluent_bit apt key
   ansible.builtin.apt_key:
     url: http://packages.fluentbit.io/fluentbit.key

@@ -1,5 +1,11 @@
 # check url under Grafana datasources admin panel
 grafana_agent_prometheus_url: https://prometheus-blocks-prod-us-central1.grafana.net/api/prom/push
 
+# Grafana Cloud instance/user ID used for basic auth remote write.
+grafana_agent_prometheus_username: ""
+
 # overwrite ports to avoid conflicts with transmission daemon
 grafana_agent_custom_args: -server.http.address=127.0.0.1:19090 -server.grpc.address=127.0.0.1:19091
+
+# Grafana Agent release to install.
+grafana_agent_version: "0.44.2"

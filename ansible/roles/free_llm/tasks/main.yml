@@ -1,3 +1,9 @@
+- name: Verify vault variables are defined
+  ansible.builtin.assert:
+    that:
+      - free_llm_encryption_key is defined and free_llm_encryption_key | length > 0
+    fail_msg: "free_llm_encryption_key must be defined in Ansible Vault"
+
 - name: Create FreeLLM volumes
   community.docker.docker_volume:
     volume_name: "{{ item }}"

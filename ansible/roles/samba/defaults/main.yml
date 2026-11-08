@@ -1,0 +1,5 @@
+samba_user: "samba"
+samba_netbios_name: "{{ inventory_hostname }}"
+
+# Public shares: name, path, read_only, browseable.
+samba_public_shares: []

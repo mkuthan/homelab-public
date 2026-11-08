@@ -1,0 +1,13 @@
+z2m_ports: []
+
+z2m_adapter_port: "/dev/ttyACM0"
+z2m_adapter_baudrate: "115200"
+z2m_adapter_type: "zstack"
+
+z2m_mqtt_server: "mqtt://mqtt:1883"
+z2m_mqtt_user: "zigbee2mqtt"
+z2m_mqtt_base_topic: "zigbee2mqtt"
+z2m_mqtt_version: "5"
+
+z2m_zigbee_channel: "11"
+z2m_zigbee_transmit_power: "5"

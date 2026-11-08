@@ -1,0 +1,2 @@
+# Maximum size of the persistent journal (journald SystemMaxUse).
+journald_system_max_use: "256M"

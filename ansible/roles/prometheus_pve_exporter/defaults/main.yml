@@ -1,0 +1,3 @@
+prometheus_pve_exporter_ports: []
+
+prometheus_pve_exporter_user: "prometheus@pve"

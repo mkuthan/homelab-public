@@ -1,0 +1,5 @@
+postfix_relay_host: "smtp.example.com"
+postfix_relay_port: "587"
+
+# Envelope/alias address and SASL login used for the relay.
+postfix_sasl_mail: "root@example.com"

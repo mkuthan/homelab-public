@@ -1,3 +1,10 @@
+- name: Verify vault variables are defined
+  ansible.builtin.assert:
+    that:
+      - z2m_mqtt_password is defined and z2m_mqtt_password | length > 0
+      - z2m_zigbee_network_key is defined and z2m_zigbee_network_key | length > 0
+    fail_msg: "z2m_mqtt_password and z2m_zigbee_network_key must be defined in Ansible Vault"
+
 - name: Create /etc/zigbee2mqtt
   ansible.builtin.file:
     path: /etc/zigbee2mqtt

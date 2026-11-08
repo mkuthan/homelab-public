@@ -1,3 +1,9 @@
+- name: Verify vault variables are defined
+  ansible.builtin.assert:
+    that:
+      - grafana_agent_prometheus_password is defined and grafana_agent_prometheus_password | length > 0
+    fail_msg: "grafana_agent_prometheus_password must be defined in Ansible Vault"
+
 - name: Install grafana-agent
   ansible.builtin.apt:
     deb: https://github.com/grafana/agent/releases/download/v{{ grafana_agent_version }}/grafana-agent-{{ grafana_agent_version }}-1.arm64.deb

@@ -1,0 +1,8 @@
+prometheus_nut_exporter_ports: []
+
+# NUT variables exported as Prometheus metrics.
+prometheus_nut_exporter_vars:
+  - battery.charge
+  - battery.voltage
+  - ups.load
+  - ups.status

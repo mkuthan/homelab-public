@@ -1,0 +1,5 @@
+openwebui_ports: []
+
+openwebui_enable_ollama_api: true
+openwebui_enable_openai_api: true
+openwebui_openai_api_base_url: "https://api.openai.com/v1"

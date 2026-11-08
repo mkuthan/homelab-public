@@ -1,0 +1,12 @@
+# standalone = local UPS, netserver = expose the UPS to the network,
+# netclient = monitor a remote UPS.
+nut_mode: "netserver"
+
+nut_ups_name: "ups"
+nut_ups_driver: "usbhid-ups"
+nut_ups_port: "auto"
+nut_ups_vendorid: "051d"
+
+nut_hostname: "{{ inventory_hostname }}"
+nut_user: "upsmon"
+nut_monitor_type: "primary"

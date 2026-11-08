@@ -1,0 +1,11 @@
+# Directory where Backupninja stores its backups.
+backup_dest_dir: "/var/backups/backupninja"
+
+# How long rdiff-backup keeps incremental history (e.g. 7D, 4W, 1M).
+backup_keep_days: "1M"
+
+# Directories included in the rdiff-backup set.
+backup_source_dirs:
+  - /etc
+  - /root
+  - /home

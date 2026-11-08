@@ -1,3 +1,9 @@
+- name: Verify vault variables are defined
+  ansible.builtin.assert:
+    that:
+      - samba_password is defined and samba_password | length > 0
+    fail_msg: "samba_password must be defined in Ansible Vault"
+
 - name: Install Samba packages
   ansible.builtin.package:
     name: "{{ item }}"

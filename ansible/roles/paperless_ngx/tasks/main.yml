@@ -1,5 +1,15 @@
 # https://github.com/paperless-ngx/paperless-ngx/blob/dev/docker/compose/docker-compose.postgres-tika.yml
 
+- name: Verify vault variables are defined
+  ansible.builtin.assert:
+    that:
+      - paperless_ngx_admin_password is defined and paperless_ngx_admin_password | length > 0
+      - paperless_ngx_secret_key is defined and paperless_ngx_secret_key | length > 0
+      - paperless_ngx_consume_share_password is defined and paperless_ngx_consume_share_password | length > 0
+    fail_msg: >-
+      paperless_ngx_admin_password, paperless_ngx_secret_key and
+      paperless_ngx_consume_share_password must be defined in Ansible Vault
+
 - name: Create Paperless volumes
   community.docker.docker_volume:
     volume_name: "{{ item }}"

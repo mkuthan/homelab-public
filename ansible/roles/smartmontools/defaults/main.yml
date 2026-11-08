@@ -1,0 +1,4 @@
+smartmontools_interval: "86400"
+
+# Devices to monitor: device, type.
+smartmontools_smartd_devices: []

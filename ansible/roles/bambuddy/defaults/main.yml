@@ -1,3 +1,5 @@
+bambuddy_ports: []
+
 bambuddy_orca_build_dir: "/opt/orca-slicer-api"
 bambuddy_orca_slicer_api_git_repo: "https://github.com/maziggy/orca-slicer-api.git"
 bambuddy_orca_slicer_api_git_branch: "bambuddy/profile-resolver"

@@ -1,0 +1,11 @@
+traefik_ports:
+  - "80:80"
+  - "443:443"
+  - "8080:8080"
+
+# ACME DNS-01 provider (duckdns or cloudflare).
+traefik_certificates_resolver: "duckdns"
+traefik_acme_email: "admin@example.com"
+
+# Additional file-provider routers (name, backend).
+traefik_http_sites: []

@@ -1,3 +1,9 @@
+- name: Verify vault variables are defined
+  ansible.builtin.assert:
+    that:
+      - nut_password is defined and nut_password | length > 0
+    fail_msg: "nut_password must be defined in Ansible Vault"
+
 - name: Install NUT
   ansible.builtin.apt:
     name: nut

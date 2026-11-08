@@ -1,1 +1,5 @@
+# Version of hd-idle to install.
 hd_idle_version: "1.21"
+
+# Spindown timeout in seconds.
+hd_idle_time: "1800"

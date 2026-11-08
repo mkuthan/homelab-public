@@ -1,0 +1,10 @@
+rclone_bwlimit: "off:off"
+rclone_sync_options: ""
+
+# Scheduled syncs: name, src, dest, hour, minute.
+rclone_jobs: []
+
+# Remote definitions rendered into rclone.conf.
+rclone_gcs_configs: []
+rclone_drive_configs: []
+rclone_crypt_configs: []

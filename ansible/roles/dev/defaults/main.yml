@@ -1,3 +1,6 @@
+dev_user_name: "dev"
+dev_user_authorized_key: ""
+
 dev_packages:
   # system
   - curl

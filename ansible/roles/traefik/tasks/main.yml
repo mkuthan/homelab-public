@@ -1,3 +1,12 @@
+- name: Verify vault variables are defined
+  ansible.builtin.assert:
+    that:
+      - (traefik_certificates_resolver == 'cloudflare' and (traefik_cf_api_token is defined and traefik_cf_api_token | length > 0))
+        or (traefik_certificates_resolver == 'duckdns' and (traefik_duckdns_token is defined and traefik_duckdns_token | length > 0))
+    fail_msg: >-
+      The ACME DNS token for '{{ traefik_certificates_resolver }}'
+      (traefik_cf_api_token or traefik_duckdns_token) must be defined in Ansible Vault
+
 - name: Create /etc/traefik
   ansible.builtin.file:
     path: /etc/traefik

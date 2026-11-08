@@ -1,3 +1,10 @@
+- name: Verify vault variables are defined
+  ansible.builtin.assert:
+    that:
+      - vaultwarden_admin_token is defined and vaultwarden_admin_token | length > 0
+      - vaultwarden_smtp_password is defined and vaultwarden_smtp_password | length > 0
+    fail_msg: "vaultwarden_admin_token and vaultwarden_smtp_password must be defined in Ansible Vault"
+
 - name: Create Vaultwarden volumes
   community.docker.docker_volume:
     volume_name: "{{ item }}"

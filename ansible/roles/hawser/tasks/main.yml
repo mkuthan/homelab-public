@@ -1,8 +1,8 @@
-- name: Check Hawser token
+- name: Verify vault variables are defined
   ansible.builtin.assert:
     that:
-      - hawser_token | default('') | length >= 0
-    fail_msg: "Set hawser_token in the vaulted inventory"
+      - hawser_token is defined and hawser_token | length > 0
+    fail_msg: "hawser_token must be defined in Ansible Vault"
 
 - name: Create Hawser volume
   community.docker.docker_volume:

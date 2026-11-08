@@ -1,3 +1,9 @@
+- name: Verify vault variables are defined
+  ansible.builtin.assert:
+    that:
+      - searxng_secret_key is defined and searxng_secret_key | length > 0
+    fail_msg: "searxng_secret_key must be defined in Ansible Vault"
+
 - name: Create /etc/searxng
   ansible.builtin.file:
     path: /etc/searxng
@@ -26,7 +32,6 @@
   community.docker.docker_container:
     name: searxng-redis
     image: docker.io/valkey/valkey:8-alpine
-    pull: "{{ homelab_docker_pull | default('missing') }}"
 
     volumes:
       - searxng-redis-data:/data:rw
@@ -37,6 +42,7 @@
     comparisons: "{{ docker_comparisons }}"
     image_name_mismatch: "{{ docker_image_name_mismatch }}"
     state: "{{ docker_state }}"
+    pull: "{{ docker_pull }}"
     restart_policy: "{{ docker_restart_policy }}"
 
 - name: Create SearXNG container

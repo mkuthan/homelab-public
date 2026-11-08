@@ -1,0 +1,24 @@
+frigate_ports: []
+
+# Cameras rendered into the Frigate configuration.
+# Each entry supports: name, host, enabled, audio_enabled, motion_masks, zones,
+# alerts_zones.
+frigate_cameras: []
+
+# Number of OpenVINO detector processes (one per GPU recommended).
+frigate_detectors: 1
+
+# One of: yolo-nas, yolo-v9-320, yolo-v9-640.
+# Anything else falls back to the default SSD MobileNet model.
+frigate_model: "yolo-nas"
+
+frigate_mqtt_host: "mqtt"
+frigate_mqtt_user: "frigate"
+
+frigate_rtsp_user: "admin"
+
+# Recording retention, in days, per category.
+frigate_retention_continuous_days: 3
+frigate_retention_motion_days: 3
+frigate_retention_detections_days: 10
+frigate_retention_alerts_days: 30

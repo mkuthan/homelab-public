@@ -14,7 +14,6 @@
   community.docker.docker_container:
     name: viewtube-mongodb
     image: mongo:7
-    pull: "{{ homelab_docker_pull | default('missing') }}"
 
     networks:
       - name: viewtube-network
@@ -29,13 +28,13 @@
     image_name_mismatch: recreate
 
     state: started
+    pull: "{{ docker_pull }}"
     restart_policy: unless-stopped
 
 - name: Create Viewtube Redis container
   community.docker.docker_container:
     name: viewtube-redis
     image: redis:7
-    pull: "{{ homelab_docker_pull | default('missing') }}"
 
     networks:
       - name: viewtube-network
@@ -50,14 +49,13 @@
     image_name_mismatch: recreate
 
     state: started
+    pull: "{{ docker_pull }}"
     restart_policy: unless-stopped
-
 
 - name: Create Viewtube container
   community.docker.docker_container:
     name: viewtube
     image: mauriceo/viewtube:nightly
-    pull: "{{ homelab_docker_pull | default('missing') }}"
 
     ports:
       - "8066:8066"
@@ -76,4 +74,5 @@
     image_name_mismatch: recreate
 
     state: started
+    pull: "{{ docker_pull }}"
     restart_policy: unless-stopped

@@ -1,0 +1,13 @@
+prometheus_ports: []
+
+# TSDB retention (prometheus --storage.tsdb.retention.time).
+prometheus_storage_retention: "15d"
+
+# Basic auth user for the Prometheus web UI/API.
+prometheus_web_user: "admin"
+
+# Additional static scrape configs (job_name, targets, metrics_path).
+prometheus_scrape_configs: []
+
+# Proxmox targets scraped through the PVE exporter.
+prometheus_pve_exporter_targets: []

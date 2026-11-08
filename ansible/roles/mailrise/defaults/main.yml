@@ -1,0 +1,4 @@
+mailrise_ports: []
+
+# Where Mailrise forwards every message (e.g. a chat webhook or mailto: URL).
+mailrise_url: "mailto:root@example.com"

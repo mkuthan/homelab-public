@@ -1,0 +1,5 @@
+omada_controller_ports: []
+
+omada_prometheus_exporter_user: "prometheus"
+omada_prometheus_exporter_site: "Default"
+omada_prometheus_exporter_ports: []

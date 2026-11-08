@@ -1,0 +1,28 @@
+kodi_user: kodi
+kodi_group: kodi
+kodi_bin: /usr/bin/kodi
+
+kodi_userdata_dir: userdata
+kodi_subtitles_dir: subtitles
+
+kodi_cpu_command: >-
+  sed -e 's/\([0-9]*\)[0-9]\{3\}.*/\1 C/' /sys/class/thermal/thermal_zone0/temp
+
+# Extra Kodi sources rendered into sources.xml (section/sources/name/path).
+kodi_sources: []
+
+# Settings written to guisettings.xml.
+kodi_gui_settings: []
+
+# Keep subtitles in a directory with RW access for the kodi user.
+kodi_subtitles_gui_settings:
+  - id: subtitles.storagemode
+    value: "1" # custom folder
+  - id: subtitles.custompath
+    value: "/home/{{ kodi_user }}/.kodi/{{ kodi_subtitles_dir }}"
+
+# Values rendered into advancedsettings.xml.
+kodi_advanced_settins:
+  log_level: 1
+  extra_logging: "false"
+  extra_log_level: 0

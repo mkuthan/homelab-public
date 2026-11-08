@@ -1,3 +1,10 @@
+- name: Verify vault variables are defined
+  ansible.builtin.assert:
+    that:
+      - mosquitto_users is defined and mosquitto_users is mapping and mosquitto_users | length > 0
+      - mosquitto_users['prometheus'] is defined and mosquitto_users['prometheus'] | length > 0
+    fail_msg: "mosquitto_users (including the prometheus user) must be defined in Ansible Vault"
+
 - name: Create /etc/mosquitto
   ansible.builtin.file:
     path: /etc/mosquitto

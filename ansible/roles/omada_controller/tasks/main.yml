@@ -1,3 +1,9 @@
+- name: Verify vault variables are defined
+  ansible.builtin.assert:
+    that:
+      - omada_prometheus_exporter_password is defined and omada_prometheus_exporter_password | length > 0
+    fail_msg: "omada_prometheus_exporter_password must be defined in Ansible Vault"
+
 - name: Create Omada volumes
   community.docker.docker_volume:
     volume_name: "{{ item }}"

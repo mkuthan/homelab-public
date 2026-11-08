@@ -1,3 +1,9 @@
+- name: Verify vault variables are defined
+  ansible.builtin.assert:
+    that:
+      - openwebui_openai_api_key is defined and openwebui_openai_api_key | length > 0
+    fail_msg: "openwebui_openai_api_key must be defined in Ansible Vault"
+
 - name: Create Open Web UI volumes
   community.docker.docker_volume:
     volume_name: "{{ item }}"

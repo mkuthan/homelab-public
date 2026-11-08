@@ -1,3 +1,9 @@
+- name: Verify vault variables are defined
+  ansible.builtin.assert:
+    that:
+      - prometheus_pve_exporter_password is defined and prometheus_pve_exporter_password | length > 0
+    fail_msg: "prometheus_pve_exporter_password must be defined in Ansible Vault"
+
 - name: Create Prometheus PVE exporter container
   community.docker.docker_container:
     name: prometheus-pve-exporter

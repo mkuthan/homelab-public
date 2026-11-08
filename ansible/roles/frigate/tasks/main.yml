@@ -3,6 +3,13 @@
 # lxc.cgroup2.devices.allow: c 226:128 rwm
 # lxc.cgroup2.cpuset.cpus: 0-5
 
+- name: Verify vault variables are defined
+  ansible.builtin.assert:
+    that:
+      - frigate_mqtt_password is defined and frigate_mqtt_password | length > 0
+      - frigate_rtsp_password is defined and frigate_rtsp_password | length > 0
+    fail_msg: "frigate_mqtt_password and frigate_rtsp_password must be defined in Ansible Vault"
+
 - name: Stat /dev/dri
   ansible.builtin.stat:
     path: /dev/dri

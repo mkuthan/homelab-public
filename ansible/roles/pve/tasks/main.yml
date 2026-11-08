@@ -49,4 +49,4 @@
     src: "exports.j2"
     dest: "/etc/exports"
     mode: "0644"
-  when: pve_nfs_exports is defined
+  when: pve_nfs_exports | length > 0
