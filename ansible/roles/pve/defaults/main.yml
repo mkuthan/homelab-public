@@ -3,6 +3,12 @@ pve_packages: []
 
 # Extra mounts (src, path, fstype, opts).
 pve_mount_points: []
+  # - name: "nvme0"
+  #   src: "/dev/nvme0n1p4"
+  #   path: "/mnt/nvme0"
+  #   fstype: "ext4"
+  #   opts: "defaults"
 
 # NFS exports rendered into /etc/exports (one line per entry).
 pve_nfs_exports: []
+  # - "/mnt/nvme0 10.0.10.31(rw,sync,no_subtree_check,no_root_squash,mountpoint)"

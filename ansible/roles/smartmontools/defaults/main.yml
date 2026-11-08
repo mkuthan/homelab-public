@@ -2,3 +2,7 @@ smartmontools_interval: "86400"
 
 # Devices to monitor: device, type.
 smartmontools_smartd_devices: []
+  # - device: "/dev/nvme0"
+  # - device: "/dev/sda"
+  # - device: "/dev/disk/by-uuid/528215d2-9c5f-4a42-9a5a-2fc57190e139"
+  #   type: "sat"

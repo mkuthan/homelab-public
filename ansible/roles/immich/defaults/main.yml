@@ -1,1 +1,2 @@
-immich_ports: []
+immich_ports:
+  - "2283:2283"

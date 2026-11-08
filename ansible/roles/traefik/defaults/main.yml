@@ -6,6 +6,12 @@ traefik_ports:
 # ACME DNS-01 provider (duckdns or cloudflare).
 traefik_certificates_resolver: "duckdns"
 traefik_acme_email: "admin@example.com"
+traefik_cf_api_token: ""
+traefik_duckdns_token: ""
 
 # Additional file-provider routers (name, backend).
 traefik_http_sites: []
+  # - name: "pbs"
+  #   backend: "https://192.168.10.2:8007"
+  # - name: "omada"
+  #   backend: "https://192.168.10.3:8043"

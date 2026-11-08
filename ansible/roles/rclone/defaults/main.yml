@@ -1,5 +1,5 @@
 rclone_bwlimit: "off:off"
-rclone_sync_options: ""
+rclone_sync_options: "--fast-list --checksum"
 
 # Scheduled syncs: name, src, dest, hour, minute.
 rclone_jobs: []

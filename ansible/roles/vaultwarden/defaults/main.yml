@@ -1,10 +1,14 @@
-vaultwarden_ports: []
+vaultwarden_ports:
+  - "80:80"
+
+vaultwarden_admin_token: ""
 
 vaultwarden_smtp_host: "smtp.example.com"
 vaultwarden_smtp_from: "vaultwarden@example.com"
 vaultwarden_smtp_port: "587"
 vaultwarden_smtp_security: "starttls"
 vaultwarden_smtp_mail: "vaultwarden@example.com"
+vaultwarden_smtp_password: ""
 
 # Backup container schedule and retention (days).
 vaultwarden_backup_cron: "0 3 * * *"

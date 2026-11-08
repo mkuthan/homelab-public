@@ -1,8 +1,8 @@
 - name: Verify vault variables are defined
   ansible.builtin.assert:
     that:
-      - omada_prometheus_exporter_password is defined and omada_prometheus_exporter_password | length > 0
-    fail_msg: "omada_prometheus_exporter_password must be defined in Ansible Vault"
+      - omada_controller_prometheus_exporter_password is defined and omada_controller_prometheus_exporter_password | length > 0
+    fail_msg: "omada_controller_prometheus_exporter_password must be defined in Ansible Vault"
 
 - name: Create Omada volumes
   community.docker.docker_volume:
@@ -50,12 +50,12 @@
 
     env:
       OMADA_HOST: "https://{{ omada_controller_container_name }}:8043"
-      OMADA_USER: "{{ omada_prometheus_exporter_user }}"
-      OMADA_PASS: "{{ omada_prometheus_exporter_password }}"
-      OMADA_SITE: "{{ omada_prometheus_exporter_site }}"
+      OMADA_USER: "{{ omada_controller_prometheus_exporter_user }}"
+      OMADA_PASS: "{{ omada_controller_prometheus_exporter_password }}"
+      OMADA_SITE: "{{ omada_controller_prometheus_exporter_site }}"
       OMADA_INSECURE: "true"
 
-    ports: "{{ omada_prometheus_exporter_ports | default([]) }}"
+    ports: "{{ omada_controller_prometheus_exporter_ports | default([]) }}"
 
     networks: "{{ docker_networks }}"
     comparisons: "{{ docker_comparisons }}"

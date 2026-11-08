@@ -2,4 +2,8 @@ mosquitto_ports:
   - "1883:1883"
   - "9001:9001"
 
-mosquitto_prometheus_exporter_ports: []
+mosquitto_users: []
+  # user: "password"
+
+mosquitto_prometheus_exporter_ports:
+  - "9234:9234"

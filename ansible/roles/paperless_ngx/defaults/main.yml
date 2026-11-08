@@ -1,6 +1,9 @@
-paperless_ngx_ports: []
+paperless_ngx_ports:
+  - "8000:8000"
 
 paperless_ngx_admin_user: "admin"
+paperless_ngx_admin_password: ""
+paperless_ngx_secret_key: ""
 
 paperless_ngx_ocr_language: "eng"
 paperless_ngx_ocr_languages: ""
@@ -8,7 +11,8 @@ paperless_ngx_ocr_languages: ""
 # CIFS share mounted as the consume directory.
 paperless_ngx_consume_share: "//nas/paperless"
 paperless_ngx_consume_share_user: "paperless"
+paperless_ngx_consume_share_password: ""
 
 # Daily export schedule.
-paperless_backup_hour: "22"
-paperless_backup_minute: "0"
+paperless_ngx_backup_hour: "22"
+paperless_ngx_backup_minute: "0"

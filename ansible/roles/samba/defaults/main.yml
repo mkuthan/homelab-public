@@ -1,5 +1,9 @@
+samba_netbios_name: "Homelab"
+
 samba_user: "samba"
-samba_netbios_name: "{{ inventory_hostname }}"
+samba_password: ""
 
 # Public shares: name, path, read_only, browseable.
 samba_public_shares: []
+  # - name: "public"
+  #   path: "/media/samba/public"

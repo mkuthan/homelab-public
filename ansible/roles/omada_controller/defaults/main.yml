@@ -1,5 +1,16 @@
-omada_controller_ports: []
+omada_controller_ports:
+  - "8043:8043"
+  - "8088:8088"
+  - "8843:8843"
+  - "19810:19810/udp"
+  - "27001:27001/udp"
+  - "29810:29810/udp"
+  - "29811-29817:29811-29817"
 
-omada_prometheus_exporter_user: "prometheus"
-omada_prometheus_exporter_site: "Default"
-omada_prometheus_exporter_ports: []
+omada_controller_prometheus_exporter_ports:
+  - "9202:9202"
+
+omada_controller_prometheus_exporter_site: "Default"
+
+omada_controller_prometheus_exporter_user: "viewer"
+omada_controller_prometheus_exporter_password: ""

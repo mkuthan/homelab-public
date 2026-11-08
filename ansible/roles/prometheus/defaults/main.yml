@@ -1,13 +1,25 @@
-prometheus_ports: []
+prometheus_ports:
+  - "9090:9090"
 
 # TSDB retention (prometheus --storage.tsdb.retention.time).
 prometheus_storage_retention: "15d"
 
 # Basic auth user for the Prometheus web UI/API.
 prometheus_web_user: "admin"
+prometheus_web_password: ""
 
 # Additional static scrape configs (job_name, targets, metrics_path).
 prometheus_scrape_configs: []
 
+prometheus_pve_exporter_ports:
+  - "9221:9221"
+
+prometheus_pve_exporter_user: "exporter@pve"
+prometheus_pve_exporter_password: ""
+
 # Proxmox targets scraped through the PVE exporter.
 prometheus_pve_exporter_targets: []
+  # - job_name: "node-exporter"
+  #   targets: ["192.168.10.30:9100", "192.168.10.31:9100", "192.168.10.32:9100"]
+  # - job_name: "omada-exporter"
+  #   targets: ["192.168.10.3:9202"]

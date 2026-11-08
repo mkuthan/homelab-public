@@ -1,1 +1,4 @@
-adguard_ports: []
+adguard_ports:
+  - 53:53/tcp # plain DNS
+  - 53:53/udp # plain DNS
+  - 3000:3000 # admin

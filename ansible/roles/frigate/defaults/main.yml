@@ -1,9 +1,28 @@
-frigate_ports: []
+frigate_ports:
+  - "5000:5000"
+  - "8971:8971"
+  - "1984:1984" # Go2RTC
+  - "8554:8554" # RTSP feeds
+  - "8555:8555/tcp" # WebRTC over tcp
+  - "8555:8555/udp" # WebRTC over udp
 
 # Cameras rendered into the Frigate configuration.
 # Each entry supports: name, host, enabled, audio_enabled, motion_masks, zones,
 # alerts_zones.
 frigate_cameras: []
+  # - name: "camera1"
+  #   enabled: True
+  #   host: "192.168.30.10"
+  #   audio_enabled: True
+  #   motion_masks:
+  #     - name: "timestamp overlay"
+  #       coordinates: "0,0,0.44,0,0.44,0.06,0,0.06"
+  #   zones:
+  #     - name: "yard"
+  #       coordinates: "0.191,0.317,0.43,0.267,1,0.675,1,1,0,1,0,0.556"
+  #     - name: "terrace"
+  #       coordinates: "0.51,0.595,0.097,1,1,1"
+  #   alerts_zones: ["terrace"]
 
 # Number of OpenVINO detector processes (one per GPU recommended).
 frigate_detectors: 1
@@ -14,8 +33,10 @@ frigate_model: "yolo-nas"
 
 frigate_mqtt_host: "mqtt"
 frigate_mqtt_user: "frigate"
+frigate_mqtt_password: ""
 
 frigate_rtsp_user: "admin"
+frigate_rtsp_password: ""
 
 # Recording retention, in days, per category.
 frigate_retention_continuous_days: 3

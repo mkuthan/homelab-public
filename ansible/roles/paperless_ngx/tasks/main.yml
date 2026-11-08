@@ -139,6 +139,6 @@
 - name: Schedule Paperless export
   ansible.builtin.cron:
     name: "paperless_export"
-    hour: "{{ paperless_backup_hour | default('22') }}"
-    minute: "{{ paperless_backup_minute | default('0') }}"
+    hour: "{{ paperless_ngx_backup_hour }}"
+    minute: "{{ paperless_ngx_backup_minute }}"
     job: "docker exec {{ paperless_ngx_container_name }} document_exporter --use-filename-format --delete --no-archive --no-thumbnail /usr/src/paperless/export"

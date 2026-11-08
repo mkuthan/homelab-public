@@ -1,1 +1,4 @@
-free_llm_ports: []
+free_llm_ports:
+  - "3001:3001"
+
+free_llm_encryption_key: ""

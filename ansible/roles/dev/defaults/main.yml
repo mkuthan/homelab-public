@@ -1,5 +1,5 @@
 dev_user_name: "dev"
-dev_user_authorized_key: ""
+dev_user_authorized_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 
 dev_packages:
   # system

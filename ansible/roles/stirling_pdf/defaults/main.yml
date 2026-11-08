@@ -1,1 +1,2 @@
-stirling_pdf_ports: []
+stirling_pdf_ports:
+  - "8080:8080"
