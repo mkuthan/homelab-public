@@ -1,6 +1,9 @@
 z2m_ports:
   - "8080:8080"
 
+z2m_healthcheck_test: ["CMD", "node", "-e", "fetch('http://localhost:8080/').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+z2m_healthcheck_start_period: 30s
+
 z2m_adapter_port: "/dev/ttyACM0"
 z2m_adapter_baudrate: "115200"
 z2m_adapter_type: "zstack"

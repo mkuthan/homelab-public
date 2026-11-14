@@ -22,7 +22,7 @@
 - name: Create Zigbee2MQTT container
   community.docker.docker_container:
     name: zigbee2mqtt
-    image: koenkk/zigbee2mqtt
+    image: koenkk/zigbee2mqtt:2
 
     env:
       TZ: "{{ timezone | default('UTC') }}"
@@ -31,7 +31,11 @@
     volumes:
       - /etc/zigbee2mqtt:/app/data:rw
 
-    ports: "{{ z2m_ports | default([]) }}"
+    ports: "{{ z2m_ports }}"
+
+    healthcheck:
+      test: "{{ z2m_healthcheck_test }}"
+      start_period: "{{ z2m_healthcheck_start_period }}"
 
     networks: "{{ docker_networks }}"
     comparisons: "{{ docker_comparisons }}"
